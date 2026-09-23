@@ -574,7 +574,7 @@
     observeReveals();
     $$(".nav__link").forEach(function (a) {
       var href = a.getAttribute("href");
-      a.classList.toggle("is-active", href === "#/" + r.name || (r.name === "shade-finder" && href === "#/shade-finder"));
+      a.classList.toggle("is-active", href === "#/" + r.name || (r.name === "home" && href === "#/"));
     });
     if (!samePage) {
       var root = document.documentElement;
