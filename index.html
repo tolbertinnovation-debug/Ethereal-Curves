@@ -67,62 +67,65 @@
         <ul class="nav__list">
           <li class="nav__item"><a href="#/" class="nav__link">Home</a></li>
           <li class="nav__item has-mega">
-            <a href="#/shop?collection=beauty" class="nav__link">Beauty</a>
-            <div class="mega" role="group" aria-label="Beauty">
+            <a href="#/shop?cat=makeup" class="nav__link">Makeup</a>
+            <div class="mega" role="group" aria-label="Makeup">
               <div class="mega__inner container">
                 <div class="mega__col">
-                  <p class="eyebrow">Beauty</p>
-                  <a href="#/shop?cat=face">Face</a>
-                  <a href="#/shop?cat=lips">Lips</a>
-                  <a href="#/shop?cat=body">Body Glow</a>
-                  <a href="#/shop?collection=beauty">Shop all beauty</a>
+                  <p class="eyebrow">Lips</p>
+                  <a href="#/shop?cat=makeup&amp;sub=lipstick">Lipstick</a>
+                  <a href="#/shop?cat=makeup&amp;sub=gloss">Glossy Lip Gloss</a>
+                  <a href="#/shop?cat=makeup&amp;sub=matte-gloss">Matte Lip Gloss</a>
                 </div>
                 <div class="mega__col">
-                  <p class="eyebrow">Discover</p>
-                  <a href="#/shade-finder">Shade Finder</a>
-                  <a href="#/product/plump-shine-gloss">24 Shades of Gloss</a>
-                  <a href="#/shop?sort=bestsellers">Bestsellers</a>
+                  <p class="eyebrow">Complexion</p>
+                  <a href="#/shop?cat=makeup&amp;sub=foundation">Foundation</a>
+                  <a href="#/shop?cat=makeup&amp;sub=loose-powder">Loose Face Powder</a>
+                  <a href="#/shop?cat=makeup&amp;sub=pressed-powder">Pressed &amp; Compact Powder</a>
+                  <a href="#/shop?cat=makeup&amp;sub=designer">Designer &amp; Brands</a>
                 </div>
-                <a class="mega__feature" href="#/product/pressed-face-powder">
+                <a class="mega__feature" href="#/shop?cat=makeup">
                   <img src="assets/img/pressed-card-sm.webp" alt="" loading="lazy">
-                  <span>Luxury Pressed Face Powder</span>
+                  <span>Shop all makeup</span>
                 </a>
-                <a class="mega__feature" href="#/product/shimmer-body-serum">
-                  <img src="assets/img/serum-model-sm.webp" alt="" loading="lazy">
-                  <span>Shimmer Body Serum</span>
+                <a class="mega__feature" href="#/shade-finder">
+                  <img src="assets/img/found-model-sm.webp" alt="" loading="lazy">
+                  <span>Find your shade</span>
                 </a>
               </div>
             </div>
           </li>
+          <li class="nav__item"><a href="#/shop?cat=radiance" class="nav__link">Radiance</a></li>
+          <li class="nav__item"><a href="#/shop?cat=sculpture" class="nav__link">Sculpture</a></li>
+          <li class="nav__item"><a href="#/shop?cat=intimates" class="nav__link">Intimates</a></li>
           <li class="nav__item has-mega">
-            <a href="#/shop?collection=curves" class="nav__link">Curves</a>
-            <div class="mega" role="group" aria-label="Curves">
+            <a href="#/shop" class="nav__link" data-cats="essence,essentials,accessories,vitality">Lifestyle</a>
+            <div class="mega" role="group" aria-label="Lifestyle">
               <div class="mega__inner container">
                 <div class="mega__col">
-                  <p class="eyebrow">Curves</p>
-                  <a href="#/shop?cat=bras">Bras</a>
-                  <a href="#/shop?cat=shapewear">Shapewear</a>
-                  <a href="#/shop?cat=intimates">Intimates</a>
-                  <a href="#/shop?collection=curves">Shop all curves</a>
+                  <p class="eyebrow">Lifestyle</p>
+                  <a href="#/shop?cat=essence">Essence</a>
+                  <a href="#/shop?cat=essentials">Essentials</a>
+                  <a href="#/shop?cat=accessories">Accessories</a>
+                  <a href="#/shop?cat=vitality">Vitality</a>
                 </div>
                 <div class="mega__col">
-                  <p class="eyebrow">Fit help</p>
-                  <a href="#/size-guide">Size Guide & Bra Calculator</a>
-                  <a href="#/faq">Delivery & Returns</a>
+                  <p class="eyebrow">Explore</p>
+                  <a href="#/shop">Shop all</a>
+                  <a href="#/shade-finder">Shade Finder</a>
+                  <a href="#/size-guide">Size Guide</a>
+                  <a href="#/faq">Delivery &amp; Returns</a>
                 </div>
-                <a class="mega__feature" href="#/product/strapless-bra">
-                  <img src="assets/img/strapless-card-sm.webp" alt="" loading="lazy">
-                  <span>The Strapless Collection</span>
-                </a>
-                <a class="mega__feature" href="#/product/sculpting-bodysuit">
+                <a class="mega__feature" href="#/shop?cat=sculpture">
                   <img src="assets/img/shapewear-sm.webp" alt="" loading="lazy">
-                  <span>Sculpting Bodysuit</span>
+                  <span>The Sculpture Collection</span>
+                </a>
+                <a class="mega__feature" href="#/shop?cat=intimates">
+                  <img src="assets/img/strapless-card-sm.webp" alt="" loading="lazy">
+                  <span>Intimates &amp; Lingerie</span>
                 </a>
               </div>
             </div>
           </li>
-          <li class="nav__item"><a href="#/shop" class="nav__link">Shop All</a></li>
-          <li class="nav__item"><a href="#/shade-finder" class="nav__link">Shade Finder</a></li>
           <li class="nav__item"><a href="#/about" class="nav__link">Our Story</a></li>
         </ul>
       </nav>
@@ -153,21 +156,22 @@
       </div>
       <nav class="mnav" aria-label="Mobile">
         <a href="#/" class="mnav__home">Home</a>
-        <p class="eyebrow">Beauty</p>
-        <a href="#/shop?cat=face">Face</a>
-        <a href="#/shop?cat=lips">Lips</a>
-        <a href="#/shop?cat=body">Body Glow</a>
-        <p class="eyebrow">Curves</p>
-        <a href="#/shop?cat=bras">Bras</a>
-        <a href="#/shop?cat=shapewear">Shapewear</a>
-        <a href="#/shop?cat=intimates">Intimates</a>
+        <p class="eyebrow">Collections</p>
+        <a href="#/shop?cat=makeup">Makeup</a>
+        <a href="#/shop?cat=radiance">Radiance</a>
+        <a href="#/shop?cat=sculpture">Sculpture</a>
+        <a href="#/shop?cat=intimates">Intimates &amp; Lingerie</a>
+        <a href="#/shop?cat=essence">Essence</a>
+        <a href="#/shop?cat=essentials">Essentials</a>
+        <a href="#/shop?cat=accessories">Accessories</a>
+        <a href="#/shop?cat=vitality">Vitality</a>
         <p class="eyebrow">Explore</p>
         <a href="#/shop">Shop All</a>
         <a href="#/shade-finder">Shade Finder</a>
         <a href="#/size-guide">Size Guide</a>
         <a href="#/wishlist">Wishlist</a>
         <a href="#/about">Our Story</a>
-        <a href="#/faq">Help & FAQ</a>
+        <a href="#/faq">Help &amp; FAQ</a>
         <a href="#/contact">Contact</a>
       </nav>
       <div class="mnav__foot" id="mnavFoot"></div>
@@ -191,16 +195,18 @@
         <img src="assets/img/logo-figure.png" alt="" width="84" height="80" loading="lazy">
         <p class="footer__name">Ethereal Curves</p>
         <p class="footer__tag">Luxury Designed For You</p>
-        <p class="footer__about">Luxury beauty and curve-loving intimates, created in Liberia for every shade and every shape.</p>
+        <p class="footer__about">Soft Power. Quiet Luxury. A luxury lifestyle brand for the full-figured woman, born in Liberia.</p>
       </div>
       <div class="footer__col">
-        <h2 class="footer__h">Shop</h2>
-        <a href="#/shop?cat=face">Face</a>
-        <a href="#/shop?cat=lips">Lips</a>
-        <a href="#/shop?cat=body">Body Glow</a>
-        <a href="#/shop?cat=bras">Bras</a>
-        <a href="#/shop?cat=shapewear">Shapewear</a>
-        <a href="#/shop?cat=intimates">Intimates</a>
+        <h2 class="footer__h">Collections</h2>
+        <a href="#/shop?cat=makeup">Makeup</a>
+        <a href="#/shop?cat=radiance">Radiance</a>
+        <a href="#/shop?cat=sculpture">Sculpture</a>
+        <a href="#/shop?cat=intimates">Intimates &amp; Lingerie</a>
+        <a href="#/shop?cat=essence">Essence</a>
+        <a href="#/shop?cat=essentials">Essentials</a>
+        <a href="#/shop?cat=accessories">Accessories</a>
+        <a href="#/shop?cat=vitality">Vitality</a>
       </div>
       <div class="footer__col">
         <h2 class="footer__h">Help</h2>

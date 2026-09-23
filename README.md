@@ -3,8 +3,11 @@
 **Luxury Designed For You.** The e-commerce website for **Ethereal Curves**, a brand of
 **The Ethereal Collective Inc**, founded by **Musu Deshield Mitchell**.
 
-This is a fast, mobile-first store for beauty (face, lips, body glow) and curves (bras,
-shapewear, intimates). It needs **no server, database or monthly platform fee**. It's plain
+This is a fast, mobile-first store for the brand's collections: **Makeup** (lipstick, glossy and
+matte lip gloss, foundation, loose and pressed powder, designer & brands), **Radiance** (skincare
+and body glow), **Sculpture** (shapewear), **Intimates & Lingerie**, **Essence** (fragrance),
+**Essentials** (shoes, handbags, jewelry, watches), **Accessories** and **Vitality** (wellness).
+Collections without products yet show an elegant "Coming soon" page. It needs **no server, database or monthly platform fee**. It's plain
 HTML, CSS and JavaScript, and you can host it free on GitHub Pages, Netlify or Cloudflare Pages.
 
 ---
@@ -42,7 +45,12 @@ All your settings live in **two files**:
 - Announcement bar messages
 - Instagram, Facebook and TikTok links (paste them in and the icons appear automatically)
 
-### 2. `assets/js/products.js`: your products
+### 2. `assets/js/products.js`: your collections and products
+The `CATEGORIES` list at the top holds each collection's name, short tile text and full
+description. Each product has a `category` (for example `"sculpture"`) and, for makeup, a `sub`
+collection (for example `"lipstick"`). When you add the first product to Essence, Essentials,
+Accessories or Vitality, "Coming soon" disappears for that collection automatically.
+
 Each product is one block. To **change a price**, edit `price: 15`. To **add a product**,
 copy an existing block, give it a new `id`, and change the text, price, shades and images.
 - `badge: "New"` shows a label on the product

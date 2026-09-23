@@ -14,6 +14,12 @@
   PRODUCTS.forEach(function (p) { byId[p.id] = p; });
   var catById = {};
   CATS.forEach(function (c) { catById[c.id] = c; });
+  function subOf(p) {
+    var c = catById[p.category];
+    return c && c.subs ? c.subs.find(function (x) { return x.id === p.sub; }) : null;
+  }
+  function catCount(id) { return PRODUCTS.filter(function (p) { return p.category === id; }).length; }
+  function shortName(c) { return c.short || c.name; }
 
   /* ------------------------------------------------------------------
      Utilities
@@ -84,6 +90,8 @@
     tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.8 2.4 4.6 5 5"/></svg>',
     pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>',
     play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>',
+    perfume: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9.5" y="3" width="5" height="3.5" rx=".8"/><path d="M11 6.5v2M13 6.5v2"/><rect x="5.5" y="8.5" width="13" height="12.5" rx="3"/><path d="M9 14.5h6"/></svg>',
+    gem: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h11L21 9l-9 11L3 9z"/><path d="M3 9h18M9.5 4 8 9l4 11 4-11-1.5-5"/></svg>',
     arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
   };
 
@@ -333,7 +341,7 @@
     $("#cartTitle").textContent = "Your Bag" + (cartCount() ? " (" + cartCount() + ")" : "");
     if (!state.cart.length) {
       body.innerHTML = '<div class="empty">' + ICON.bag + '<h3 class="h-md">Your bag is empty</h3><p class="muted">Luxury is waiting for you.</p>' +
-        '<div class="actions"><a class="btn btn--dark" href="#/shop?collection=beauty">Shop beauty</a><a class="btn btn--outline" href="#/shop?collection=curves">Shop curves</a></div></div>';
+        '<div class="actions"><a class="btn btn--dark" href="#/shop?cat=makeup">Shop makeup</a><a class="btn btn--outline" href="#/shop?cat=sculpture">Shop sculpture</a></div></div>';
       foot.innerHTML = "";
       return;
     }
@@ -513,7 +521,7 @@
         '<img src="' + img(p.images[0], true) + '" alt="' + esc(p.name) + '" loading="lazy">' + alt + "</a>" +
       '<button type="button" class="card__wish' + (isWished(p.id) ? " is-on" : "") + '" data-action="wish" data-id="' + p.id + '" aria-pressed="' + isWished(p.id) + '" aria-label="Save ' + esc(p.name) + ' to wishlist">' + ICON.heart + "</button>" +
       (p.soldOut ? "" : '<div class="card__quick"><button type="button" class="btn" data-action="' + (choose ? "quick" : "add") + '" data-id="' + p.id + '" aria-label="' + (choose ? chooseLabel(p) : "Add to bag") + ": " + esc(p.name) + '">' + ICON.plus + "<span>" + (choose ? chooseLabel(p) : "Add to bag") + "</span></button></div>") +
-      '<div class="card__body"><span class="card__cat">' + esc(catById[p.category].name) + "</span>" +
+      '<div class="card__body"><span class="card__cat">' + esc(subOf(p) ? subOf(p).name : shortName(catById[p.category])) + "</span>" +
       '<h3 class="card__name"><a href="#/product/' + p.id + '">' + esc(p.name) + "</a></h3>" +
       '<div class="card__row"><span class="price">' + (p.soldOut ? "Sold out" : priceHTML(p)) + "</span>" + miniSwatches(p) + "</div></div></article>";
   }
@@ -526,7 +534,7 @@
     var p = byId[id];
     var fid = newForm(p);
     openModal('<div class="qv"><div class="qv__img"><img src="' + img(p.images[0]) + '" alt="' + esc(p.name) + '"></div>' +
-      '<div class="qv__info" data-formroot="' + fid + '"><p class="pinfo__cat">' + esc(catById[p.category].name) + "</p>" +
+      '<div class="qv__info" data-formroot="' + fid + '"><p class="pinfo__cat">' + esc(subOf(p) ? subOf(p).name : shortName(catById[p.category])) + "</p>" +
       "<h2>" + esc(p.name) + '</h2><p class="pinfo__price">' + priceHTML(p) + ' <span class="alt">' + altMoney(p.price) + "</span></p>" +
       '<p class="pinfo__short">' + esc(p.short) + "</p>" + optionsHTML(p, fid) +
       '<div class="buy" style="grid-template-columns:auto 1fr">' + qtyHTML(fid) +
@@ -574,7 +582,11 @@
     observeReveals();
     $$(".nav__link").forEach(function (a) {
       var href = a.getAttribute("href");
-      a.classList.toggle("is-active", href === "#/" + r.name || (r.name === "home" && href === "#/"));
+      var cat = r.name === "shop" ? (r.q.get("cat") || "") : null;
+      var on = r.name === "shop"
+        ? href === "#/shop?cat=" + cat || (!!cat && (a.dataset.cats || "").split(",").indexOf(cat) > -1)
+        : href === "#/" + r.name || (r.name === "home" && href === "#/");
+      a.classList.toggle("is-active", on);
     });
     if (!samePage) {
       var root = document.documentElement;
@@ -612,19 +624,19 @@
     { tone: "noir", image: "pressed-red", pos: "center", eyebrow: "Luxury Pressed Face Powder",
       title: 'Elevate <span class="script gold-text">Your Beauty</span>',
       text: "A velvet, flawless finish in a mirrored black-and-gold compact. Shades created for melanin-rich skin.",
-      cta: [["Shop face", "#/shop?cat=face", "btn--gold"], ["Find your shade", "#/shade-finder", "btn--light"]] },
+      cta: [["Shop makeup", "#/shop?cat=makeup", "btn--gold"], ["Find your shade", "#/shade-finder", "btn--light"]] },
     { tone: "champagne", image: "strapless-card", pos: "center 18%", eyebrow: "The New Strapless Collection",
       title: 'Support That <span class="script">Celebrates You</span>',
       text: "The ultimate in comfort and lift, designed for every beautiful curve.",
-      cta: [["Shop the strapless", "#/product/strapless-bra", "btn--dark"], ["Size guide", "#/size-guide", "btn--outline"]] },
-    { tone: "blush", image: "lacquer", pos: "center", eyebrow: "Lip Lacquer · Glosses · Lipsticks",
+      cta: [["Shop intimates", "#/shop?cat=intimates", "btn--dark"], ["Size guide", "#/size-guide", "btn--outline"]] },
+    { tone: "blush", image: "lacquer", pos: "center", eyebrow: "Lipsticks · Glosses · Matte Lip Gloss",
       title: 'Lips That <span class="script">Speak First</span>',
       text: "Plumping glosses in 24 shades, velvet lacquers and satin bullets. Glossy, bold and made to be seen.",
-      cta: [["Shop lips", "#/shop?cat=lips", "btn--dark"], ["24 shades of gloss", "#/product/plump-shine-gloss", "btn--outline"]] },
-    { tone: "champagne", image: "shapewear", pos: "center 20%", eyebrow: "Sculpting Shapewear",
+      cta: [["Shop lips", "#/shop?cat=makeup", "btn--dark"], ["24 shades of gloss", "#/product/plump-shine-gloss", "btn--outline"]] },
+    { tone: "champagne", image: "shapewear", pos: "center 20%", eyebrow: "The Sculpture Collection",
       title: 'As Good As <span class="script">It Looks</span>',
       text: "Seamless sculpting with all-day comfort and breathable premium fabric. Modest. Comfortable. Beautiful.",
-      cta: [["Shop shapewear", "#/shop?cat=shapewear", "btn--dark"], ["Find my size", "#/size-guide", "btn--outline"]] }
+      cta: [["Shop Sculpture", "#/shop?cat=sculpture", "btn--dark"], ["Find my size", "#/size-guide", "btn--outline"]] }
   ];
 
   views.home = function () {
@@ -645,21 +657,18 @@
         return '<button type="button" class="hero__dot' + (i === 0 ? " is-on" : "") + '" data-action="hero-go" data-i="' + i + '" aria-label="Show slide ' + (i + 1) + '"><span></span></button>';
       }).join("") + '</div><button type="button" class="hero__pause" data-action="hero-pause" aria-label="Pause slideshow">' + ICON.pause + "</button></div></section>";
 
-    var marqueeWords = ["Luxury Designed For You", "Shades Made For Melanin", "Designed For Every Curve", "Vegan & Cruelty-Free Favourites", "Delivered Across Liberia"];
+    var marqueeWords = ["Soft Power", "Quiet Luxury", "Designed For You", "Luxury Is Not A Size", "Designed For Every Curve", "Delivered Across Liberia"];
     var marquee = '<div class="marquee" aria-hidden="true"><div class="marquee__track">' +
       marqueeWords.concat(marqueeWords).map(function (w) { return "<span>" + w + "</span>"; }).join("") + "</div></div>";
 
     var cats = '<section class="section"><div class="container">' +
-      '<div class="section__head center reveal"><p class="eyebrow">Shop by category</p><h2 class="h-lg">Beauty &amp; Curves</h2><div class="ornament"><i></i></div></div>' +
-      '<div class="cats reveal-stagger">' + CATS.map(function (c) {
-        return '<a class="cat" href="#/shop?cat=' + c.id + '"><img src="' + img(c.image) + '" alt="" loading="lazy">' +
-          '<div class="cat__label"><h3>' + c.name + "</h3><p>" + c.blurb + '</p><span class="link">Shop now</span></div></a>';
-      }).join("") + "</div></div></section>";
+      '<div class="section__head center reveal"><p class="eyebrow">Shop by collection</p><h2 class="h-lg">Our Collections</h2><div class="ornament"><i></i></div></div>' +
+      '<div class="cats reveal-stagger">' + CATS.map(catTileHTML).join("") + "</div></div></section>";
 
     var rail = '<section class="section section--cream"><div class="container">' +
       '<div class="section__head reveal"><div><p class="eyebrow">The icons</p><h2 class="h-lg">Most Loved</h2></div>' +
       '<div class="toolbar__chips" role="tablist" aria-label="Filter products">' +
-      [["best", "Bestsellers"], ["new", "New In"], ["lips", "Lips"], ["face", "Face"], ["curves", "Curves"]].map(function (t, i) {
+      [["best", "Bestsellers"], ["new", "New In"], ["makeup", "Makeup"], ["sculpture", "Sculpture"], ["intimates", "Intimates"]].map(function (t, i) {
         return '<button type="button" class="chip' + (i === 0 ? " is-active" : "") + '" role="tab" aria-selected="' + (i === 0) + '" data-action="rail" data-tab="' + t[0] + '">' + t[1] + "</button>";
       }).join("") + '</div></div><div id="rail">' + gridHTML(railList("best")) + '</div>' +
       '<div class="center" style="margin-top:44px"><a class="btn btn--outline" href="#/shop">Shop all products</a></div></div></section>';
@@ -677,10 +686,10 @@
       '<div class="claims">' + gloss.claims.map(function (c) { return '<span class="claim" style="background:#fff">' + esc(c) + "</span>"; }).join("") + "</div></div></div></section>";
 
     var split = '<section class="split split--noir"><div class="split__media"><img src="' + img("bodysuit") + '" alt="Seamless cocoa bodysuit on red satin" loading="lazy"></div>' +
-      '<div class="split__copy reveal"><p class="eyebrow">Curves collection</p><h2 class="h-lg">Shapewear, <span class="script gold-text">sculpted in comfort</span></h2>' +
-      '<p class="lead">You deserve shapewear that feels as good as it looks. Seamless, breathable and cut for real curves — sizes S to 4XL.</p>' +
+      '<div class="split__copy reveal"><p class="eyebrow">The Sculpture Collection</p><h2 class="h-lg">Sculpt, smooth &amp; <span class="script gold-text">embrace every curve</span></h2>' +
+      '<p class="lead">Premium shapewear designed to enhance your natural silhouette while keeping you comfortable and confident. Your curves are already beautiful — Sculpture simply helps you wear them with confidence.</p>' +
       '<ul class="checks"><li>Gentle waist &amp; tummy sculpting</li><li>All-day, seamless comfort</li><li>Breathable premium fabric</li><li>Modest coverage that moves with you</li></ul>' +
-      '<div class="actions" style="justify-content:flex-start;margin:0"><a class="btn btn--gold" href="#/shop?collection=curves">Shop curves</a><a class="btn btn--light" href="#/size-guide">Size guide</a></div></div></section>';
+      '<div class="actions" style="justify-content:flex-start;margin:0"><a class="btn btn--gold" href="#/shop?cat=sculpture">Shop Sculpture</a><a class="btn btn--light" href="#/size-guide">Size guide</a></div></div></section>';
 
     var teaser = '<section class="section"><div class="container teaser">' +
       '<div class="reveal"><p class="eyebrow">Shade Finder</p><h2 class="h-lg">Your perfect match, <span class="script">in 60 seconds</span></h2>' +
@@ -716,14 +725,20 @@
     return hero + marquee + cats + rail + shadebar + split + teaser + values + lookbook + news;
   };
 
+  function catTileHTML(c) {
+    var soon = !catCount(c.id);
+    var label = '<div class="cat__label"><h3>' + esc(c.name) + "</h3><p>" + esc(c.blurb) + '</p><span class="link">' + (soon ? "Coming soon" : "Shop now") + "</span></div>";
+    if (c.image) return '<a class="cat" href="#/shop?cat=' + c.id + '"><img src="' + img(c.image) + '" alt="" loading="lazy">' + label + "</a>";
+    return '<a class="cat cat--icon" href="#/shop?cat=' + c.id + '"><span class="cat__icon">' + (ICON[c.icon] || ICON.sparkle) + "</span>" + label + "</a>";
+  }
+
   function valueHTML(icon, t, d) {
     return '<div class="value"><div class="value__icon">' + icon + "</div><h3>" + t + "</h3><p>" + d + "</p></div>";
   }
 
   function railList(tab) {
     if (tab === "best") return PRODUCTS.filter(function (p) { return p.bestseller; }).slice(0, 4);
-    if (tab === "new") return PRODUCTS.filter(function (p) { return p.isNew; }).concat(PRODUCTS.filter(function (p) { return !p.isNew && p.category === "lips"; })).slice(0, 4);
-    if (tab === "curves") return PRODUCTS.filter(function (p) { return catById[p.category].collection === "curves"; }).slice(0, 4);
+    if (tab === "new") return PRODUCTS.filter(function (p) { return p.isNew; }).concat(PRODUCTS.filter(function (p) { return !p.isNew && p.category === "makeup"; })).slice(0, 4);
     return PRODUCTS.filter(function (p) { return p.category === tab; }).slice(0, 4);
   }
 
@@ -774,11 +789,12 @@
 
   function shopState(q) {
     var cats = (q.get("cat") || "").split(",").filter(function (c) { return catById[c]; });
-    var col = q.get("collection");
-    if (!cats.length && col) cats = CATS.filter(function (c) { return c.collection === col; }).map(function (c) { return c.id; });
+    var sub = q.get("sub");
+    var c0 = cats.length === 1 ? catById[cats[0]] : null;
+    if (!(c0 && c0.subs && c0.subs.some(function (x) { return x.id === sub; }))) sub = null;
     return {
       cats: cats,
-      collection: col && !q.get("cat") ? col : null,
+      sub: sub,
       price: PRICE_BANDS[q.get("price")] ? q.get("price") : "",
       tags: (q.get("tag") || "").split(",").filter(Boolean),
       sort: SORTS[q.get("sort")] ? q.get("sort") : "featured",
@@ -788,7 +804,8 @@
 
   function matchesQuery(p, text) {
     if (!text) return true;
-    var hay = [p.name, p.short, catById[p.category].name, catById[p.category].collection, (p.claims || []).join(" ")]
+    var c = catById[p.category], sb = subOf(p);
+    var hay = [p.name, p.short, c.name, c.title, sb ? sb.name + " " + sb.title : "", (p.claims || []).join(" ")]
       .concat((p.options || []).reduce(function (a, o) { return a.concat(o.values.map(function (v) { return v.label; })); }, []))
       .join(" ").toLowerCase();
     return text.toLowerCase().split(/\s+/).every(function (w) { return hay.indexOf(w) > -1 || hay.indexOf(w.replace(/s$/, "")) > -1; });
@@ -797,6 +814,7 @@
   function filterProducts(st) {
     var list = PRODUCTS.filter(function (p) {
       if (st.cats.length && st.cats.indexOf(p.category) < 0) return false;
+      if (st.sub && p.sub !== st.sub) return false;
       if (st.price) { var b = PRICE_BANDS[st.price]; if (p.price < b[1] || p.price > b[2]) return false; }
       if (st.tags.indexOf("new") > -1 && !p.isNew) return false;
       if (st.tags.indexOf("bestseller") > -1 && !p.bestseller) return false;
@@ -817,8 +835,8 @@
 
   function shopQuery(st) {
     var q = new URLSearchParams();
-    if (st.collection) q.set("collection", st.collection);
-    else if (st.cats.length) q.set("cat", st.cats.join(","));
+    if (st.cats.length) q.set("cat", st.cats.join(","));
+    if (st.sub) q.set("sub", st.sub);
     if (st.price) q.set("price", st.price);
     if (st.tags.length) q.set("tag", st.tags.join(","));
     if (st.sort !== "featured") q.set("sort", st.sort);
@@ -829,12 +847,13 @@
 
   function shopTitle(st) {
     if (st.q) return ["Results for “" + st.q + "”", "Everything that matches your search."];
-    if (st.collection) {
-      var c = window.COLLECTIONS.find(function (x) { return x.id === st.collection; });
-      if (c) return [c.name, c.blurb];
+    if (st.cats.length === 1) {
+      var c = catById[st.cats[0]];
+      var sb = st.sub && c.subs.find(function (x) { return x.id === st.sub; });
+      if (sb) return [sb.title, sb.description, c.name];
+      return [c.title, c.description, "Collection"];
     }
-    if (st.cats.length === 1) return [catById[st.cats[0]].name, catById[st.cats[0]].blurb];
-    return ["Shop All", "Luxury beauty and curve-loving essentials, designed for you."];
+    return ["Shop All", "Soft Power. Quiet Luxury. Premium essentials designed around you.", "Shop"];
   }
 
   views.shop = function (r) {
@@ -842,19 +861,20 @@
     var t = shopTitle(st);
     setMeta(t[0], t[1]);
     var list = filterProducts(st);
-    var chips = [["", "All"]].concat(CATS.map(function (c) { return [c.id, c.name]; }));
-    var single = st.cats.length === 1 && !st.collection ? st.cats[0] : (!st.cats.length ? "" : null);
+    var chips = [["", "All"]].concat(CATS.map(function (c) { return [c.id, shortName(c)]; }));
+    var single = st.cats.length === 1 ? st.cats[0] : (!st.cats.length ? "" : null);
 
-    return '<section class="pagehead"><div class="container"><nav class="crumbs" aria-label="Breadcrumb" style="justify-content:center"><a href="#/">Home</a><span aria-hidden="true">/</span><span>Shop</span></nav>' +
-      '<h1 class="h-lg" id="shopTitle">' + esc(t[0]) + '</h1><p class="lead" style="margin:0 auto" id="shopBlurb">' + esc(t[1]) + '</p>' +
+    return '<section class="pagehead"><div class="container"><nav class="crumbs" aria-label="Breadcrumb" style="justify-content:center"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop">Shop</a>' +
+      (single ? '<span aria-hidden="true">/</span><span>' + esc(catById[single].name) + "</span>" : "") + "</nav>" +
+      '<p class="eyebrow" id="shopEyebrow">' + esc(t[2]) + '</p><h1 class="h-lg" id="shopTitle">' + esc(t[0]) + '</h1><p class="lead pagehead__desc" id="shopBlurb">' + esc(t[1]) + '</p>' +
       '<div class="toolbar__chips" style="justify-content:center;margin-top:24px">' + chips.map(function (c) {
-        return '<a class="chip' + (single === c[0] ? " is-active" : "") + '" href="#/shop' + (c[0] ? "?cat=" + c[0] : "") + '">' + c[1] + "</a>";
-      }).join("") + "</div></div></section>" +
+        return '<a class="chip' + (single === c[0] ? " is-active" : "") + '" href="#/shop' + (c[0] ? "?cat=" + c[0] : "") + '">' + esc(c[1]) + "</a>";
+      }).join("") + '</div><div id="subChips">' + subChipsHTML(st) + "</div></div></section>" +
       '<div class="container shop"><aside class="filters" id="filters" aria-label="Filters"><form id="filterForm">' +
       '<div class="filters__group" style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Filter</h3><button type="button" class="link" data-action="filters-clear">Clear all</button></div>' +
-      '<div class="filters__group"><h3>Category</h3>' + CATS.map(function (c) {
-        var n = PRODUCTS.filter(function (p) { return p.category === c.id; }).length;
-        return '<label><input type="checkbox" name="cat" value="' + c.id + '"' + (st.cats.indexOf(c.id) > -1 ? " checked" : "") + "> " + c.name + '<span class="count-note">' + n + "</span></label>";
+      '<div class="filters__group"><h3>Collection</h3>' + CATS.map(function (c) {
+        var n = catCount(c.id);
+        return '<label><input type="checkbox" name="cat" value="' + c.id + '"' + (st.cats.indexOf(c.id) > -1 ? " checked" : "") + "> " + esc(c.name) + '<span class="count-note">' + (n || "Soon") + "</span></label>";
       }).join("") + "</div>" +
       '<div class="filters__group"><h3>Price</h3><label><input type="radio" name="price" value=""' + (!st.price ? " checked" : "") + "> Any price</label>" +
       Object.keys(PRICE_BANDS).map(function (k) {
@@ -865,12 +885,49 @@
       }).join("") + "</div>" +
       '<div class="filters__group filters__apply" style="border:0"><button type="button" class="btn btn--dark btn--block" data-action="filters-close">Show results</button></div>' +
       "</form></aside>" +
-      '<div><div class="toolbar"><div style="display:flex;gap:10px;align-items:center"><button type="button" class="chip filter-toggle" data-action="filters-open">' + ICON.filter + ' Filter</button><span class="muted" id="shopCount">' + list.length + " product" + (list.length === 1 ? "" : "s") + "</span></div>" +
+      '<div><div class="toolbar"><div style="display:flex;gap:10px;align-items:center"><button type="button" class="chip filter-toggle" data-action="filters-open">' + ICON.filter + ' Filter</button><span class="muted" id="shopCount">' + countText(list) + "</span></div>" +
       '<label class="select"><span class="sr-only">Sort by</span><select id="sortSel">' + Object.keys(SORTS).map(function (k) {
         return '<option value="' + k + '"' + (st.sort === k ? " selected" : "") + ">" + SORTS[k] + "</option>";
       }).join("") + "</select></label></div>" +
-      '<div id="shopGrid">' + shopGridHTML(list) + "</div></div></div>";
+      '<div id="shopGrid">' + shopResultsHTML(st, list) + "</div></div></div>";
   };
+
+  function countText(list) { return list.length + " product" + (list.length === 1 ? "" : "s"); }
+
+  function subChipsHTML(st) {
+    var c = st.cats.length === 1 ? catById[st.cats[0]] : null;
+    if (!c || !c.subs) return "";
+    return '<div class="toolbar__chips subchips">' + [["", "All " + c.name.toLowerCase()]].concat(c.subs.map(function (x) { return [x.id, x.name]; })).map(function (x) {
+      return '<a class="chip chip--sub' + ((st.sub || "") === x[0] ? " is-active" : "") + '" href="#/shop?cat=' + c.id + (x[0] ? "&sub=" + x[0] : "") + '">' + esc(x[1]) + "</a>";
+    }).join("") + "</div>";
+  }
+
+  function comingSoonHTML(c, sub) {
+    var name = sub ? sub.title : c.title;
+    return '<div class="soon"><span class="soon__icon">' + (ICON[c.icon] || ICON.sparkle) + '</span><p class="eyebrow">Coming soon</p>' +
+      '<h3 class="h-md">' + esc(name) + " is arriving soon</h3>" +
+      '<p class="muted">We\'re curating this collection now. Message us to ask what\'s available today, or join the Ethereal Circle to hear first when it launches.</p>' +
+      '<div class="actions"><a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink("Hi Ethereal Curves! What do you have available in the " + name + "?") + '">' + ICON.wa + " Ask what's available</a></div>" +
+      '<form class="newsletter__form soon__form" data-newsletter><label class="sr-only" for="soon_' + c.id + '">Email or WhatsApp number</label><input id="soon_' + c.id + '" name="contact" required placeholder="Email or WhatsApp number"><button class="btn btn--dark" type="submit">Notify me</button></form></div>';
+  }
+
+  function shopResultsHTML(st, list) {
+    var c = st.cats.length === 1 ? catById[st.cats[0]] : null;
+    var plain = !st.q && !st.price && !st.tags.length;
+    if (c && plain && !catCount(c.id)) return comingSoonHTML(c);
+    if (c && plain && st.sub && !list.length) return comingSoonHTML(c, c.subs.find(function (x) { return x.id === st.sub; }));
+    // Makeup overview: one section per sub-collection
+    if (c && c.subs && plain && !st.sub && st.sort === "featured") {
+      return c.subs.map(function (sb) {
+        var items = list.filter(function (p) { return p.sub === sb.id; });
+        return '<section class="subsec"><div class="subsec__head"><div><h2 class="h-md">' + esc(sb.title) + '</h2><p class="muted subsec__desc">' + esc(sb.description) + "</p></div>" +
+          (items.length ? '<a class="link" href="#/shop?cat=' + c.id + "&sub=" + sb.id + '">View all</a>' : "") + "</div>" +
+          (items.length ? gridHTML(items, "grid--3") : '<p class="subsec__soon">' + ICON.sparkle + ' Coming soon — <a class="link" target="_blank" rel="noopener" href="' + waLink("Hi Ethereal Curves! What do you have in the " + sb.title + "?") + '">ask us what\'s available</a></p>') +
+          "</section>";
+      }).join("");
+    }
+    return shopGridHTML(list);
+  }
 
   function shopGridHTML(list) {
     if (!list.length) {
@@ -882,20 +939,25 @@
 
   views.shop.mount = function (r) {
     var form = $("#filterForm");
-    var baseQ = shopState(r.q).q;
+    var init = shopState(r.q);
+    var baseQ = init.q, baseSub = init.sub;
     function update() {
       var fd = new FormData(form);
+      var cats = fd.getAll("cat");
       var st = {
-        cats: fd.getAll("cat"), collection: null, price: fd.get("price") || "",
+        cats: cats, sub: cats.length === 1 && cats[0] === "makeup" ? baseSub : null, price: fd.get("price") || "",
         tags: fd.getAll("tag"), sort: $("#sortSel").value, q: baseQ
       };
+      baseSub = st.sub;
       var hash = shopQuery(st);
       history.replaceState(null, "", hash);
       currentRoute = parseHash();
       var list = filterProducts(st);
-      $("#shopGrid").innerHTML = shopGridHTML(list);
-      $("#shopCount").textContent = list.length + " product" + (list.length === 1 ? "" : "s");
+      $("#shopGrid").innerHTML = shopResultsHTML(st, list);
+      $("#subChips").innerHTML = subChipsHTML(st);
+      $("#shopCount").textContent = countText(list);
       var t = shopTitle(st);
+      $("#shopEyebrow").textContent = t[2];
       $("#shopTitle").textContent = t[0];
       $("#shopBlurb").textContent = t[1];
       observeReveals();
@@ -905,6 +967,7 @@
     views.shop.clear = function () {
       $$("input", form).forEach(function (i) { i.checked = i.type === "radio" && i.value === ""; });
       baseQ = "";
+      baseSub = null;
       update();
     };
   };
@@ -919,6 +982,7 @@
     state.recent = [p.id].concat(state.recent.filter(function (x) { return x !== p.id; })).slice(0, 8);
     store.set("recent", state.recent);
     var c = catById[p.category];
+    var sb = subOf(p);
     var fid = newForm(p);
 
     var thumbs = p.images.map(function (im, i) {
@@ -935,8 +999,8 @@
 
     var inquiry = "Hi Ethereal Curves! I have a question about the " + p.name + ".";
     var info = '<div class="pinfo" data-formroot="' + fid + '">' +
-      '<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop?collection=' + c.collection + '">' + (c.collection === "beauty" ? "Beauty" : "Curves") + '</a><span aria-hidden="true">/</span><a href="#/shop?cat=' + c.id + '">' + c.name + "</a></nav>" +
-      '<span class="pinfo__cat">' + esc(c.name) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
+      '<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop?cat=' + c.id + '">' + esc(c.name) + "</a>" + (sb ? '<span aria-hidden="true">/</span><a href="#/shop?cat=' + c.id + "&sub=" + sb.id + '">' + esc(sb.name) + "</a>" : "") + "</nav>" +
+      '<span class="pinfo__cat">' + esc(sb ? sb.name : c.name) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
       "<h1>" + esc(p.name) + "</h1>" +
       '<p class="pinfo__price">' + priceHTML(p) + '<span class="alt">' + altMoney(p.price) + "</span></p>" +
       '<p class="pinfo__short">' + esc(p.short) + "</p>" +
@@ -955,20 +1019,21 @@
       (p.benefits ? "<ul>" + p.benefits.map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>" : "") + "</div></details>" +
       (p.howTo ? '<details class="acc"><summary>How to use</summary><div class="acc__body"><p>' + esc(p.howTo) + "</p></div></details>" : "") +
       (p.details ? '<details class="acc"><summary>Details</summary><div class="acc__body"><p>' + esc(p.details) + "</p>" +
-        (c.collection === "beauty" ? "<p>For the full ingredient list, see the product packaging or message us on WhatsApp.</p>" : "") + "</div></details>" : "") +
+        (c.id === "makeup" || c.id === "radiance" ? "<p>For the full ingredient list, see the product packaging or message us on WhatsApp.</p>" : "") + "</div></details>" : "") +
       '<details class="acc"><summary>Delivery &amp; returns</summary><div class="acc__body"><p>Monrovia delivery in 1–2 business days, all 15 counties in 3–5 business days, and international shipping on request. ' +
       'Unopened items can be exchanged within 7 days. <a class="link" href="#/faq">Read the full policy</a></p></div></details>' +
       "</div>";
 
-    var related = PRODUCTS.filter(function (x) { return x.id !== p.id && catById[x.category].collection === c.collection; })
-      .sort(function (a, b) { return (b.category === p.category) - (a.category === p.category); }).slice(0, 4);
+    var related = PRODUCTS.filter(function (x) { return x.id !== p.id && x.category === p.category; })
+      .sort(function (a, b) { return (b.sub === p.sub) - (a.sub === p.sub); })
+      .concat(PRODUCTS.filter(function (x) { return x.bestseller && x.category !== p.category; })).slice(0, 4);
     var recent = state.recent.filter(function (x) { return x !== p.id && byId[x]; }).slice(0, 4).map(function (x) { return byId[x]; });
 
     var sticky = p.soldOut ? "" : '<div class="sticky-buy" id="stickyBuy"><img src="' + img(p.images[0], true) + '" alt=""><div class="sticky-buy__txt"><strong>' + esc(p.name) + "</strong>" + money(p.price) + "</div>" +
       '<button type="button" class="btn btn--dark btn--sm" data-action="form-add" data-form="' + fid + '">Add to bag</button></div>';
 
     return '<div class="container pdp">' + gallery + info + "</div>" +
-      '<section class="section section--cream"><div class="container"><div class="section__head reveal"><div><p class="eyebrow">Complete the look</p><h2 class="h-md">You may also love</h2></div><a class="link" href="#/shop?collection=' + c.collection + '">View all</a></div>' + gridHTML(related) + "</div></section>" +
+      '<section class="section section--cream"><div class="container"><div class="section__head reveal"><div><p class="eyebrow">Complete the look</p><h2 class="h-md">You may also love</h2></div><a class="link" href="#/shop?cat=' + c.id + '">View all</a></div>' + gridHTML(related) + "</div></section>" +
       (recent.length ? '<section class="section section--tight"><div class="container"><div class="section__head reveal"><div><p class="eyebrow">Recently viewed</p><h2 class="h-md">Still thinking about these?</h2></div></div>' + gridHTML(recent) + "</div></section>" : "") +
       sticky;
   };
@@ -1421,22 +1486,47 @@
      CONTENT PAGES
      ------------------------------------------------------------------ */
   views.about = function () {
-    setMeta("Our Story", "Ethereal Curves by The Ethereal Collective Inc — luxury beauty and intimates designed for every shade and every curve.");
+    setMeta("Our Story", "Ethereal Curves is a luxury lifestyle brand created for the full-figured woman. Soft Power. Quiet Luxury. Designed for You.");
+    var coll = [
+      ["intimates", "Intimates &amp; Lingerie", "", "Beautifully designed with fuller figures in mind, our lingerie collection combines support, comfort, and sensual elegance. From thoughtfully structured bras to delicate lace and everyday panties, every piece is designed to honor your natural silhouette."],
+      ["sculpture", "Seamless Shapewear", "Smooth. Supportive. Effortless.", "Our seamless shapewear is designed to move with your body—not against it. Lightweight and comfortable, each piece helps smooth, sculpt, and enhance your natural curves while giving you the confidence to wear your clothes exactly as you envision them."],
+      ["", "Apparel &amp; Everyday Wear", "", "From effortless daywear to sophisticated pieces for special occasions, our apparel collection celebrates the beauty of the fuller figure. We look for flattering silhouettes, quality fabrics, and thoughtful details that allow you to express your personal style with confidence."],
+      ["makeup", "Beauty, Cosmetics &amp; Accessories", "Beauty should see you.", "Our beauty collection brings together cosmetics and accessories designed to complement your everyday ritual—from rich, high-pigment lip colors and luminous glosses to foundations and beauty essentials selected with diverse skin tones in mind.</p><p>Complete the look with thoughtfully curated accessories, cosmetic bags, shoes, and everyday essentials that bring a touch of luxury to your routine."]
+    ];
     return '<section class="pagehead pagehead--noir"><div class="container"><img src="assets/img/logo-figure.png" alt="" style="width:90px;margin:0 auto 16px"><p class="eyebrow">Our story</p>' +
-      '<h1 class="h-xl">Luxury, <span class="script gold-text">designed for you</span></h1></div></section>' +
-      '<section class="section"><div class="container story"><div class="story__img reveal"><img src="' + img("found-model") + '" alt="" loading="lazy"></div>' +
-      '<div class="reveal"><p class="eyebrow">Ethereal Curves</p><h2 class="h-lg">Every shade. <span class="script">Every curve.</span></h2>' +
-      "<p>Ethereal Curves was created on a simple belief: luxury should be designed around <em>you</em> — your skin, your shape, your life. Too often, the most beautiful products are made with someone else in mind. We set out to change that.</p>" +
-      "<p>From foundations that honour rich, melanin-deep skin to strapless bras and sculpting shapewear cut for fuller figures, every piece is chosen to make you feel radiant, supported and seen.</p>" +
-      "<p>Ethereal Curves is a brand of <b>" + esc(S.company) + "</b>, founded by <b>" + esc(S.founder) + "</b> in " + esc(S.location) + ".</p>" +
-      '<a class="btn btn--dark" href="#/shop">Discover the collection</a></div></div></section>' +
-      '<section class="section section--cream center"><div class="container"><p class="eyebrow">Our promise</p><p class="quote">“Luxury isn\'t a price tag. It\'s the feeling of being thought of — in every shade, every size, every detail.”</p><div class="ornament"><i></i></div></div></section>' +
-      '<section class="section"><div class="container"><div class="values reveal-stagger">' +
-      valueHTML(ICON.sparkle, "Made for melanin", "Shades with true warmth and depth — never ashy.") +
-      valueHTML(ICON.hanger, "Size inclusive", "Bras C–G and shapewear S–4XL, with more to come.") +
-      valueHTML(ICON.leaf, "Thoughtful formulas", "Vegan & cruelty-free glosses and body serums.") +
-      valueHTML(ICON.gift, "Gift-worthy", "Black and gold packaging that feels like a treat.") +
-      "</div></div></section>";
+      '<h1 class="h-xl">Ethereal Curves</h1><p class="tagline"><span class="script gold-text">Soft Power. Quiet Luxury. Designed for You.</span></p></div></section>' +
+
+      '<section class="section"><div class="container story"><div class="story__img reveal"><img src="' + img("shapewear") + '" alt="" loading="lazy"></div>' +
+      '<div class="reveal prose-block">' +
+      '<p class="lead-strong">Ethereal Curves is a luxury lifestyle brand created for the full-figured woman who believes she deserves to feel beautiful, confident, comfortable, and celebrated—exactly as she is.</p>' +
+      "<p>Built on the philosophy of <b>“Soft Power. Quiet Luxury.”</b>, Ethereal Curves reimagines everyday essentials through the lens of elegance, functionality, and inclusivity. We believe luxury should not be defined by a size. It should be defined by how something makes you feel.</p>" +
+      "<p>Our mission is simple: to create and curate premium essentials designed around the woman—not the other way around.</p>" +
+      "<p>From what you wear closest to your skin to the beauty products that enhance your natural glow, every Ethereal Curves piece is selected with the fuller figure in mind. We bring together comfort, quality, sophistication, and effortless femininity so you never have to compromise between looking beautiful and feeling comfortable.</p>" +
+      "</div></div></section>" +
+
+      '<section class="section section--cream"><div class="container"><div class="section__head center reveal"><p class="eyebrow">What we offer</p><h2 class="h-lg">Our Collections</h2><div class="ornament"><i></i></div></div>' +
+      '<div class="story-cols reveal-stagger">' + coll.map(function (c) {
+        return '<article class="story-col"><h3 class="h-md">' + c[1] + "</h3>" + (c[2] ? '<p class="story-col__tag">' + c[2] + "</p>" : "") + "<p>" + c[3] + "</p>" +
+          (c[0] ? '<a class="link" href="#/shop?cat=' + c[0] + '">Shop now</a>' : '<span class="muted" style="font-size:.85rem">Coming soon</span>') + "</article>";
+      }).join("") + "</div></div></section>" +
+
+      '<section class="section section--noir"><div class="container philosophy reveal">' +
+      '<p class="eyebrow">The Ethereal Philosophy</p><h2 class="h-lg">Luxury is not a size. <span class="script gold-text">It is a feeling.</span></h2>' +
+      "<p>Ethereal Curves was born from a simple belief: luxury should be designed around you—your skin, your shape, your life.</p>" +
+      "<p>For too long, women with fuller figures have had to compromise. Compromise on fit. Compromise on comfort. Compromise on style. And sometimes, simply settle for what is available rather than what they truly desire.</p>" +
+      '<p class="philosophy__em">We believe you deserve more.</p>' +
+      "<p>From beauty products that celebrate rich, melanin-deep skin to supportive bras, seamless shapewear, and thoughtfully selected essentials made with fuller figures in mind, every piece is chosen to help you feel radiant, supported, confident, and seen.</p>" +
+      "<p>Ethereal Curves is more than what you wear. It is a celebration of the woman wearing it.</p>" +
+      "<p>It is about embracing your curves without apology, choosing comfort without sacrificing elegance, and experiencing luxury in the everyday moments of your life.</p>" +
+      "<p>Because you don't need to fit into a standard of beauty to experience luxury.</p>" +
+      '<p class="quote">Luxury was always meant to fit you.</p><p class="philosophy__sign">Luxury Designed for You.</p>' +
+      "</div></section>" +
+
+      '<section class="section center"><div class="container" style="max-width:760px">' +
+      '<img src="assets/img/logo-figure.png" alt="" style="width:70px;margin:0 auto 18px">' +
+      "<p>Ethereal Curves is a brand of <b>" + esc(S.company) + ".</b>, founded by <b>" + esc(S.founder) + "</b> in " + esc(S.location) + ".</p>" +
+      '<p class="muted">Born in Liberia and created with a vision that extends beyond borders, Ethereal Curves is building a new expression of inclusive luxury—one that celebrates fuller figures, honors individuality, and makes every woman feel that she belongs in the world of beautiful things.</p>' +
+      '<div class="actions"><a class="btn btn--dark" href="#/shop">Discover the collections</a></div></div></section>';
   };
 
   views.contact = function () {
@@ -1521,7 +1611,7 @@
     var out = $("#searchResults");
     if (!q) {
       out.innerHTML = '<p class="eyebrow">Popular searches</p><div class="search__tags">' +
-        ["Lip gloss", "Foundation", "Pressed powder", "Shimmer", "Strapless", "Shapewear", "Nude", "Red"].map(function (t) {
+        ["Lipstick", "Lip gloss", "Foundation", "Powder", "Shimmer", "Sculpture", "Strapless", "Nude"].map(function (t) {
           return '<button type="button" class="chip" data-action="search-tag" data-q="' + t + '">' + t + "</button>";
         }).join("") + '</div><p class="eyebrow" style="margin-top:28px">Trending now</p><div class="search__grid">' +
         PRODUCTS.filter(function (p) { return p.bestseller; }).slice(0, 4).map(searchHit).join("") + "</div>";

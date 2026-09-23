@@ -5,24 +5,94 @@
    the text, price and images. Images live in assets/img/ — use the file
    name without ".webp" (each image also needs a small "-sm.webp" copy).
 
+   Each product has a "category" (see CATEGORIES below) and, for makeup,
+   a "sub" collection (lipstick, gloss, matte-gloss, foundation,
+   loose-powder, pressed-powder, designer).
+
    Prices are in US dollars.
      compareAt: an optional old price to show a sale ("was $20").
      badge:     optional label — "New", "Bestseller", "Limited" …
      soldOut:   true hides the Add to Bag button.
    ===================================================================== */
 
+/* ---------------------------------------------------------------------
+   CATEGORIES — shown on the home page, in the menu and in the shop.
+   "image" is optional: categories without one get an elegant gold icon.
+   "blurb" is the short line on the home page tile; "description" is
+   the full collection text shown at the top of the category page.
+   A category with no products yet shows as "Coming soon".
+   --------------------------------------------------------------------- */
 window.CATEGORIES = [
-  { id: "face", name: "Face", collection: "beauty", image: "found-compact", blurb: "Foundations & powders in shades made for melanin." },
-  { id: "lips", name: "Lips", collection: "beauty", image: "lacquer", blurb: "Glosses, lacquers and lipsticks with high-shine attitude." },
-  { id: "body", name: "Body Glow", collection: "beauty", image: "serum-model", blurb: "Shimmer that catches the light on every curve." },
-  { id: "bras", name: "Bras", collection: "curves", image: "strapless-card", blurb: "Lift and support designed for fuller figures." },
-  { id: "shapewear", name: "Shapewear", collection: "curves", image: "shapewear", blurb: "Seamless sculpting that feels as good as it looks." },
-  { id: "intimates", name: "Intimates", collection: "curves", image: "travel", blurb: "Everyday softness, beautifully made." }
-];
-
-window.COLLECTIONS = [
-  { id: "beauty", name: "Beauty", blurb: "Face, lips & body glow" },
-  { id: "curves", name: "Curves", blurb: "Bras, shapewear & intimates" }
+  {
+    id: "makeup", name: "Makeup", title: "The Ethereal Curves Makeup Collection", image: "found-compact", icon: "sparkle",
+    blurb: "Lipsticks, glosses, foundations and face powders for every complexion.",
+    description: "Lipsticks, glosses, foundations and face powders selected to celebrate every complexion — from warm and golden to rich and melanin-deep. Luxury Designed for You.",
+    subs: [
+      {
+        id: "lipstick", name: "Lipstick", title: "Luxury Lipstick Collection",
+        description: "Make every look unforgettable with the Ethereal Curves Luxury Lipstick Collection—where rich, high-impact color meets effortless sophistication. Created for the modern woman, each lipstick is designed to enhance your natural lip contours with luxurious, comfortable formulas available in satin-matte, hydrating cream, and velvet demi-matte finishes. Whether you want a bold, velvety matte, a luminous and nourishing sheen, or a soft, cushion-like demi-matte, every shade delivers beautiful color, comfortable wear, and effortless confidence. Encased in our signature metallic silver bullet and blush-pink base, and presented in our minimalist white luxury packaging, every detail reflects our philosophy: Luxury Designed for You."
+      },
+      {
+        id: "gloss", name: "Glossy Lip Gloss", title: "Glossy Lip Gloss Collection",
+        description: "Add the perfect touch of shine with the Ethereal Curves Glossy Lip Gloss Collection—a luxurious edit of high-shine formulas created to give your lips a smooth, radiant, and irresistibly glossy finish. From sheer everyday glow to rich, statement-making shades, each gloss is designed to enhance your natural lip color while leaving lips looking fuller, polished, and beautifully luminous. Wear it alone for effortless shine or layer it over your favorite lipstick for added dimension and glamour. Gloss, glow, and confidence in every swipe. Luxury Designed for You."
+      },
+      {
+        id: "matte-gloss", name: "Matte Lip Gloss", title: "Matte Lip Gloss Collection",
+        description: "Make a statement with the Ethereal Curves Matte Lip Gloss Collection, where bold, velvety color meets a lightweight, comfortable finish. Designed to enhance your lips with rich, buildable pigment, each gloss delivers a smooth, sophisticated matte look without compromising on effortless wear. From everyday neutrals to captivating statement shades, our collection offers colors to complement every mood, style, and complexion. Wear it alone for a polished look or layer it with your favorite lip liner for added definition. Bold color. Soft confidence. Effortless luxury."
+      },
+      {
+        id: "foundation", name: "Foundation", title: "Matte Liquid Foundation",
+        description: "Create a flawless, refined complexion with the Ethereal Curves Matte Liquid Foundation, thoughtfully selected to deliver smooth, buildable coverage with a sophisticated soft-matte finish. Designed to beautifully complement a diverse range of skin tones, the lightweight formula helps even the appearance of the complexion while creating a polished, comfortable base that wears beautifully throughout the day. Whether you're going for natural everyday elegance or a more perfected glam look, this foundation provides the confidence to let your beauty shine through. Flawless coverage. Beautifully balanced. Luxury designed for you."
+      },
+      {
+        id: "loose-powder", name: "Loose Face Powder", title: "Loose Face Powder Collection",
+        description: "Set, smooth, and perfect your complexion with the Ethereal Curves Loose Face Powder Collection, curated to give your makeup a flawless, polished finish while keeping your look feeling light and effortless. Finely milled for a soft, silky texture, our loose powders help set foundation, reduce excess shine, blur the appearance of imperfections, and extend the wear of your makeup. With thoughtfully selected shades to complement a range of skin tones, including rich and melanin-deep complexions, each formula is designed to enhance your natural beauty without looking heavy or cakey. A flawless finish, beautifully set—Luxury Designed for You."
+      },
+      {
+        id: "pressed-powder", name: "Pressed & Compact Powder", title: "Pressed & Compact Face Powder Collection",
+        description: "Perfect your complexion wherever the day takes you with the Ethereal Curves Pressed & Compact Face Powder Collection, thoughtfully curated for effortless coverage, smoothness, and shine control. Our selection of finely milled pressed powders provides a soft, polished finish while helping even out the appearance of your complexion and set your makeup beautifully. Available in a range of shades suited to diverse skin tones, from warm and golden to rich and melanin-deep complexions, these versatile powders can be worn alone for a natural finish or layered over foundation for added coverage. Beautifully compact and easy to carry, they are the perfect everyday essential for quick touch-ups and a flawless finish on the go. Effortless beauty, anytime, anywhere—Luxury Designed for You."
+      },
+      {
+        id: "designer", name: "Designer & Brands", title: "Curated Designer & Brand Collection",
+        description: "Discover a carefully curated selection of designer and sought-after beauty brands, thoughtfully chosen to bring you exceptional quality, beautiful shades, and effortless luxury. Our collection features carefully selected makeup and beauty essentials from renowned and emerging brands, including statement-making lip colors, complexion products, and must-have beauty favorites. From timeless neutrals to bold, expressive shades, we curate pieces that celebrate individuality and complement a wide range of skin tones and beauty styles. Whether you're searching for an everyday essential or a signature shade that makes a statement, our Curated Designer & Brand Collection brings the world of beauty closer to you—beautifully selected, effortlessly luxurious, and always designed with you in mind."
+      }
+    ]
+  },
+  {
+    id: "sculpture", name: "Sculpture", title: "Sculpture Shapewear Collection", image: "shapewear", icon: "hanger",
+    blurb: "Seamless shapewear that smooths, contours and moves with you.",
+    description: "Sculpt, smooth, and embrace every curve with the Ethereal Curves Sculpture Collection—premium shapewear designed to enhance your natural silhouette while keeping you comfortable and confident. Thoughtfully selected for fuller figures, our collection features seamless, supportive pieces designed to smooth, contour, lift, and create a beautifully streamlined foundation beneath your favorite looks. From everyday smoothing essentials to sculpting styles for special occasions, each piece is made to move with you, not against you, so you can feel supported without feeling restricted. Your curves are already beautiful. Sculpture simply helps you wear them with confidence. Luxury Designed for You."
+  },
+  {
+    id: "intimates", name: "Intimates & Lingerie", short: "Intimates", title: "Intimates & Lingerie Collection", image: "strapless-card", icon: "heart",
+    blurb: "Bras, panties and lingerie with thoughtful support for fuller figures.",
+    description: "Celebrate your curves from the inside out with the Ethereal Curves Intimates & Lingerie Collection—thoughtfully curated bras, panties, and lingerie designed to make you feel supported, comfortable, confident, and beautiful. From everyday essentials that feel effortless against your skin to alluring lingerie made for special moments, our collection brings together flattering fits, feminine details, luxurious textures, and thoughtful support for fuller figures. Whether you're looking for the perfect everyday bra, comfortable panties, or something a little more captivating, every piece is chosen to help you feel beautiful in your own skin, confident in your curves, and effortlessly feminine. Luxury Designed for You."
+  },
+  {
+    id: "essence", name: "Essence", title: "Essence Collection", image: null, icon: "perfume",
+    blurb: "Fragrances and finishing touches for your signature presence.",
+    description: "Leave a lasting impression with the Ethereal Curves Essence Collection, a curated world of beautiful fragrances and personal essentials designed to become part of your signature presence. Discover an evolving selection of perfumes, fragrance-inspired essentials, and luxurious finishing touches for women and men, with scents ranging from soft and sensual to fresh, sophisticated, and captivating. Whether you prefer a subtle everyday fragrance or a statement scent for special moments, our collection invites you to express your personality through fragrance and make every entrance memorable. Because luxury is not only what you wear—it is the essence you leave behind."
+  },
+  {
+    id: "essentials", name: "Essentials", title: "Luxury Essentials Collection", image: null, icon: "bag",
+    blurb: "Shoes, handbags, jewelry and watches for women and men.",
+    description: "Elevate the everyday with the Ethereal Curves Luxury Essentials Collection—a curated selection of timeless pieces designed to add sophistication, style, and effortless polish to every look. Discover thoughtfully selected shoes, handbags, jewelry, and watches for both women and men, bringing together statement pieces and everyday essentials for every occasion. From elegant footwear and refined bags to delicate jewelry and distinctive timepieces, each piece is chosen to complement your personal style and bring a touch of quiet luxury to your wardrobe. Whether you're dressing for a special occasion or simply elevating your everyday look, our Luxury Essentials Collection makes finishing every outfit feel effortless. Because true luxury is in the details—and every detail should be designed for you."
+  },
+  {
+    id: "vitality", name: "Vitality", title: "Vitality Collection", image: null, icon: "leaf",
+    blurb: "Wellness and nutritional support, from the inside out.",
+    description: "Nourish your everyday wellness with the Ethereal Curves Vitality Collection, a curated selection of wellness and nutritional supplements chosen to complement a balanced, active lifestyle. From daily nutritional support to beauty and wellness-focused essentials, our collection brings together carefully selected products designed to help you prioritize self-care from the inside out. Whether you're supporting your daily routine, caring for your body, or simply making more intentional choices for your wellbeing, Vitality is about creating space for you to feel your best—inside and out. Because true beauty begins with feeling good in your own skin. Luxury Designed for You."
+  },
+  {
+    id: "accessories", name: "Accessories", title: "Accessories Collection", image: null, icon: "gem",
+    blurb: "Cosmetic bags and finishing touches for your everyday ritual.",
+    description: "Complete the look with thoughtfully curated accessories, cosmetic bags and everyday essentials that bring a touch of luxury to your routine. Luxury Designed for You."
+  },
+  {
+    id: "radiance", name: "Radiance", title: "Radiance Skincare Collection", image: "serum-model", icon: "drop",
+    blurb: "Korean and American skincare and body glow for radiant skin.",
+    description: "Discover skincare curated to help your skin look, feel, and glow at its best. The Ethereal Curves Skincare Collection brings together carefully selected Korean and American skincare products, combining innovative beauty rituals, effective formulations, and everyday self-care. From gentle cleansers and hydrating toners to serums, moisturizers, masks, and targeted treatments, our collection is designed to support healthy-looking, radiant skin across a range of skin types and tones. Whether you are building a simple daily routine or creating a more elevated skincare ritual, Ethereal Curves makes it easy to find products that complement your skin and your lifestyle. Beautiful skin starts with care—and your glow deserves luxury designed for you."
+  }
 ];
 
 /* Shared shade families */
@@ -39,11 +109,11 @@ const BRA_CUPS = ["C", "D", "DD", "DDD/F", "G"];
 const BODY_SIZES = ["S", "M", "L", "XL", "2XL", "3XL", "4XL"];
 
 window.PRODUCTS = [
-  /* ============================ LIPS ============================ */
+  /* ============================ MAKEUP · LIPS ============================ */
   {
     id: "plump-shine-gloss",
     name: "Plump & Shine Lip Gloss",
-    category: "lips",
+    category: "makeup", sub: "gloss",
     price: 15,
     badge: "Bestseller",
     bestseller: true,
@@ -74,7 +144,7 @@ window.PRODUCTS = [
   {
     id: "charm-gloss",
     name: "Charm Lip Gloss with Keychain",
-    category: "lips",
+    category: "makeup", sub: "gloss",
     price: 15,
     badge: "New",
     isNew: true,
@@ -99,10 +169,10 @@ window.PRODUCTS = [
   {
     id: "luxe-lip-lacquer",
     name: "Luxe Lip Lacquer",
-    category: "lips",
+    category: "makeup", sub: "matte-gloss",
     price: 18,
     images: ["lacquer"],
-    short: "A velvet-matte liquid colour with full, one-swipe pigment and a gold signature cap.",
+    short: "Bold, velvety matte color with rich, buildable pigment and a lightweight, comfortable finish.",
     description: "Luxe Lip Lacquer delivers bold, saturated colour in a single stroke and sets to a soft, comfortable matte. Precise applicator, rich pigment, zero compromise.",
     benefits: ["Full-coverage, one-swipe pigment", "Soft velvet-matte finish", "Comfortable, lightweight wear", "Precision applicator"],
     howTo: "Outline the lips with the tip of the applicator, then fill in. Let set for 30 seconds before pressing lips together.",
@@ -113,10 +183,10 @@ window.PRODUCTS = [
   {
     id: "signature-liquid-lip",
     name: "Signature Liquid Lip",
-    category: "lips",
+    category: "makeup", sub: "matte-gloss",
     price: 16,
     images: ["liquid-lip"],
-    short: "Choose your finish: a matte liquid lipstick or a luminous lip gloss. 0.23 fl oz / 6 ml.",
+    short: "Matte liquid lipstick or luminous lip gloss — rich, buildable color in our black-and-gold signature box. 0.23 fl oz / 6 ml.",
     description: "One shade story, two moods. The Matte Liquid Lipstick sets to a smooth, transfer-resistant finish, while the Luminous Lip Gloss wraps lips in a radiant, cushiony shine. Both arrive in our black-and-gold signature box.",
     benefits: ["Matte or luminous finish", "Rich, even colour payoff", "Comfortable on the lips", "Gift-ready black & gold packaging"],
     howTo: "Apply from the center of the lips outward. For matte, allow to set before blotting.",
@@ -128,45 +198,34 @@ window.PRODUCTS = [
     ]
   },
   {
-    id: "satin-lipstick",
-    name: "Satin Bullet Lipstick",
-    category: "lips",
+    id: "luxury-lipstick",
+    name: "Luxury Lipstick",
+    category: "makeup", sub: "lipstick",
     price: 18,
-    images: ["satin-lip"],
-    short: "A creamy, satin-finish lipstick in a pearl-white and gold case.",
-    description: "Silky colour that melts onto the lips with a satin glow. The pearlescent case and gold detailing make it the lipstick you'll want to pull out in public.",
-    benefits: ["Creamy satin finish", "Buildable colour", "Comfortable, cushiony feel", "Pearl & gold luxury case"],
-    howTo: "Apply directly from the bullet, starting at the center of the lips. Blot and reapply for deeper colour.",
-    details: "Shade shown: Toffee Nude",
-    claims: ["Satin finish"],
-    options: [{ name: "Shade", type: "swatch", values: [{ label: "Toffee Nude", hex: "#a8704f" }] }]
-  },
-  {
-    id: "silk-tint-balm",
-    name: "Silk Tint Lip Balm",
-    category: "lips",
-    price: 14,
-    images: ["balm"],
-    short: "A sheer, nourishing tinted balm in a crystal-clear case.",
-    description: "Everyday colour with the comfort of a balm. Silk Tint glides on with a sheer wash of colour and a soft, hydrated finish — the easiest way to look put together.",
-    benefits: ["Sheer, buildable tint", "Nourishing balm texture", "Everyday comfort", "Crystal-clear luxury case"],
-    howTo: "Swipe on bare lips whenever you need moisture and a hint of colour.",
-    details: "Shade shown: Peach Nude",
-    claims: ["Hydrating"],
-    options: [{ name: "Shade", type: "swatch", values: [{ label: "Peach Nude", hex: "#e39a78" }] }]
+    images: ["balm", "satin-lip"],
+    short: "Rich, high-impact color in satin-matte, hydrating cream or velvet demi-matte — in our metallic silver bullet and blush-pink base.",
+    description: "Make every look unforgettable with the Ethereal Curves Luxury Lipstick Collection—where rich, high-impact color meets effortless sophistication. Created for the modern woman, each lipstick is designed to enhance your natural lip contours with luxurious, comfortable formulas. Whether you want a bold, velvety matte, a luminous and nourishing sheen, or a soft, cushion-like demi-matte, every shade delivers beautiful color, comfortable wear, and effortless confidence. Encased in our signature metallic silver bullet and blush-pink base, and presented in our minimalist white luxury packaging.",
+    benefits: ["Rich, high-impact color", "Three finishes: satin-matte, hydrating cream, velvet demi-matte", "Comfortable, luxurious wear", "Signature silver bullet, blush-pink base and white luxury packaging"],
+    howTo: "Apply directly from the bullet, starting at the center of the lips and working outward. Blot and reapply for deeper color.",
+    details: "Finishes: Satin-Matte, Hydrating Cream, Velvet Demi-Matte",
+    claims: ["Satin-matte", "Hydrating cream", "Velvet demi-matte"],
+    options: [
+      { name: "Finish", type: "button", values: [{ label: "Satin-Matte" }, { label: "Hydrating Cream" }, { label: "Velvet Demi-Matte" }] },
+      { name: "Shade", type: "swatch", values: [{ label: "Peach Nude", hex: "#e39a78" }, { label: "Toffee Nude", hex: "#a8704f" }] }
+    ]
   },
 
-  /* ============================ FACE ============================ */
+  /* ============================ MAKEUP · FACE ============================ */
   {
     id: "matte-liquid-foundation",
     name: "Matte Finish Liquid Foundation",
-    category: "face",
+    category: "makeup", sub: "foundation",
     price: 30,
     badge: "Bestseller",
     bestseller: true,
     images: ["found-bottle", "found-swatch", "found-drip", "found-model", "found-collage"],
-    short: "Soft-matte, skin-perfecting coverage in rich shades from Golden Silk to Midnight Cocoa.",
-    description: "A silky liquid foundation that blends into skin for a smooth, even, soft-matte finish without looking flat. Created with deeper skin tones front and center, so your undertone shines through — not ashy, never grey.",
+    short: "Smooth, buildable coverage with a sophisticated soft-matte finish, in shades from Golden Silk to Midnight Cocoa.",
+    description: "Create a flawless, refined complexion with the Ethereal Curves Matte Liquid Foundation, thoughtfully selected to deliver smooth, buildable coverage with a sophisticated soft-matte finish. Designed to beautifully complement a diverse range of skin tones, the lightweight formula helps even the appearance of the complexion while creating a polished, comfortable base that wears beautifully throughout the day. Whether you're going for natural everyday elegance or a more perfected glam look, this foundation provides the confidence to let your beauty shine through. Flawless coverage. Beautifully balanced. Luxury designed for you.",
     benefits: ["Soft-matte, natural-looking finish", "Buildable medium-to-full coverage", "Blends seamlessly", "Shades made for melanin-rich skin"],
     howTo: "Pump a small amount onto the back of your hand. Apply from the center of the face outward with a brush or damp sponge and build where needed.",
     details: "Pump bottle · 5 shades",
@@ -176,7 +235,7 @@ window.PRODUCTS = [
   {
     id: "coverage-foundation-spf15",
     name: "Liquid Coverage Foundation SPF 15",
-    category: "face",
+    category: "makeup", sub: "foundation",
     price: 32,
     images: ["coverage"],
     short: "Full, flawless coverage with everyday SPF 15. 35 ml / 1.25 fl oz.",
@@ -190,13 +249,13 @@ window.PRODUCTS = [
   {
     id: "pressed-face-powder",
     name: "Luxury Pressed Face Powder",
-    category: "face",
+    category: "makeup", sub: "pressed-powder",
     price: 25,
     badge: "Bestseller",
     bestseller: true,
     images: ["pressed-card", "found-compact", "easter", "pressed-poster"],
-    short: "A velvety pressed powder for a flawless, shine-free finish. Net wt 11 g.",
-    description: "Set your look, control shine and touch up on the go. Our finely milled pressed powder melts into skin for a smooth, flawless finish, housed in a mirrored black compact with our signature gold emblem.",
+    short: "Finely milled pressed powder for coverage, smoothness and shine control — perfect for touch-ups on the go. Net wt 11 g.",
+    description: "Perfect your complexion wherever the day takes you with the Ethereal Curves Pressed Face Powder, thoughtfully curated for effortless coverage, smoothness, and shine control. Finely milled for a soft, polished finish, it helps even out the appearance of your complexion and set your makeup beautifully. Available in shades suited to diverse skin tones, from warm and golden to rich and melanin-deep, it can be worn alone for a natural finish or layered over foundation for added coverage. Beautifully compact and easy to carry — the perfect everyday essential for quick touch-ups and a flawless finish on the go. Effortless beauty, anytime, anywhere—Luxury Designed for You.",
     benefits: ["Flawless, soft-focus finish", "Controls shine all day", "Finely milled, never cakey", "Mirrored compact for touch-ups"],
     howTo: "Press lightly over foundation with a puff or sweep on with a fluffy brush. Touch up through the day.",
     details: "Net wt 11 g · 0.4 oz · Mirrored compact",
@@ -206,11 +265,11 @@ window.PRODUCTS = [
   {
     id: "loose-setting-powder",
     name: "Loose Setting Powder",
-    category: "face",
+    category: "makeup", sub: "loose-powder",
     price: 22,
     images: ["loose-powder"],
-    short: "A weightless loose powder that locks in makeup with a soft, blurred glow.",
-    description: "Bake, set or finish — our loose powder locks your makeup in place and blurs texture for a smooth, lit-from-within look. Presented in a clear jar with a black signature lid.",
+    short: "Finely milled loose powder that sets, smooths and perfects — without looking heavy or cakey.",
+    description: "Set, smooth, and perfect your complexion with the Ethereal Curves Loose Face Powder, curated to give your makeup a flawless, polished finish while keeping your look feeling light and effortless. Finely milled for a soft, silky texture, it helps set foundation, reduce excess shine, blur the appearance of imperfections, and extend the wear of your makeup. With shades to complement a range of skin tones, including rich and melanin-deep complexions, it enhances your natural beauty without looking heavy or cakey. A flawless finish, beautifully set—Luxury Designed for You.",
     benefits: ["Sets makeup for long wear", "Blurs pores and texture", "Weightless, breathable feel", "Great for baking"],
     howTo: "Tap a little into the lid, pick up with a puff or damp sponge and press onto skin. Let sit, then dust away the excess.",
     details: "Clear jar with sifter · Black signature lid",
@@ -218,11 +277,11 @@ window.PRODUCTS = [
     options: [{ name: "Shade", type: "swatch", values: [{ label: "Translucent", hex: "#efe3d3" }].concat(FOUNDATION_SHADES) }]
   },
 
-  /* ============================ BODY ============================ */
+  /* ============================ RADIANCE ============================ */
   {
     id: "shimmer-body-serum",
     name: "Shimmer Body Serum",
-    category: "body",
+    category: "radiance",
     price: 20,
     badge: "Bestseller",
     bestseller: true,
@@ -241,11 +300,11 @@ window.PRODUCTS = [
     }]
   },
 
-  /* ============================ CURVES ============================ */
+  /* ============================ SCULPTURE & INTIMATES ============================ */
   {
     id: "strapless-bra",
     name: "The Strapless Bra",
-    category: "bras",
+    category: "intimates",
     price: 38,
     badge: "New",
     isNew: true,
@@ -266,7 +325,7 @@ window.PRODUCTS = [
   {
     id: "sculpting-bodysuit",
     name: "Sculpting Shapewear Bodysuit",
-    category: "shapewear",
+    category: "sculpture",
     price: 48,
     badge: "Bestseller",
     bestseller: true,
@@ -286,7 +345,7 @@ window.PRODUCTS = [
   {
     id: "v-neck-bodysuit",
     name: "Seamless V-Neck Bodysuit",
-    category: "shapewear",
+    category: "sculpture",
     price: 42,
     images: ["bodysuit"],
     short: "A sleek, lightly shaping bodysuit that doubles as a top.",
