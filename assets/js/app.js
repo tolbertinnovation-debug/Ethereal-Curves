@@ -945,7 +945,7 @@
       var fd = new FormData(form);
       var cats = fd.getAll("cat");
       var st = {
-        cats: cats, sub: cats.length === 1 && cats[0] === "makeup" ? baseSub : null, price: fd.get("price") || "",
+        cats: cats, sub: cats.length === 1 && catById[cats[0]].subs && catById[cats[0]].subs.some(function (x) { return x.id === baseSub; }) ? baseSub : null, price: fd.get("price") || "",
         tags: fd.getAll("tag"), sort: $("#sortSel").value, q: baseQ
       };
       baseSub = st.sub;

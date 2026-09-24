@@ -7,7 +7,8 @@
 
    Each product has a "category" (see CATEGORIES below) and, for makeup,
    a "sub" collection (lipstick, gloss, matte-gloss, foundation,
-   loose-powder, pressed-powder, designer).
+   loose-powder, pressed-powder, designer); for Radiance, a "sub" of
+   body-shimmer or skincare.
 
    Prices are in US dollars.
      compareAt: an optional old price to show a sale ("was $20").
@@ -89,9 +90,19 @@ window.CATEGORIES = [
     description: "Complete the look with thoughtfully curated accessories, cosmetic bags and everyday essentials that bring a touch of luxury to your routine. Luxury Designed for You."
   },
   {
-    id: "radiance", name: "Radiance", title: "Radiance Skincare Collection", image: "serum-model", icon: "drop",
-    blurb: "Korean and American skincare and body glow for radiant skin.",
-    description: "Discover skincare curated to help your skin look, feel, and glow at its best. The Ethereal Curves Skincare Collection brings together carefully selected Korean and American skincare products, combining innovative beauty rituals, effective formulations, and everyday self-care. From gentle cleansers and hydrating toners to serums, moisturizers, masks, and targeted treatments, our collection is designed to support healthy-looking, radiant skin across a range of skin types and tones. Whether you are building a simple daily routine or creating a more elevated skincare ritual, Ethereal Curves makes it easy to find products that complement your skin and your lifestyle. Beautiful skin starts with care—and your glow deserves luxury designed for you."
+    id: "radiance", name: "Radiance", title: "The Ethereal Curves Radiance Collection", image: "serum-model", icon: "drop",
+    blurb: "Body shimmer and Korean & American skincare for radiant skin.",
+    description: "Skincare and body shimmer curated to help your skin look, feel, and glow at its best — because every woman deserves to feel radiant in her own skin. Luxury Designed for You.",
+    subs: [
+      {
+        id: "body-shimmer", name: "Body Shimmer", title: "Body Shimmer Collection",
+        description: "Glow from every angle with the Ethereal Curves Body Shimmer Collection, created to give your skin a beautiful, luminous finish that catches the light and elevates your look. Our curated body shimmers add a touch of radiant sparkle while leaving skin looking smooth, polished, and irresistibly glowing. Perfect for everyday glamour, special occasions, date nights, celebrations, or whenever you simply want to shine a little brighter. Because your skin deserves to glow, your curves deserve to shimmer, and every woman deserves to feel radiant in her own skin. Luxury Designed for You."
+      },
+      {
+        id: "skincare", name: "Skincare", title: "Skincare Collection",
+        description: "Discover skincare curated to help your skin look, feel, and glow at its best. The Ethereal Curves Skincare Collection brings together carefully selected Korean and American skincare products, combining innovative beauty rituals, effective formulations, and everyday self-care. From gentle cleansers and hydrating toners to serums, moisturizers, masks, and targeted treatments, our collection is designed to support healthy-looking, radiant skin across a range of skin types and tones. Whether you are building a simple daily routine or creating a more elevated skincare ritual, Ethereal Curves makes it easy to find products that complement your skin and your lifestyle. Beautiful skin starts with care—and your glow deserves luxury designed for you."
+      }
+    ]
   }
 ];
 
@@ -281,7 +292,7 @@ window.PRODUCTS = [
   {
     id: "shimmer-body-serum",
     name: "Shimmer Body Serum",
-    category: "radiance",
+    category: "radiance", sub: "body-shimmer",
     price: 20,
     badge: "Bestseller",
     bestseller: true,
