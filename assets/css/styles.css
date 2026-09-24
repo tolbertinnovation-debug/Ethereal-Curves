@@ -490,6 +490,10 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
 .footer__social svg { width: 18px; height: 18px; }
 .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 22px; padding-bottom: 26px; border-top: 1px solid rgba(232, 207, 147, .12); font-size: .82rem; color: #8d8172; }
 .footer__bottom p { margin: 0; }
+.powered { white-space: nowrap; }
+.powered::before { content: "·"; margin: 0 8px; }
+.powered a { color: var(--gold-soft); border-bottom: 1px solid rgba(232, 207, 147, .35); transition: color .2s, border-color .2s; }
+.powered a:hover { color: #fff; border-color: #fff; }
 .paylogos { display: flex; gap: 8px; flex-wrap: wrap; }
 .paylogo { font-size: .7rem; letter-spacing: .06em; padding: 5px 10px; border-radius: 3px; border: 1px solid rgba(255, 255, 255, .16); color: #d9cdbd; }
 .paylogo--orange { border-color: #ff7900; color: #ffb066; }
@@ -931,6 +935,8 @@ body.has-sticky .wa-float { bottom: 88px; }
 }
 
 @media (max-width: 600px) {
+  .powered { display: block; margin-top: 4px; }
+  .powered::before { content: none; }
   .announce { font-size: .6rem; letter-spacing: .1em; }
   .buy .btn { padding: 0 1em; letter-spacing: .12em; white-space: normal; line-height: 1.3; }
   .steps { letter-spacing: .12em; }
