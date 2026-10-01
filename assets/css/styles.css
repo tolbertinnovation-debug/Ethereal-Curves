@@ -507,6 +507,8 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
 .paylogo { font-size: .7rem; letter-spacing: .06em; padding: 5px 10px; border-radius: 3px; border: 1px solid rgba(255, 255, 255, .16); color: #d9cdbd; }
 .paylogo--orange { border-color: #ff7900; color: #ffb066; }
 .paylogo--mtn { border-color: #ffcc00; color: #ffdd55; }
+.paylogo--eco { border-color: #4f9fd8; color: #9fd0f2; }
+.paybox__acct b { font-family: var(--caps); letter-spacing: .06em; color: var(--gold-soft); }
 
 /* ---------- Page header / breadcrumb ---------- */
 .pagehead { background: var(--cream); padding: clamp(40px, 6vw, 70px) 0 clamp(30px, 4vw, 46px); text-align: center; position: relative; overflow: hidden; }

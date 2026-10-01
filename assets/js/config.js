@@ -63,6 +63,18 @@ window.STORE = {
       steps: "Dial *156#, choose Transfer Money, send the total to the number above and use your order number as the reference."
     },
     {
+      id: "ecobank",
+      label: "Ecobank bank transfer",
+      color: "#005a9c",
+      bank: "Ecobank Liberia",
+      accountName: "The Ethereal Collective",
+      accounts: [
+        { currency: "USD", label: "US Dollar account", number: "6103458881" },
+        { currency: "LRD", label: "Liberian Dollar account", number: "610303458681" }
+      ],
+      steps: "Transfer the total to the Ecobank account in your chosen currency and use your order number as the reference. Then send a photo of your transfer slip to us on WhatsApp."
+    },
+    {
       id: "cod",
       label: "Cash on Delivery",
       color: "#1c1714",
@@ -98,7 +110,7 @@ window.STORE = {
 
   announcements: [
     "Free delivery in Monrovia on orders over $50",
-    "Pay with Orange Money, MTN MoMo or cash on delivery",
+    "Pay with Orange Money, MTN MoMo, Ecobank transfer or cash on delivery",
     "New in: The Strapless Collection",
     "Use code WELCOME10 for 10% off your first order"
   ]

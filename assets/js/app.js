@@ -1043,7 +1043,7 @@
           '<button type="button" class="wish-btn' + (isWished(p.id) ? " is-on" : "") + '" data-action="wish" data-id="' + p.id + '" aria-pressed="' + isWished(p.id) + '" aria-label="Save to wishlist">' + ICON.heart + "</button></div>") +
       '<a class="btn btn--outline btn--block buy__wa" target="_blank" rel="noopener" data-action="wa-ask" data-form="' + fid + '" href="' + waLink(inquiry) + '">' + ICON.wa + " Ask about this on WhatsApp</a>" +
       '<div class="perks"><div class="perk">' + ICON.truck + "<span>Free Monrovia delivery over " + money(S.freeDeliveryOver) + "</span></div>" +
-      '<div class="perk">' + ICON.mobile + "<span>Orange Money, MTN MoMo &amp; cash</span></div>" +
+      '<div class="perk">' + ICON.mobile + "<span>Mobile money, Ecobank transfer &amp; cash</span></div>" +
       '<div class="perk">' + ICON.shield + "<span>Authentic " + esc(p.brand || "Ethereal Curves") + "</span></div></div>" +
       '<details class="acc" open><summary>Description</summary><div class="acc__body"><p>' + esc(p.description) + "</p>" +
       (p.benefits ? "<ul>" + p.benefits.map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>" : "") + "</div></details>" +
@@ -1119,7 +1119,7 @@
   var checkoutDraft = store.get("customer", {});
 
   views.checkout = function () {
-    setMeta("Checkout", "Secure checkout — pay with Orange Money, MTN Mobile Money or cash on delivery.");
+    setMeta("Checkout", "Secure checkout — pay with Orange Money, MTN Mobile Money, Ecobank bank transfer or cash on delivery.");
     if (!state.cart.length) {
       return '<div class="container"><div class="empty" style="padding:100px 0">' + ICON.bag + '<h1 class="h-lg">Your bag is empty</h1><p class="muted">Add something beautiful, then come back to check out.</p>' +
         '<div class="actions"><a class="btn btn--dark" href="#/shop">Continue shopping</a></div></div></div>';
@@ -1146,7 +1146,7 @@
 
     var payRadios = S.payments.map(function (m) {
       return '<label class="radio' + (m.id === pay ? " is-on" : "") + '" data-pay="' + m.id + '"><input type="radio" name="payment" value="' + m.id + '"' + (m.id === pay ? " checked" : "") + ">" +
-        '<span><b><i class="paydot" style="background:' + m.color + '"></i>' + esc(m.label) + "</b><small>" + (m.number ? "Send to " + esc(m.number) + " after placing your order" : esc(m.steps)) + "</small></span><span></span></label>";
+        '<span><b><i class="paydot" style="background:' + m.color + '"></i>' + esc(m.label) + "</b><small>" + (m.number ? "Send to " + esc(m.number) + " after placing your order" : m.accounts ? "USD or LRD account · bank details shown after you place your order" : esc(m.steps)) + "</small></span><span></span></label>";
     }).join("");
 
     var summary = '<aside class="summary"><h2>Order summary</h2>' + state.cart.map(function (l) { return lineHTML(l, true); }).join("") +
@@ -1308,13 +1308,25 @@
     if (!o) return views.notFound();
     var pay = S.payments.find(function (p) { return p.id === o.payment; });
     var totalTxt = money(o.total, "USD") + (o.deliveryFee === null ? " + shipping" : "");
-    var payBox = pay && pay.number
+    var amountRow = '<div class="paybox__row"><span>Amount</span><b>' + totalTxt + " · " + money(o.total, "LRD") + "</b></div>";
+    var refRow = '<div class="paybox__row"><span>Reference</span><b>' + o.id + ' <button type="button" class="copy" data-action="copy" data-text="' + o.id + '" data-label="Order number">Copy</button></b></div>';
+    var shipNote = o.deliveryFee === null ? " We'll confirm the shipping cost on WhatsApp before you pay." : "";
+    var payBox = pay && pay.accounts
+      ? '<div class="paybox"><p class="eyebrow">Pay by ' + esc(pay.label) + "</p>" +
+        '<div class="paybox__row"><span>Bank</span><b>' + esc(pay.bank) + "</b></div>" +
+        '<div class="paybox__row"><span>Account title</span><b>' + esc(pay.accountName) + "</b></div>" +
+        pay.accounts.map(function (ac) {
+          return '<div class="paybox__row paybox__acct"><span>' + esc(ac.label) + " (" + ac.currency + ")</span><b>" + esc(ac.number) +
+            ' <button type="button" class="copy" data-action="copy" data-text="' + esc(ac.number) + '" data-label="' + ac.currency + ' account number">Copy</button></b></div>';
+        }).join("") +
+        '<div class="paybox__row"><span>Amount</span><b>' + totalTxt + " to the USD account<br>or " + money(o.total, "LRD") + (o.deliveryFee === null ? " + shipping" : "") + " to the LRD account</b></div>" +
+        refRow + '<p style="margin:14px 0 0;color:#bcae9d;font-size:.92rem">' + esc(pay.steps) + shipNote + "</p></div>"
+      : pay && pay.number
       ? '<div class="paybox"><p class="eyebrow">Pay with ' + esc(pay.label) + '</p><div class="paybox__num">' + esc(pay.number) +
         ' <button type="button" class="copy" data-action="copy" data-text="' + esc(pay.number) + '" data-label="Number">Copy</button></div>' +
         '<div class="paybox__row"><span>Account name</span><b>' + esc(pay.accountName || S.brand) + "</b></div>" +
-        '<div class="paybox__row"><span>Amount</span><b>' + totalTxt + " · " + money(o.total, "LRD") + "</b></div>" +
-        '<div class="paybox__row"><span>Reference</span><b>' + o.id + ' <button type="button" class="copy" data-action="copy" data-text="' + o.id + '" data-label="Order number">Copy</button></b></div>' +
-        '<p style="margin:14px 0 0;color:#bcae9d;font-size:.92rem">' + esc(pay.steps) + (o.deliveryFee === null ? " We'll confirm the shipping cost on WhatsApp before you pay." : "") + "</p></div>"
+        amountRow + refRow +
+        '<p style="margin:14px 0 0;color:#bcae9d;font-size:.92rem">' + esc(pay.steps) + shipNote + "</p></div>"
       : '<div class="paybox"><p class="eyebrow">' + esc(pay ? pay.label : "Payment") + '</p><p style="margin:0">' + esc(pay ? pay.steps : "") + '</p><div class="paybox__row" style="margin-top:12px"><span>Amount due</span><b>' + totalTxt + " · " + money(o.total, "LRD") + "</b></div></div>";
 
     return '<div class="container"><div class="confirm"><div class="center"><div class="confirm__seal">' + ICON.check + "</div>" +
@@ -1653,7 +1665,7 @@
   var FAQ = [
     ["Orders & payment", [
       ["How do I place an order?", "Add your favourites to your bag and check out. Your order is sent to us on WhatsApp, where we confirm availability and delivery. You can also simply message us on WhatsApp with what you'd like."],
-      ["Which payment methods do you accept?", "Orange Money, MTN Mobile Money, and cash on delivery for Monrovia delivery and pickup. Use your order number as the payment reference so we can match it quickly."],
+      ["Which payment methods do you accept?", "Orange Money, MTN Mobile Money, Ecobank bank transfer (USD or LRD account, title: The Ethereal Collective), and cash on delivery for Monrovia delivery and pickup. Use your order number as the payment reference so we can match it quickly."],
       ["Can I pay in Liberian dollars?", "Yes. Switch the currency at the top of the page to see prices in LRD. The LRD amount is an estimate based on the current exchange rate — we'll confirm the exact amount on WhatsApp."],
       ["Do you have discount codes?", "Use WELCOME10 for 10% off your first order. Join the Ethereal Circle to hear about private offers first."]
     ]],
