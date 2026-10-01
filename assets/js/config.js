@@ -16,10 +16,11 @@ window.STORE = {
   email: "musu4real@gmail.com",
 
   location: "Monrovia, Liberia",
+  storeAddress: "Near the Kailondo Hotel, Old Road, Monrovia",
   hours: "Mon – Sat · 9:00 AM – 7:00 PM",
 
   social: {
-    instagram: "",   // e.g. "https://instagram.com/etherealcurves"
+    instagram: "https://instagram.com/etherealcurves",
     facebook: "",
     tiktok: ""
   },
@@ -37,7 +38,7 @@ window.STORE = {
   freeDeliveryOver: 50,      // USD. Monrovia delivery is free above this
   delivery: [
     { id: "monrovia", label: "Delivery within Monrovia", note: "1 – 2 business days", fee: 5, freeEligible: true },
-    { id: "pickup", label: "Pick up in Monrovia", note: "We'll WhatsApp you the pickup point", fee: 0 },
+    { id: "pickup", label: "Pick up at our store", note: "Near the Kailondo Hotel, Old Road, Monrovia", fee: 0 },
     { id: "county", label: "Delivery outside Monrovia", note: "3 – 5 business days, all 15 counties", fee: 10 },
     { id: "international", label: "International shipping", note: "We'll send a shipping quote on WhatsApp", fee: null }
   ],
@@ -79,6 +80,21 @@ window.STORE = {
      Leave empty to collect sign-ups through WhatsApp.
      Or paste a form endpoint (Formspree, Mailchimp, etc.). */
   newsletterEndpoint: "",
+
+  /* ---------------- Campaign ----------------
+     Breast Cancer Awareness campaign + #Breasties raffle.
+     It shows on the site until the end of "endsOn", then hides itself.
+     raffleMin is in USD and counts the bag total after discounts,
+     before delivery. */
+  campaign: {
+    title: "Love Your Breasts",
+    tagline: "Your Girls Deserve the Best",
+    honoree: "Dr. Nina Collins",
+    hashtag: "#Breasties",
+    raffleMin: 75,
+    drawDate: "October 31, 2026",
+    endsOn: "2026-10-31"
+  },
 
   announcements: [
     "Free delivery in Monrovia on orders over $50",

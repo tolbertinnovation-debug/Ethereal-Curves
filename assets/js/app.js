@@ -21,6 +21,13 @@
   function catCount(id) { return PRODUCTS.filter(function (p) { return p.category === id; }).length; }
   function shortName(c) { return c.short || c.name; }
 
+  /* Breast Cancer Awareness campaign + #Breasties raffle (see config.js) */
+  var CAMP = S.campaign || null;
+  function campaignActive() {
+    if (!CAMP || !CAMP.endsOn) return false;
+    return Date.now() <= new Date(CAMP.endsOn + "T23:59:59Z").getTime();
+  }
+
   /* ------------------------------------------------------------------
      Utilities
      ------------------------------------------------------------------ */
@@ -90,6 +97,7 @@
     tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5M14 3c.5 2.8 2.4 4.6 5 5"/></svg>',
     pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>',
     play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>',
+    ribbon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 13.5 7.2 21 5 18.6l4.6-7.3M12 13.5l4.8 7.5 2.2-2.4-4.6-7.3"/><path d="M12 13.5c-2.6-3-4.2-5.4-4.2-7.2a4.2 4.2 0 0 1 8.4 0c0 1.8-1.6 4.2-4.2 7.2z"/></svg>',
     perfume: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9.5" y="3" width="5" height="3.5" rx=".8"/><path d="M11 6.5v2M13 6.5v2"/><rect x="5.5" y="8.5" width="13" height="12.5" rx="3"/><path d="M9 14.5h6"/></svg>',
     gem: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h11L21 9l-9 11L3 9z"/><path d="M3 9h18M9.5 4 8 9l4 11 4-11-1.5-5"/></svg>',
     arrow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
@@ -336,6 +344,19 @@
     return '<form class="promo" data-promo-form><input name="code" placeholder="Promo code" aria-label="Promo code" autocomplete="off"><button class="btn btn--outline btn--sm" type="submit">Apply</button></form>';
   }
 
+  function raffleAmount() { var sub = subtotal(); return round2(sub - discountFor(sub)); }
+
+  function raffleHTML() {
+    if (!campaignActive() || !CAMP.raffleMin) return "";
+    var amt = raffleAmount(), left = round2(CAMP.raffleMin - amt);
+    var pct = Math.min(100, amt / CAMP.raffleMin * 100);
+    var msg = left > 0
+      ? "Spend <b>" + money(left) + "</b> more to enter the <b>" + esc(CAMP.hashtag) + " Raffle Draw</b>"
+      : "You're in! This order enters the <b>" + esc(CAMP.hashtag) + " Raffle Draw</b> on " + esc(CAMP.drawDate);
+    return '<a class="raffle-bar' + (left > 0 ? "" : " is-in") + '" href="#/breasties">' + ICON.ribbon + "<span>" + msg +
+      '<span class="raffle-bar__track"><span class="raffle-bar__fill" style="width:' + pct + '%"></span></span></span></a>';
+  }
+
   function renderCart() {
     var body = $("#cartBody"), foot = $("#cartFoot");
     $("#cartTitle").textContent = "Your Bag" + (cartCount() ? " (" + cartCount() + ")" : "");
@@ -347,7 +368,7 @@
     }
     var inCart = state.cart.map(function (l) { return l.id; });
     var ups = PRODUCTS.filter(function (p) { return p.bestseller && inCart.indexOf(p.id) < 0; }).slice(0, 2);
-    body.innerHTML = shipBarHTML() + state.cart.map(function (l) { return lineHTML(l); }).join("") +
+    body.innerHTML = shipBarHTML() + raffleHTML() + state.cart.map(function (l) { return lineHTML(l); }).join("") +
       (ups.length ? '<div class="upsell"><h3>Complete your look</h3>' + ups.map(function (p) {
         return '<div class="upsell__item"><img src="' + img(p.images[0], true) + '" alt=""><div><a href="#/product/' + p.id + '">' + esc(p.name) + '</a><br><span class="muted">' + money(p.price) + '</span></div>' +
           '<button class="btn btn--outline btn--sm" data-action="quick" data-id="' + p.id + '">Add</button></div>';
@@ -722,7 +743,15 @@
       '<form class="newsletter__form" data-newsletter><label class="sr-only" for="nlEmail">Email or WhatsApp number</label><input id="nlEmail" name="contact" required placeholder="Email or WhatsApp number" autocomplete="email">' +
       '<button class="btn btn--gold" type="submit">Join</button></form><small>We respect your privacy. Unsubscribe anytime.</small></div></section>';
 
-    return hero + marquee + cats + rail + shadebar + split + teaser + values + lookbook + news;
+    var camp = campaignActive() ? '<section class="camp-band"><div class="container camp-band__inner">' +
+      '<img class="camp-band__art" src="' + img("breasties-ribbon") + '" alt="Pink ribbon inside a glowing heart" loading="lazy">' +
+      '<div class="camp-band__copy reveal"><p class="eyebrow">Breast Cancer Awareness Month · In honor of ' + esc(CAMP.honoree) + "</p>" +
+      '<h2 class="h-lg">' + esc(CAMP.title) + ' <span class="script">' + esc(CAMP.tagline) + "</span></h2>" +
+      '<p class="camp-band__pillars">Fit <i></i> Feel <i></i> Support</p>' +
+      "<p>Spend $" + CAMP.raffleMin + " or more and you're automatically entered in our <b>" + esc(CAMP.hashtag) + "</b> Raffle Draw on " + esc(CAMP.drawDate) + ".</p>" +
+      '<div class="actions" style="justify-content:flex-start;margin-bottom:0"><a class="btn btn--pink" href="#/breasties">Join the campaign</a><a class="btn btn--light" href="#/shop?cat=intimates">Shop intimates</a></div></div></div></section>' : "";
+
+    return hero + marquee + camp + cats + rail + shadebar + split + teaser + values + lookbook + news;
   };
 
   function catTileHTML(c) {
@@ -1125,7 +1154,7 @@
       (disc ? '<div class="disc"><span>Discount (' + esc(state.promo) + ')</span><span>−' + money(disc) + "</span></div>" : "") +
       '<div><span>Delivery</span><span id="sumFee">' + (fee === null ? "Quoted on WhatsApp" : fee === 0 ? "Free" : money(fee)) + "</span></div>" +
       '<div class="grand"><span>Total</span><span id="sumTotal">' + money(sub - disc + (fee || 0)) + "</span></div>" +
-      '<div class="muted" style="font-size:.84rem;justify-content:flex-end" id="sumAlt">' + altMoney(sub - disc + (fee || 0)) + "</div></div></aside>";
+      '<div class="muted" style="font-size:.84rem;justify-content:flex-end" id="sumAlt">' + altMoney(sub - disc + (fee || 0)) + "</div></div>" + raffleHTML() + "</aside>";
 
     return '<div class="container checkout"><div>' +
       '<nav class="steps" aria-label="Checkout steps"><button type="button" data-action="open-cart">Bag</button><span aria-hidden="true">›</span><b>Details</b><span aria-hidden="true">›</span><span>Confirm on WhatsApp</span></nav>' +
@@ -1234,8 +1263,9 @@
       subtotal: sub, promo: disc ? state.promo : null, discount: disc, deliveryLabel: method.label, deliveryFee: fee,
       total: round2(sub - disc + (fee || 0)), payment: data.payment,
       customer: { name: data.firstName + " " + data.lastName, phone: normalizePhone(data.phone), email: data.email },
-      address: data.delivery === "pickup" ? "Pickup in Monrovia" : [data.address, data.city, data.delivery === "international" ? data.country : data.county + " County", data.delivery === "international" ? "" : "Liberia"].filter(Boolean).join(", "),
-      notes: data.notes
+      address: data.delivery === "pickup" ? "Pickup at our store — " + (S.storeAddress || "Monrovia") : [data.address, data.city, data.delivery === "international" ? data.country : data.county + " County", data.delivery === "international" ? "" : "Liberia"].filter(Boolean).join(", "),
+      notes: data.notes,
+      raffle: campaignActive() && CAMP.raffleMin && round2(sub - disc) >= CAMP.raffleMin
     };
     state.orders[id] = order;
     store.set("orders", state.orders);
@@ -1264,7 +1294,8 @@
       "\nDelivery (" + o.deliveryLabel + "): " + (o.deliveryFee === null ? "please quote" : o.deliveryFee === 0 ? "FREE" : money(o.deliveryFee, "USD")) +
       "\nTOTAL: " + money(o.total, "USD") + " (≈ " + money(o.total, "LRD") + ")" + (o.deliveryFee === null ? " + shipping" : "") + "\n\n" +
       "Deliver to: " + o.address + "\nPayment: " + (pay ? pay.label : o.payment) +
-      (o.notes ? "\nNotes: " + o.notes : "") + "\n\nThank you!";
+      (o.notes ? "\nNotes: " + o.notes : "") +
+      (o.raffle ? "\n\n🎀 " + CAMP.hashtag + " Raffle Draw entry (order of $" + CAMP.raffleMin + "+)" : "") + "\n\nThank you!";
   }
 
   /* ------------------------------------------------------------------
@@ -1290,6 +1321,7 @@
       '<p class="lead">Your order has been created. <b>Send it to us on WhatsApp</b> so we can confirm it and arrange delivery — WhatsApp should have opened already.</p>' +
       '<div class="actions"><a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink(orderMessage(o)) + '">' + ICON.wa + " Send order on WhatsApp</a>" +
       '<a class="btn btn--outline" href="mailto:' + S.email + "?subject=" + encodeURIComponent("Order " + o.id) + "&body=" + encodeURIComponent(orderMessage(o)) + '">' + ICON.mail + " Email instead</a></div></div>" +
+      (o.raffle ? '<div class="raffle-card">' + ICON.ribbon + "<div><b>You're entered in the " + esc(CAMP.hashtag) + ' Raffle Draw!</b><span>Your order of $' + CAMP.raffleMin + "+ is automatically entered. The draw takes place on " + esc(CAMP.drawDate) + '. Keep your order number <b>' + o.id + '</b> safe.</span></div></div>' : "") +
       payBox +
       '<div class="receipt"><h2 class="h-md">Receipt</h2>' + o.items.map(function (i) {
         var p = byId[i.id];
@@ -1529,6 +1561,62 @@
       '<div class="actions"><a class="btn btn--dark" href="#/shop">Discover the collections</a></div></div></section>';
   };
 
+  /* ------------------------------------------------------------------
+     CAMPAIGN — Love Your Breasts (#Breasties)
+     ------------------------------------------------------------------ */
+  views.breasties = function () {
+    var C = CAMP || {};
+    setMeta(C.title + ": " + C.tagline, "Breast Cancer Awareness Month with Ethereal Curves, in honor of " + C.honoree + ". Fit • Feel • Support. Spend $" + C.raffleMin + "+ to enter the " + C.hashtag + " Raffle Draw.");
+    var live = campaignActive();
+    var maps = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Kailondo Hotel, Old Road, Monrovia, Liberia");
+    var pillars = [
+      ["Fit", "Comfort and support start with the right fit. Use our Size Guide or visit the store and we'll help you find yours.", "#/size-guide", "Find your fit"],
+      ["Feel", "Know your normal. Regular self-checks and screenings matter — talk to your healthcare provider about what's right for you.", "", ""],
+      ["Support", "Bring your Breastie. Learn together, support together, and keep checking in on the women you love.", "", ""]
+    ];
+    return '<section class="camp-hero"><div class="container camp-hero__inner">' +
+      '<div class="camp-hero__copy"><p class="eyebrow">Breast Cancer Awareness Campaign · October 2026</p>' +
+      '<h1 class="camp-hero__title">' + esc(C.title) + '</h1><p class="camp-hero__script script">' + esc(C.tagline) + "</p>" +
+      '<p class="camp-hero__honor">In Honor of ' + esc(C.honoree) + "</p>" +
+      '<p class="camp-hero__lead">October is Breast Cancer Awareness Month, and at Ethereal Curves, we are stepping up to champion health, education, and community.</p>' +
+      '<div class="actions" style="justify-content:flex-start"><a class="btn btn--pink" href="#raffle" data-action="scroll-to" data-target="raffle">' + (live ? "Enter the raffle" : "Raffle details") + '</a><a class="btn btn--light" href="#/shop?cat=intimates">Shop intimates</a></div></div>' +
+      '<button type="button" class="camp-hero__poster" data-action="lightbox" data-src="' + img("breasties-poster") + '" aria-label="Open campaign poster"><img src="' + img("breasties-poster") + '" alt="Love Your Breasts campaign poster: Fit, Feel, Support. Bring your Breastie."></button>' +
+      "</div></section>" +
+
+      '<section class="section camp-intro"><div class="container" style="max-width:820px;text-align:center">' +
+      '<p class="lead" style="margin:0 auto 1.2em">This campaign is held In Honor of <b>' + esc(C.honoree) + "</b>. Because comfort, health, and confidence go hand in hand, let's keep the conversation going:</p>" +
+      '<p class="camp-pillars-title">Fit <i></i> Feel <i></i> Support</p>' +
+      '<div class="camp-pillars reveal-stagger">' + pillars.map(function (pl) {
+        return '<article class="camp-pillar"><span class="camp-pillar__icon">' + ICON.ribbon + "</span><h3>" + pl[0] + "</h3><p>" + pl[1] + "</p>" +
+          (pl[2] ? '<a class="link" href="' + pl[2] + '">' + pl[3] + "</a>" : "") + "</article>";
+      }).join("") + "</div>" +
+      '<p class="camp-breastie">Bring Your Breastie. <span>Learn Together. Support Together.</span></p></div></section>' +
+
+      '<section class="section camp-raffle" id="raffle"><div class="container camp-raffle__inner">' +
+      '<button type="button" class="camp-raffle__poster" data-action="lightbox" data-src="' + img("breasties-raffle") + '" aria-label="Open raffle poster"><img src="' + img("breasties-raffle-sm") + '" alt="Exclusive Raffle Draw poster" loading="lazy"></button>' +
+      '<div class="camp-raffle__copy reveal"><p class="eyebrow">' + esc(C.hashtag) + '</p><h2 class="h-lg">Exclusive Raffle Draw!</h2>' +
+      "<p>Spend $" + C.raffleMin + " or more on your favorite Ethereal Curves pieces and automatically enter our <b>" + esc(C.hashtag) + "</b> Raffle Draw!</p>" +
+      '<dl class="camp-facts"><div><dt>Draw date</dt><dd>' + esc(C.drawDate) + "</dd></div><div><dt>How to enter</dt><dd>Spend $" + C.raffleMin + "+, and join the movement of sisterhood and support.</dd></div></dl>" +
+      (live ? raffleHTML() + '<div class="actions" style="justify-content:flex-start"><a class="btn btn--dark" href="#/shop">Shop the collections</a><button type="button" class="btn btn--outline" data-action="open-cart">View my bag</button></div>'
+        : '<p class="muted"><b>The ' + esc(C.hashtag) + " Raffle Draw has closed.</b> Thank you to everyone who took part!</p>") +
+      "</div></div></section>" +
+
+      '<section class="section section--noir"><div class="container camp-visit reveal">' +
+      '<span class="camp-visit__icon">' + ICON.pin + '</span><p class="eyebrow">Visit us</p>' +
+      '<h2 class="h-lg">Let’s celebrate wellness <span class="script gold-text">together</span></h2>' +
+      "<p>Visit us at our store near the Kailondo Hotel on Old Road, Monrovia, and let’s celebrate wellness together.</p>" +
+      '<p class="camp-visit__addr">' + esc(S.storeAddress) + "<br><span>" + esc(S.hours) + "</span></p>" +
+      '<div class="actions"><a class="btn btn--gold" target="_blank" rel="noopener" href="' + maps + '">Get directions</a><a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink("Hi Ethereal Curves! I'd like to visit the store for the Love Your Breasts campaign.") + '">' + ICON.wa + " WhatsApp us</a></div>" +
+      "</div></section>" +
+
+      '<section class="section camp-close center"><div class="container">' +
+      '<p class="camp-close__line">Stronger, kinder, brighter, together!</p>' +
+      '<p class="camp-tags">#Breasties #EtherealCurves #BreastCancerAwareness #SelfCare #Monrovia</p>' +
+      '<div class="actions"><button type="button" class="btn btn--outline" data-action="copy" data-text="#Breasties #EtherealCurves #BreastCancerAwareness #SelfCare #Monrovia" data-label="Hashtags">Copy hashtags</button>' +
+      (S.social.instagram ? '<a class="btn btn--dark" target="_blank" rel="noopener" href="' + esc(S.social.instagram) + '">' + ICON.instagram + " @etherealcurves</a>" : "") + "</div></div></section>";
+  };
+  views["love-your-breasts"] = views.breasties;
+
   views.contact = function () {
     setMeta("Contact", "Contact Ethereal Curves on WhatsApp, phone or email.");
     return '<section class="pagehead"><div class="container"><p class="eyebrow">We\'re here for you</p><h1 class="h-lg">Contact Us</h1><p class="lead" style="margin:0 auto">Shade questions, sizing help, orders or wholesale — we\'d love to hear from you.</p></div></section>' +
@@ -1536,7 +1624,7 @@
       '<div class="contact-card">' + ICON.wa + '<div><b>WhatsApp</b><a target="_blank" rel="noopener" href="' + waLink("Hello Ethereal Curves!") + '">' + fmtPhone(S.whatsapp) + "</a><br><span class=\"muted\">Fastest way to reach us</span></div></div>" +
       '<div class="contact-card">' + ICON.phone + "<div><b>Call</b>" + S.phones.map(function (p) { return '<a href="tel:+' + p + '">' + fmtPhone(p) + "</a>"; }).join("<br>") + "</div></div>" +
       '<div class="contact-card">' + ICON.mail + '<div><b>Email</b><a href="mailto:' + S.email + '">' + S.email + "</a></div></div>" +
-      '<div class="contact-card">' + ICON.pin + "<div><b>Based in</b>" + esc(S.location) + "<br><span class=\"muted\">Delivering across Liberia &amp; beyond</span></div></div>" +
+      '<div class="contact-card">' + ICON.pin + "<div><b>Visit our store</b>" + esc(S.storeAddress || S.location) + "<br><span class=\"muted\">Delivering across Liberia &amp; beyond</span></div></div>" +
       '<div class="contact-card">' + ICON.clock + "<div><b>Hours</b>" + esc(S.hours) + "</div></div></div>" +
       '<form id="contactForm" class="calc" style="margin:0"><h2 class="h-md">Send a message</h2><div class="fields">' +
       '<div class="field"><label for="ctName">Name</label><input id="ctName" name="name" required autocomplete="name"></div>' +
@@ -1571,7 +1659,7 @@
     ["Delivery", [
       ["How fast is delivery?", "Within Monrovia: 1–2 business days. Outside Monrovia (all 15 counties): 3–5 business days. International: we'll send a shipping quote and timeline on WhatsApp."],
       ["How much is delivery?", "Monrovia delivery is $5 and free on orders over $" + S.freeDeliveryOver + ". Pickup is free. Delivery outside Monrovia is $10."],
-      ["Can I pick up my order?", "Yes — choose \"Pick up in Monrovia\" at checkout and we'll WhatsApp you the pickup point and time."]
+      ["Can I pick up my order?", "Yes — choose \"Pick up at our store\" at checkout and collect your order from our store near the Kailondo Hotel on Old Road, Monrovia. We'll WhatsApp you when it's ready."]
     ]],
     ["Returns & exchanges", [
       ["What is your return policy?", "Unopened, unused beauty products can be exchanged within 7 days of delivery. For hygiene reasons, opened beauty products can't be returned unless they arrived damaged."],
@@ -1745,6 +1833,11 @@
         toast("Your full look is in your bag ✦");
         break;
       case "copy": copyText(t.dataset.text, t.dataset.label); break;
+      case "scroll-to":
+        e.preventDefault();
+        var tg = document.getElementById(t.dataset.target);
+        if (tg) tg.scrollIntoView({ behavior: "smooth", block: "start" });
+        break;
       case "search-tag": searchInput.value = t.dataset.q; renderSearch(); searchInput.focus(); break;
     }
   });
@@ -1805,7 +1898,9 @@
 
   (function announcements() {
     var track = $("#announce");
-    track.innerHTML = S.announcements.map(function (m, i) { return '<div class="announce__msg' + (i === 0 ? " is-on" : "") + '">' + esc(m) + "</div>"; }).join("");
+    var msgs0 = S.announcements.map(function (m) { return esc(m); });
+    if (campaignActive()) msgs0.unshift('<a href="#/breasties">🎀 ' + esc(CAMP.title) + " · Spend $" + CAMP.raffleMin + "+ to enter the " + esc(CAMP.hashtag) + " Raffle</a>");
+    track.innerHTML = msgs0.map(function (m, i) { return '<div class="announce__msg' + (i === 0 ? " is-on" : "") + '">' + m + "</div>"; }).join("");
     var msgs = $$(".announce__msg", track), i = 0;
     if (msgs.length < 2) return;
     setInterval(function () {
@@ -1820,7 +1915,7 @@
     var social = ["instagram", "facebook", "tiktok"].filter(function (k) { return S.social[k]; });
     c.innerHTML += '<a target="_blank" rel="noopener" href="' + waLink("Hello Ethereal Curves!") + '">WhatsApp ' + fmtPhone(S.whatsapp) + "</a>" +
       S.phones.map(function (p) { return '<a href="tel:+' + p + '">Call ' + fmtPhone(p) + "</a>"; }).join("") +
-      '<a href="mailto:' + S.email + '">' + S.email + "</a><span>" + esc(S.location) + "</span>" +
+      '<a href="mailto:' + S.email + '">' + S.email + "</a><span>" + esc(S.storeAddress || S.location) + "</span>" +
       (social.length ? '<div class="footer__social">' + social.map(function (k) {
         return '<a href="' + esc(S.social[k]) + '" target="_blank" rel="noopener" aria-label="' + k + '">' + ICON[k] + "</a>";
       }).join("") + "</div>" : "");
@@ -1835,6 +1930,7 @@
   /* ------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------ */
+  if (!campaignActive()) $$("[data-campaign]").forEach(function (el) { el.hidden = true; });
   syncCurrency();
   updateCounts();
   renderCart();
