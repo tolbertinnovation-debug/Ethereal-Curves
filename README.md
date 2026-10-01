@@ -4,8 +4,9 @@
 **The Ethereal Collective Inc**, founded by **Musu Deshield Mitchell**.
 
 This is a fast, mobile-first store for the brand's collections: **Makeup** (lipstick, glossy and
-matte lip gloss, foundation, loose and pressed powder, designer & brands), **Radiance** (skincare
-and body glow), **Sculpture** (shapewear), **Intimates & Lingerie**, **Essence** (fragrance),
+matte lip gloss, foundation, loose and pressed powder, designer & brands), **Radiance** (skincare,
+body care, body shimmer and men's grooming — with curated brands such as COSRX, Isntree, Vaseline,
+Dr Teal's, Medix 5.5, EELHOE, Balance Active Formula and East Moon), **Sculpture** (shapewear), **Intimates & Lingerie**, **Essence** (fragrance),
 **Essentials** (shoes, handbags, jewelry, watches), **Accessories** and **Vitality** (wellness).
 Collections without products yet show an elegant "Coming soon" page. It needs **no server, database or monthly platform fee**. It's plain
 HTML, CSS and JavaScript, and you can host it free on GitHub Pages, Netlify or Cloudflare Pages.

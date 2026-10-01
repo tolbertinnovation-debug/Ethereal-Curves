@@ -18,6 +18,7 @@
     var c = catById[p.category];
     return c && c.subs ? c.subs.find(function (x) { return x.id === p.sub; }) : null;
   }
+  function labelOf(p) { var sb = subOf(p); return p.brand || (sb ? sb.name : shortName(catById[p.category])); }
   function catCount(id) { return PRODUCTS.filter(function (p) { return p.category === id; }).length; }
   function shortName(c) { return c.short || c.name; }
 
@@ -542,7 +543,7 @@
         '<img src="' + img(p.images[0], true) + '" alt="' + esc(p.name) + '" loading="lazy">' + alt + "</a>" +
       '<button type="button" class="card__wish' + (isWished(p.id) ? " is-on" : "") + '" data-action="wish" data-id="' + p.id + '" aria-pressed="' + isWished(p.id) + '" aria-label="Save ' + esc(p.name) + ' to wishlist">' + ICON.heart + "</button>" +
       (p.soldOut ? "" : '<div class="card__quick"><button type="button" class="btn" data-action="' + (choose ? "quick" : "add") + '" data-id="' + p.id + '" aria-label="' + (choose ? chooseLabel(p) : "Add to bag") + ": " + esc(p.name) + '">' + ICON.plus + "<span>" + (choose ? chooseLabel(p) : "Add to bag") + "</span></button></div>") +
-      '<div class="card__body"><span class="card__cat">' + esc(subOf(p) ? subOf(p).name : shortName(catById[p.category])) + "</span>" +
+      '<div class="card__body"><span class="card__cat">' + esc(labelOf(p)) + "</span>" +
       '<h3 class="card__name"><a href="#/product/' + p.id + '">' + esc(p.name) + "</a></h3>" +
       '<div class="card__row"><span class="price">' + (p.soldOut ? "Sold out" : priceHTML(p)) + "</span>" + miniSwatches(p) + "</div></div></article>";
   }
@@ -555,7 +556,7 @@
     var p = byId[id];
     var fid = newForm(p);
     openModal('<div class="qv"><div class="qv__img"><img src="' + img(p.images[0]) + '" alt="' + esc(p.name) + '"></div>' +
-      '<div class="qv__info" data-formroot="' + fid + '"><p class="pinfo__cat">' + esc(subOf(p) ? subOf(p).name : shortName(catById[p.category])) + "</p>" +
+      '<div class="qv__info" data-formroot="' + fid + '"><p class="pinfo__cat">' + esc(labelOf(p)) + "</p>" +
       "<h2>" + esc(p.name) + '</h2><p class="pinfo__price">' + priceHTML(p) + ' <span class="alt">' + altMoney(p.price) + "</span></p>" +
       '<p class="pinfo__short">' + esc(p.short) + "</p>" + optionsHTML(p, fid) +
       '<div class="buy" style="grid-template-columns:auto 1fr">' + qtyHTML(fid) +
@@ -689,7 +690,7 @@
     var rail = '<section class="section section--cream"><div class="container">' +
       '<div class="section__head reveal"><div><p class="eyebrow">The icons</p><h2 class="h-lg">Most Loved</h2></div>' +
       '<div class="toolbar__chips" role="tablist" aria-label="Filter products">' +
-      [["best", "Bestsellers"], ["new", "New In"], ["makeup", "Makeup"], ["sculpture", "Sculpture"], ["intimates", "Intimates"]].map(function (t, i) {
+      [["best", "Bestsellers"], ["new", "New In"], ["makeup", "Makeup"], ["radiance", "Radiance"], ["sculpture", "Sculpture"], ["intimates", "Intimates"]].map(function (t, i) {
         return '<button type="button" class="chip' + (i === 0 ? " is-active" : "") + '" role="tab" aria-selected="' + (i === 0) + '" data-action="rail" data-tab="' + t[0] + '">' + t[1] + "</button>";
       }).join("") + '</div></div><div id="rail">' + gridHTML(railList("best")) + '</div>' +
       '<div class="center" style="margin-top:44px"><a class="btn btn--outline" href="#/shop">Shop all products</a></div></div></section>';
@@ -834,7 +835,7 @@
   function matchesQuery(p, text) {
     if (!text) return true;
     var c = catById[p.category], sb = subOf(p);
-    var hay = [p.name, p.short, c.name, c.title, sb ? sb.name + " " + sb.title : "", (p.claims || []).join(" ")]
+    var hay = [p.brand || "", p.name, p.short, p.details || "", c.name, c.title, sb ? sb.name + " " + sb.title : "", (p.claims || []).join(" ")]
       .concat((p.options || []).reduce(function (a, o) { return a.concat(o.values.map(function (v) { return v.label; })); }, []))
       .join(" ").toLowerCase();
     return text.toLowerCase().split(/\s+/).every(function (w) { return hay.indexOf(w) > -1 || hay.indexOf(w.replace(/s$/, "")) > -1; });
@@ -1029,7 +1030,7 @@
     var inquiry = "Hi Ethereal Curves! I have a question about the " + p.name + ".";
     var info = '<div class="pinfo" data-formroot="' + fid + '">' +
       '<nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span aria-hidden="true">/</span><a href="#/shop?cat=' + c.id + '">' + esc(c.name) + "</a>" + (sb ? '<span aria-hidden="true">/</span><a href="#/shop?cat=' + c.id + "&sub=" + sb.id + '">' + esc(sb.name) + "</a>" : "") + "</nav>" +
-      '<span class="pinfo__cat">' + esc(sb ? sb.name : c.name) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
+      '<span class="pinfo__cat">' + esc((p.brand ? p.brand + " · " : "") + (sb ? sb.name : c.name)) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
       "<h1>" + esc(p.name) + "</h1>" +
       '<p class="pinfo__price">' + priceHTML(p) + '<span class="alt">' + altMoney(p.price) + "</span></p>" +
       '<p class="pinfo__short">' + esc(p.short) + "</p>" +
@@ -1043,7 +1044,7 @@
       '<a class="btn btn--outline btn--block buy__wa" target="_blank" rel="noopener" data-action="wa-ask" data-form="' + fid + '" href="' + waLink(inquiry) + '">' + ICON.wa + " Ask about this on WhatsApp</a>" +
       '<div class="perks"><div class="perk">' + ICON.truck + "<span>Free Monrovia delivery over " + money(S.freeDeliveryOver) + "</span></div>" +
       '<div class="perk">' + ICON.mobile + "<span>Orange Money, MTN MoMo &amp; cash</span></div>" +
-      '<div class="perk">' + ICON.shield + "<span>Authentic Ethereal Curves</span></div></div>" +
+      '<div class="perk">' + ICON.shield + "<span>Authentic " + esc(p.brand || "Ethereal Curves") + "</span></div></div>" +
       '<details class="acc" open><summary>Description</summary><div class="acc__body"><p>' + esc(p.description) + "</p>" +
       (p.benefits ? "<ul>" + p.benefits.map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>" : "") + "</div></details>" +
       (p.howTo ? '<details class="acc"><summary>How to use</summary><div class="acc__body"><p>' + esc(p.howTo) + "</p></div></details>" : "") +
@@ -1699,7 +1700,7 @@
     var out = $("#searchResults");
     if (!q) {
       out.innerHTML = '<p class="eyebrow">Popular searches</p><div class="search__tags">' +
-        ["Lipstick", "Lip gloss", "Foundation", "Powder", "Shimmer", "Sculpture", "Strapless", "Nude"].map(function (t) {
+        ["Lipstick", "Lip gloss", "Foundation", "Skincare", "SPF", "COSRX", "Men", "Shapewear"].map(function (t) {
           return '<button type="button" class="chip" data-action="search-tag" data-q="' + t + '">' + t + "</button>";
         }).join("") + '</div><p class="eyebrow" style="margin-top:28px">Trending now</p><div class="search__grid">' +
         PRODUCTS.filter(function (p) { return p.bestseller; }).slice(0, 4).map(searchHit).join("") + "</div>";
