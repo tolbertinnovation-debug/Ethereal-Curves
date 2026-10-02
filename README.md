@@ -23,7 +23,7 @@ HTML, CSS and JavaScript, and you can host it free on GitHub Pages, Netlify or C
 | **Product pages** | Photo gallery with zoom (desktop) and swipe (phone), colour swatches for shades, size pickers, quantity, wishlist, "Ask on WhatsApp", details sections, "You may also love" and "Recently viewed" |
 | **Quick view** | Pick a shade and add to the bag without leaving the page |
 | **Shopping bag** | Slide-out bag, free-delivery progress bar, promo codes, "Complete your look" suggestions, plus a one-tap "Order on WhatsApp" |
-| **Checkout built for Liberia** | Delivery in Monrovia, pickup, all 15 counties, or international. Payment by **Orange Money**, **MTN Mobile Money** or **cash on delivery**. The order goes straight to your WhatsApp with every detail |
+| **Checkout built for Liberia** | Delivery in Monrovia, pickup, all 15 counties, or international. Payment by **Lonestar MTN Mobile Money**, **Ecobank bank transfer** (USD or LRD) or **cash on delivery**. The order goes straight to your WhatsApp with every detail |
 | **Order confirmation** | Order number, mobile money number and amount with copy buttons, a full receipt, and a resend by WhatsApp or email |
 | **USD ⇄ LRD** | Customers can view prices in Liberian dollars at the rate you set |
 | **Shade Finder** | A 3-question quiz that matches foundation, powder, lip gloss and body serum. Customers can add the whole look to their bag in one tap |
@@ -65,25 +65,18 @@ Put images in `assets/img/` as `.webp` files, in two sizes: `name.webp` (about 1
 
 ---
 
-## ⚠️ Please review before launch
+## ⚠️ Still to confirm
 
-These are placeholders I set. Please confirm or change them:
-
-1. **Prices.** Only the lip glosses ($15) and Shimmer Body Serum ($20) came from your posters.
-   Every other price is my estimate.
-2. **Mobile money numbers.** Orange Money → 0770 267 112 and MTN MoMo → 0886 519 747, with the
-   account name "Musu Deshield Mitchell". Please confirm.
-3. **Exchange rate.** It is set to L$185 = $1.
-4. **Shade names and colours.** The lip gloss codes (YG01–YG24, CC01–CC12) come from your
-   posters. The descriptive names (for example "Flame Red") and the on-screen colour dots are
-   close matches that I chose. The powder and foundation shades use your Golden Silk → Midnight
-   Cocoa range.
-5. **Size charts and bra/cup range.** These are standard measurements. Check them against your
-   supplier's charts.
-6. **Returns policy (FAQ page).** It says 7-day exchanges for unopened items. Adjust it to your
-   policy.
-7. **Shimmer Body Serum photos.** The bottles in these photos show another brand's name. Replace
-   them with Ethereal Curves–branded photos when you have them.
+1. **Isntree prices.** You sent $40 for the Isntree sun gel + moist cream poster; the site
+   sells them at $20 each. Change them in `products.js` if it is $40 each.
+2. **COSRX Salicylic Acid Cleanser** and **Shimmer Body Serum** prices ($16 / $20) are still
+   placeholders.
+3. **Bra & panty sizes** for the Everyday Bras and Everyday Panties are typical ranges — check them
+   against your stock.
+4. **Store opening days.** Hours show 9:00 AM – 8:00 PM; add the days in `config.js` if needed.
+5. **Orange Money** is switched off until the account is registered (see `config.js`).
+6. **Exchange rate** is L$182.4 = $1 (October 2026). Update `lrdRate` in `config.js` when it moves.
+7. **Returns policy (FAQ page)** says 7-day exchanges for unopened items. Adjust it to your policy.
 
 ---
 

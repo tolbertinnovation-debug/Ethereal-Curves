@@ -11,7 +11,8 @@
   var PRODUCTS = window.PRODUCTS;
   var CATS = window.CATEGORIES;
   var byId = {};
-  PRODUCTS.forEach(function (p) { byId[p.id] = p; });
+  PRODUCTS.forEach(function (p) { byId[p.id] = p; if (p.comingSoon) p.soldOut = true; });
+  function soldText(p) { return p.comingSoon ? "Coming soon" : "Sold out"; }
   var catById = {};
   CATS.forEach(function (c) { catById[c.id] = c; });
   function subOf(p) {
@@ -42,6 +43,7 @@
   function img(name, small) { return "assets/img/" + name + (small ? "-sm" : "") + ".webp"; }
   function round2(n) { return Math.round(n * 100) / 100; }
   function fmtPhone(d) { return "+" + d.slice(0, 3) + " " + d.slice(3, 6) + " " + d.slice(6, 9) + " " + d.slice(9); }
+  function handle(url) { return String(url).replace(/[?#].*$/, "").replace(/\/+$/, "").split("/").pop().replace(/^@/, ""); }
   function waLink(text) { return "https://wa.me/" + S.whatsapp + (text ? "?text=" + encodeURIComponent(text) : ""); }
 
   var store = {
@@ -368,7 +370,7 @@
       return;
     }
     var inCart = state.cart.map(function (l) { return l.id; });
-    var ups = PRODUCTS.filter(function (p) { return p.bestseller && inCart.indexOf(p.id) < 0; }).slice(0, 2);
+    var ups = PRODUCTS.filter(function (p) { return p.bestseller && !p.soldOut && inCart.indexOf(p.id) < 0; }).slice(0, 2);
     body.innerHTML = shipBarHTML() + raffleHTML() + state.cart.map(function (l) { return lineHTML(l); }).join("") +
       (ups.length ? '<div class="upsell"><h3>Complete your look</h3>' + ups.map(function (p) {
         return '<div class="upsell__item"><img src="' + img(p.images[0], true) + '" alt=""><div><a href="#/product/' + p.id + '">' + esc(p.name) + '</a><br><span class="muted">' + money(p.price) + '</span></div>' +
@@ -545,7 +547,7 @@
       (p.soldOut ? "" : '<div class="card__quick"><button type="button" class="btn" data-action="' + (choose ? "quick" : "add") + '" data-id="' + p.id + '" aria-label="' + (choose ? chooseLabel(p) : "Add to bag") + ": " + esc(p.name) + '">' + ICON.plus + "<span>" + (choose ? chooseLabel(p) : "Add to bag") + "</span></button></div>") +
       '<div class="card__body"><span class="card__cat">' + esc(labelOf(p)) + "</span>" +
       '<h3 class="card__name"><a href="#/product/' + p.id + '">' + esc(p.name) + "</a></h3>" +
-      '<div class="card__row"><span class="price">' + (p.soldOut ? "Sold out" : priceHTML(p)) + "</span>" + miniSwatches(p) + "</div></div></article>";
+      '<div class="card__row"><span class="price">' + (p.soldOut ? soldText(p) : priceHTML(p)) + "</span>" + miniSwatches(p) + "</div></div></article>";
   }
 
   function gridHTML(list, cls) {
@@ -647,9 +649,9 @@
       title: 'Elevate <span class="script gold-text">Your Beauty</span>',
       text: "A velvet, flawless finish in a mirrored black-and-gold compact. Shades created for melanin-rich skin.",
       cta: [["Shop makeup", "#/shop?cat=makeup", "btn--gold"], ["Find your shade", "#/shade-finder", "btn--light"]] },
-    { tone: "champagne", image: "strapless-card", pos: "center 18%", eyebrow: "The New Strapless Collection",
+    { tone: "champagne", image: "ic-comfort-set", pos: "center 20%", eyebrow: "New · Plus Size Comfort Set · $35",
       title: 'Support That <span class="script">Celebrates You</span>',
-      text: "The ultimate in comfort and lift, designed for every beautiful curve.",
+      text: "Supportive, breathable, everyday comfort in band sizes 75–95 and cups DD to JK. Designed for curves. Made for you.",
       cta: [["Shop intimates", "#/shop?cat=intimates", "btn--dark"], ["Size guide", "#/size-guide", "btn--outline"]] },
     { tone: "blush", image: "lacquer", pos: "center", eyebrow: "Lipsticks · Glosses · Matte Lip Gloss",
       title: 'Lips That <span class="script">Speak First</span>',
@@ -767,8 +769,8 @@
   }
 
   function railList(tab) {
-    if (tab === "best") return PRODUCTS.filter(function (p) { return p.bestseller; }).slice(0, 4);
-    if (tab === "new") return PRODUCTS.filter(function (p) { return p.isNew; }).concat(PRODUCTS.filter(function (p) { return !p.isNew && p.category === "makeup"; })).slice(0, 4);
+    if (tab === "best") return PRODUCTS.filter(function (p) { return p.bestseller && !p.soldOut; }).slice(0, 4);
+    if (tab === "new") return PRODUCTS.filter(function (p) { return p.isNew && !p.soldOut && (p.category !== "radiance"); }).slice(0, 4);
     return PRODUCTS.filter(function (p) { return p.category === tab; }).slice(0, 4);
   }
 
@@ -853,7 +855,7 @@
     });
     var idx = function (p) { return PRODUCTS.indexOf(p); };
     var sorters = {
-      featured: function (a, b) { return idx(a) - idx(b); },
+      featured: function (a, b) { return (a.soldOut ? 1 : 0) - (b.soldOut ? 1 : 0) || idx(a) - idx(b); },
       bestsellers: function (a, b) { return (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0) || idx(a) - idx(b); },
       "new": function (a, b) { return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0) || idx(a) - idx(b); },
       "price-asc": function (a, b) { return a.price - b.price; },
@@ -1037,7 +1039,7 @@
       (p.claims ? '<div class="claims">' + p.claims.map(function (x) { return '<span class="claim">' + esc(x) + "</span>"; }).join("") + "</div>" : "") +
       optionsHTML(p, fid) +
       (p.soldOut
-        ? '<div class="buy" style="grid-template-columns:1fr"><a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink("Hi! Please let me know when the " + p.name + " is back in stock.") + '">' + ICON.wa + " Notify me on WhatsApp</a></div>"
+        ? '<div class="buy" style="grid-template-columns:1fr"><a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink("Hi! Please let me know when the " + p.name + (p.comingSoon ? " arrives." : " is back in stock.")) + '">' + ICON.wa + " Notify me on WhatsApp</a></div>"
         : '<div class="buy" id="buyRow">' + qtyHTML(fid) +
           '<button type="button" class="btn btn--dark" data-action="form-add" data-form="' + fid + '">' + ICON.bag + " Add to bag · " + money(p.price) + "</button>" +
           '<button type="button" class="wish-btn' + (isWished(p.id) ? " is-on" : "") + '" data-action="wish" data-id="' + p.id + '" aria-pressed="' + isWished(p.id) + '" aria-label="Save to wishlist">' + ICON.heart + "</button></div>") +
@@ -1119,7 +1121,7 @@
   var checkoutDraft = store.get("customer", {});
 
   views.checkout = function () {
-    setMeta("Checkout", "Secure checkout — pay with Orange Money, MTN Mobile Money, Ecobank bank transfer or cash on delivery.");
+    setMeta("Checkout", "Secure checkout — pay with Lonestar MTN Mobile Money, Ecobank bank transfer or cash on delivery.");
     if (!state.cart.length) {
       return '<div class="container"><div class="empty" style="padding:100px 0">' + ICON.bag + '<h1 class="h-lg">Your bag is empty</h1><p class="muted">Add something beautiful, then come back to check out.</p>' +
         '<div class="actions"><a class="btn btn--dark" href="#/shop">Continue shopping</a></div></div></div>';
@@ -1470,6 +1472,7 @@
   ];
   var BODY_ROWS = [["S", 28, 38], ["M", 31, 41], ["L", 34, 44], ["XL", 37, 47], ["2XL", 41, 51], ["3XL", 45, 55], ["4XL", 49, 59]];
   var CUPS = ["AA", "A", "B", "C", "D", "DD", "DDD/F", "G", "H", "I"];
+  var UK_CUPS = ["AA", "A", "B", "C", "D", "DD", "E", "F", "FF", "G", "GG", "H", "HH", "J", "JJ", "K"];
 
   function sizeGuideHTML(tab) {
     tab = tab || "bra";
@@ -1480,9 +1483,11 @@
       '<div class="field"><label for="sgBust">Fullest bust</label><input id="sgBust" type="number" inputmode="decimal" min="0" placeholder="e.g. 43"></div>' +
       '<button type="button" class="btn btn--dark" data-action="calc-bra">Calculate</button></div><div class="calc__out" id="sgBraOut" aria-live="polite"></div>' +
       '<p class="muted" style="font-size:.88rem;margin:0">Measure snugly around your ribcage just under the bust, then loosely around the fullest part of your bust while wearing a non-padded bra.</p></div>' +
-      '<div class="table-wrap"><table><thead><tr><th>Bust − band</th>' + ["3 in", "4 in", "5 in", "6 in", "7 in"].map(function (x) { return "<th>" + x + "</th>"; }).join("") + "</tr></thead><tbody>" +
-      "<tr><td>Cup</td><td>C</td><td>D</td><td>DD</td><td>DDD/F</td><td>G</td></tr></tbody></table></div>" +
-      '<p class="muted" style="font-size:.88rem;margin-top:14px">Available in bands 34 – 46 and cups C – G. Between sizes? Choose the larger band and message us — we\'re happy to help you find your fit.</p></div>';
+      '<div class="table-wrap"><table><thead><tr><th>US band</th><th>32</th><th>34</th><th>36</th><th>38</th><th>40</th><th>42</th></tr></thead><tbody>' +
+      "<tr><td>EU band</td><td>70</td><td>75</td><td>80</td><td>85</td><td>90</td><td>95</td></tr></tbody></table></div>" +
+      '<div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>Bust − band</th>' + ["5 in", "6 in", "7 in", "8 in", "9 in", "10 in", "11 in", "12 in"].map(function (x) { return "<th>" + x + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      "<tr><td>Cup</td><td>DD</td><td>E</td><td>F</td><td>FF</td><td>G</td><td>GG</td><td>H</td><td>HH</td></tr></tbody></table></div>" +
+      '<p class="muted" style="font-size:.88rem;margin-top:14px">Our bras use European band sizes. Plus size bras come in bands 75 – 95 with cups DD – HH (extended I – JK). Between sizes? Choose the larger band and message us — we\'re happy to help you find your fit.</p></div>';
 
     var body = '<div data-sgpanel="body"' + (tab !== "body" ? " hidden" : "") + ">" +
       '<div class="calc"><h3 class="h-md" style="margin-bottom:14px">Find your shapewear size</h3>' +
@@ -1511,10 +1516,14 @@
     if (!(ub > 20) || !(bust > ub)) { out.textContent = "Please enter both measurements (bust larger than underbust)."; return; }
     var band = Math.round(ub / 2) * 2;
     var diff = Math.round(bust - band);
-    var cup = CUPS[Math.max(0, Math.min(CUPS.length - 1, diff))];
-    var size = band + cup;
-    var ok = band >= 34 && band <= 46 && ["C", "D", "DD", "DDD/F", "G"].indexOf(cup) > -1;
-    out.innerHTML = "Your estimated size: <b>" + size + "</b>" + (ok ? "" : '<br><span class="muted" style="font-size:1rem">This size isn\'t listed yet — <a class="link" target="_blank" rel="noopener" href="' + waLink("Hi! My bra size is about " + size + ". Do you have a strapless bra that fits?") + '">ask us on WhatsApp</a>.</span>');
+    var cup = UK_CUPS[Math.max(0, Math.min(UK_CUPS.length - 1, diff))];
+    var eu = 75 + (band - 34) / 2 * 5;
+    var size = "EU " + eu + cup + " (US " + band + ")";
+    var plus = band >= 34 && band <= 42 && diff >= 5;
+    var regular = band >= 32 && band <= 38 && diff >= 1 && diff <= 4;
+    out.innerHTML = "Your estimated size: <b>" + size + "</b><br><span class=\"muted\" style=\"font-size:1rem\">" +
+      (plus ? 'Fits our <a class="link" href="#/shop?cat=intimates">plus size bras</a>.' : regular ? 'Try our <a class="link" href="#/product/everyday-bra-regular">Everyday Bra — Regular</a>.' :
+        '<a class="link" target="_blank" rel="noopener" href="' + waLink("Hi! My bra size is about " + size + ". What do you have that fits?") + '">Ask us on WhatsApp</a> what fits best.') + "</span>";
   }
 
   function calcBody(root) {
@@ -1626,7 +1635,8 @@
       '<p class="camp-close__line">Stronger, kinder, brighter, together!</p>' +
       '<p class="camp-tags">#Breasties #EtherealCurves #BreastCancerAwareness #SelfCare #Monrovia</p>' +
       '<div class="actions"><button type="button" class="btn btn--outline" data-action="copy" data-text="#Breasties #EtherealCurves #BreastCancerAwareness #SelfCare #Monrovia" data-label="Hashtags">Copy hashtags</button>' +
-      (S.social.instagram ? '<a class="btn btn--dark" target="_blank" rel="noopener" href="' + esc(S.social.instagram) + '">' + ICON.instagram + " @etherealcurves</a>" : "") + "</div></div></section>";
+      (S.social.instagram ? '<a class="btn btn--dark" target="_blank" rel="noopener" href="' + esc(S.social.instagram) + '">' + ICON.instagram + " @" + esc(handle(S.social.instagram)) + "</a>" : "") +
+      (S.social.tiktok ? '<a class="btn btn--dark" target="_blank" rel="noopener" href="' + esc(S.social.tiktok) + '">' + ICON.tiktok + " @" + esc(handle(S.social.tiktok)) + "</a>" : "") + "</div></div></section>";
   };
   views["love-your-breasts"] = views.breasties;
 
@@ -1665,7 +1675,7 @@
   var FAQ = [
     ["Orders & payment", [
       ["How do I place an order?", "Add your favourites to your bag and check out. Your order is sent to us on WhatsApp, where we confirm availability and delivery. You can also simply message us on WhatsApp with what you'd like."],
-      ["Which payment methods do you accept?", "Orange Money, MTN Mobile Money, Ecobank bank transfer (USD or LRD account, title: The Ethereal Collective), and cash on delivery for Monrovia delivery and pickup. Use your order number as the payment reference so we can match it quickly."],
+      ["Which payment methods do you accept?", "Lonestar MTN Mobile Money, Ecobank bank transfer (USD or LRD account, title: The Ethereal Collective), and cash on delivery for Monrovia delivery and pickup. Use your order number as the payment reference so we can match it quickly."],
       ["Can I pay in Liberian dollars?", "Yes. Switch the currency at the top of the page to see prices in LRD. The LRD amount is an estimate based on the current exchange rate — we'll confirm the exact amount on WhatsApp."],
       ["Do you have discount codes?", "Use WELCOME10 for 10% off your first order. Join the Ethereal Circle to hear about private offers first."]
     ]],

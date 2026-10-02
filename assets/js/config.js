@@ -13,16 +13,16 @@ window.STORE = {
   // Phone numbers in international format, digits only (no + or spaces)
   whatsapp: "231886519747",          // orders are sent to this WhatsApp
   phones: ["231886519747", "231770267112"],
-  email: "musu4real@gmail.com",
+  email: "etherealcurves55@gmail.com",
 
   location: "Monrovia, Liberia",
   storeAddress: "Near the Kailondo Hotel, Old Road, Monrovia",
-  hours: "Mon – Sat · 9:00 AM – 7:00 PM",
+  hours: "9:00 AM – 8:00 PM",
 
   social: {
-    instagram: "https://instagram.com/etherealcurves",
+    instagram: "https://www.instagram.com/ethereal_curves1",
     facebook: "",
-    tiktok: ""
+    tiktok: "https://www.tiktok.com/@etherealcurves"
   },
 
   /* ---------------- Currency ----------------
@@ -30,7 +30,7 @@ window.STORE = {
      Customers can switch the display to Liberian dollars.
      UPDATE lrdRate whenever the exchange rate moves. */
   currency: {
-    lrdRate: 185,            // 1 USD = 185 LRD  (update regularly)
+    lrdRate: 182.4,          // 1 USD = 182.4 LRD (mid-market, Oct 2026 — update regularly)
     default: "USD"           // "USD" or "LRD"
   },
 
@@ -44,22 +44,18 @@ window.STORE = {
   ],
 
   /* ---------------- Payment ----------------
-     Confirm these mobile money numbers and the registered account name. */
+     Orange Money is switched off until the account is registered.
+     To turn it back on, add an entry like this to the list below:
+     { id: "orange", label: "Orange Money", color: "#ff7900", number: "07xxxxxxxx",
+       accountName: "The Ethereal Collective Inc",
+       steps: "Dial *144#, choose Transfer Money, send the total to the number above and use your order number as the reference." }, */
   payments: [
     {
-      id: "orange",
-      label: "Orange Money",
-      color: "#ff7900",
-      number: "0770267112",
-      accountName: "Musu Deshield Mitchell",
-      steps: "Dial *144#, choose Transfer Money, send the total to the number above and use your order number as the reference."
-    },
-    {
       id: "mtn",
-      label: "MTN Mobile Money",
+      label: "Lonestar MTN Mobile Money",
       color: "#ffcc00",
-      number: "0886519747",
-      accountName: "Musu Deshield Mitchell",
+      number: "0555098503",
+      accountName: "The Ethereal Collective Inc",
       steps: "Dial *156#, choose Transfer Money, send the total to the number above and use your order number as the reference."
     },
     {
@@ -110,8 +106,9 @@ window.STORE = {
 
   announcements: [
     "Free delivery in Monrovia on orders over $50",
-    "Pay with Orange Money, MTN MoMo, Ecobank transfer or cash on delivery",
-    "New in: The Strapless Collection",
+    "Pay with Lonestar MTN MoMo, Ecobank transfer or cash on delivery",
+    "New: The Ethereal Signature VIP Box — save $45",
+    "New in: Plus Size Comfort Set & Minimizer Bras",
     "Use code WELCOME10 for 10% off your first order"
   ]
 };
