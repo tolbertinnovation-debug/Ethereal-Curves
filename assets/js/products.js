@@ -14,6 +14,8 @@
      compareAt: an optional old price to show a sale ("was $20").
      badge:     optional label — "New", "Bestseller", "Limited" …
      soldOut:   true hides the Add to Bag button.
+     image:     on a shade/colour option value, a photo that shows when
+                that shade is chosen (it must also be in "images").
      featured:  optional number (1 = first) to choose the order products
                 appear in on collection pages. Others follow afterwards.
    ===================================================================== */
@@ -233,6 +235,24 @@ window.PRODUCTS = [
       { name: "Finish", type: "button", values: [{ label: "Matte Liquid Lipstick" }, { label: "Luminous Lip Gloss" }] },
       { name: "Shade", type: "swatch", values: [{ label: "VP06 · Terracotta", hex: "#c24d33" }] }
     ]
+  },
+  {
+    id: "matte-lipstick",
+    name: "Matte Lipstick",
+    category: "makeup",
+    sub: "lipstick",
+    featured: 1,
+    price: 25,
+    badge: "New",
+    isNew: true,
+    images: ["lip-coral-red", "lip-raspberry", "lip-royal-red", "lip-coral-noir", "lip-terracotta", "lip-classic-red", "lip-deep-red", "lip-plum"],
+    short: "Rich, velvety matte colour in eight shades — presented in our Gold Leaf, Blush Crystal, Noir and Royal Red cases.",
+    description: "Make every look unforgettable with Ethereal Curves Matte Lipstick — rich, high-impact colour with a soft, velvety matte finish that stays comfortable all day. Choose your shade from bold reds and berries to coral and terracotta, each in its own luxury case and our signature Ethereal Curves box.",
+    benefits: ["Rich, high-impact matte colour", "Soft, velvety finish that stays comfortable", "Long-lasting wear", "Eight shades from bold reds to warm corals", "Luxury cases in the signature Ethereal Curves box"],
+    howTo: "Apply from the centre of the lips outward. For extra precision, line the lips first. Blot and reapply for deeper colour.",
+    details: "Tap a shade to see its case · Presented in the Ethereal Curves gift box",
+    claims: ["Matte", "Long-wear", "Gift-ready"],
+    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Coral Red · Blush Crystal case", "hex": "#e0311f", "image": "lip-coral-red"}, {"label": "Raspberry · Gold Leaf case", "hex": "#c3164a", "image": "lip-raspberry"}, {"label": "Royal Red · Royal Red case", "hex": "#b5121b", "image": "lip-royal-red"}, {"label": "Coral Pink · Noir case", "hex": "#f0644e", "image": "lip-coral-noir"}, {"label": "Terracotta · Blush Crystal case", "hex": "#c6553e", "image": "lip-terracotta"}, {"label": "Classic Red · Gold Leaf case", "hex": "#d61f12", "image": "lip-classic-red"}, {"label": "Deep Red · Blush Crystal case", "hex": "#b0161f", "image": "lip-deep-red"}, {"label": "Plum Berry · Gold Leaf case", "hex": "#7b1a3a", "image": "lip-plum"}]}]
   },
   {
     id: "luxury-lipstick",

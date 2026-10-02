@@ -314,8 +314,8 @@
   function lineHTML(l, compact) {
     var p = byId[l.id];
     var media = compact
-      ? '<span class="qbadge"><img src="' + img(p.images[0], true) + '" alt=""><b>' + l.qty + "</b></span>"
-      : '<a href="#/product/' + p.id + '"><img src="' + img(p.images[0], true) + '" alt=""></a>';
+      ? '<span class="qbadge"><img src="' + img(imageFor(p, l.opts), true) + '" alt=""><b>' + l.qty + "</b></span>"
+      : '<a href="#/product/' + p.id + '"><img src="' + img(imageFor(p, l.opts), true) + '" alt=""></a>';
     var controls = compact ? "" :
       '<div class="qty qty--sm" role="group" aria-label="Quantity">' +
         '<button type="button" data-action="line-qty" data-key="' + esc(l.key) + '" data-d="-1" aria-label="Decrease quantity">−</button>' +
@@ -481,6 +481,27 @@
     });
     var wrap = btn.closest(".opt");
     if (wrap) wrap.classList.remove("opt--missing");
+    // a shade or colour with its own photo switches the product image
+    var p = byId[f.pid], o = (p.options || []).find(function (x) { return x.name === name; });
+    var v = o && o.values.find(function (x) { return x.label === val; });
+    if (v && v.image) showOptionImage(p, v.image, btn);
+  }
+
+  function showOptionImage(p, image, btn) {
+    var idx = p.images.indexOf(image);
+    if (btn.closest(".qv")) { var q = $(".qv__img img"); if (q) q.src = img(image); return; }
+    var g = $("#gImg"); if (g) g.src = img(image);
+    $$(".gallery__thumbs button").forEach(function (b, k) { b.classList.toggle("is-on", k === idx); });
+    var tr = $("#gTrack"); if (tr && idx > -1) tr.scrollTo({ left: idx * tr.clientWidth, behavior: "smooth" });
+  }
+
+  function imageFor(p, opts) {
+    var found = null;
+    (p.options || []).forEach(function (o) {
+      var v = o.values.find(function (x) { return opts && x.label === opts[o.name]; });
+      if (v && v.image && !found) found = v.image;
+    });
+    return found || p.images[0];
   }
 
   function submitForm(fid) {
@@ -1262,7 +1283,7 @@
     var id = "EC-" + Date.now().toString(36).slice(-6).toUpperCase();
     var order = {
       id: id, date: new Date().toISOString(),
-      items: state.cart.map(function (l) { var p = byId[l.id]; return { id: p.id, name: p.name, image: p.images[0], opts: l.opts, qty: l.qty, price: p.price }; }),
+      items: state.cart.map(function (l) { var p = byId[l.id]; return { id: p.id, name: p.name, image: imageFor(p, l.opts), opts: l.opts, qty: l.qty, price: p.price }; }),
       subtotal: sub, promo: disc ? state.promo : null, discount: disc, deliveryLabel: method.label, deliveryFee: fee,
       total: round2(sub - disc + (fee || 0)), payment: data.payment,
       customer: { name: data.firstName + " " + data.lastName, phone: normalizePhone(data.phone), email: data.email },
