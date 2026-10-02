@@ -688,7 +688,7 @@
     setMeta("", "Ethereal Curves: luxury beauty and curve-loving intimates from Monrovia, Liberia.");
     var gloss = byId["plump-shine-gloss"];
     var shades = gloss.options[0].values;
-    var fShades = byId["matte-liquid-foundation"].options[0].values;
+    var fShades = FINDER_SHADES;
 
     var hero = '<section class="hero" aria-roledescription="carousel" aria-label="Featured collections"><div class="hero__slides">' +
       SLIDES.map(function (s, i) {
@@ -1417,12 +1417,24 @@
     cool: ["YG06 · Petal Pink", "YG05 · Pink Coral", "YG16 · Berry Mauve", "YG16 · Berry Mauve", "YG10 · Plum"]
   };
 
+  // Skin-depth scale for the Shade Finder; each product's closest real shade is matched to it
+  var FINDER_SHADES = [
+    { label: "Golden Silk", hex: "#d7ae84" }, { label: "Caramel Veil", hex: "#c08a58" }, { label: "Amber Suede", hex: "#a36c46" },
+    { label: "Mocha Muse", hex: "#76503f" }, { label: "Midnight Cocoa", hex: "#3f2b24" }
+  ];
+  function nearestShade(pid, hex) {
+    var vals = byId[pid].options[0].values, rgb = function (h) { return [1, 3, 5].map(function (k) { return parseInt(h.substr(k, 2), 16); }); };
+    var t = rgb(hex), best = vals[0], bd = 1e9;
+    vals.forEach(function (v) { var c = rgb(v.hex), d = Math.pow(c[0] - t[0], 2) + Math.pow(c[1] - t[1], 2) + Math.pow(c[2] - t[2], 2); if (d < bd) { bd = d; best = v; } });
+    return best.label;
+  }
+
   function finderPicks() {
     var i = finder.depth - 1;
-    var fshade = byId["matte-liquid-foundation"].options[0].values[i];
+    var fshade = FINDER_SHADES[i];
     var fin = FINISHES.find(function (f) { return f.v === finder.finish; });
     return [
-      { pid: fin.pid, opts: { Shade: fshade.label }, why: "Your foundation match" },
+      { pid: fin.pid, opts: { Shade: nearestShade(fin.pid, fshade.hex) }, why: "Your closest foundation shade online" },
       { pid: "pressed-face-powder", opts: { Shade: ["Color 7 · Golden Beige", "Color 9 · Honey", "Color 10 · Caramel", "Color 14 · Golden Tan", "Color 16 · Toffee Brown"][i] }, why: "Set and touch up in the same tone" },
       { pid: "plump-shine-gloss", opts: { Shade: GLOSS_MAP[finder.tone][i] }, why: "A gloss that flatters your undertone" },
       { pid: "shimmer-body-serum", opts: { Shade: SERUM_MAP[finder.tone][i] }, why: "Your most radiant body glow" }
@@ -1460,7 +1472,7 @@
         }).join("") + "</div>" + nav(true);
     }
     var picks = finderPicks();
-    var fshade = byId["matte-liquid-foundation"].options[0].values[finder.depth - 1];
+    var fshade = FINDER_SHADES[finder.depth - 1];
     var total = picks.reduce(function (n, x) { return n + byId[x.pid].price; }, 0);
     return prog + '<div class="result"><div class="result__hero"><span class="big-sw" style="background:' + fshade.hex + '"></span><div><p class="eyebrow" style="margin-bottom:6px">Your Ethereal match</p>' +
       '<h2 class="h-lg" style="margin:0">' + esc(fshade.label) + '</h2><p style="margin:.3em 0 0;color:#bcae9d">' + DEPTHS[finder.depth - 1].label + " depth · " + finder.tone.charAt(0).toUpperCase() + finder.tone.slice(1) + " undertone</p></div></div>" +

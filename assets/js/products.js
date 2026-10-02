@@ -280,28 +280,28 @@ window.PRODUCTS = [
     price: 35,
     badge: "Bestseller",
     bestseller: true,
-    images: ["found-bottle", "found-swatch", "found-drip", "found-model", "found-collage"],
-    short: "Smooth, buildable coverage with a sophisticated soft-matte finish, in shades from Golden Silk to Midnight Cocoa.",
+    images: ["fd-matte-6", "fd-matte-6-top"],
+    short: "Smooth, buildable coverage with a sophisticated soft-matte finish. 1.05 fl oz / 30 ml tube.",
     description: "Create a flawless, refined complexion with the Ethereal Curves Matte Liquid Foundation, thoughtfully selected to deliver smooth, buildable coverage with a sophisticated soft-matte finish. Designed to beautifully complement a diverse range of skin tones, the lightweight formula helps even the appearance of the complexion while creating a polished, comfortable base that wears beautifully throughout the day. Whether you're going for natural everyday elegance or a more perfected glam look, this foundation provides the confidence to let your beauty shine through. Flawless coverage. Beautifully balanced. Luxury designed for you.",
     benefits: ["Soft-matte, natural-looking finish", "Buildable medium-to-full coverage", "Blends seamlessly", "Shades made for melanin-rich skin"],
     howTo: "Pump a small amount onto the back of your hand. Apply from the center of the face outward with a brush or damp sponge and build where needed.",
-    details: "Pump bottle · 5 shades",
+    details: "1.05 fl oz / 30 ml squeeze tube · Shade #6 (MFD06) in stock online — more shades in store, ask us on WhatsApp",
     claims: ["Matte finish", "Inclusive shades"],
-    options: [{ name: "Shade", type: "swatch", values: FOUNDATION_SHADES }]
+    options: [{ name: "Shade", type: "swatch", values: [{"label": "#6", "hex": "#c8935d", "image": "fd-matte-6"}] }]
   },
   {
     id: "coverage-foundation-spf15",
     name: "Liquid Coverage Foundation SPF 15",
     category: "makeup", sub: "foundation",
     price: 35,
-    images: ["coverage"],
+    images: ["fd-cov-5", "fd-cov-6", "coverage"],
     short: "Full, flawless coverage with everyday SPF 15. 35 ml / 1.25 fl oz.",
     description: "Our liquid coverage foundation evens skin tone, blurs imperfections and adds a layer of SPF 15 for daily wear. A gold-capped bottle that belongs on your vanity.",
     benefits: ["Full, flawless coverage", "SPF 15 for daily wear", "Smooth, even finish", "35 ml / 1.25 fl oz"],
     howTo: "Shake well. Apply with fingertips, brush or sponge. For best protection, apply generously 15 minutes before sun exposure.",
-    details: "35 ml · 1.25 fl oz · SPF 15",
+    details: "35 ml · 1.25 fl oz · SPF 15 · Frosted glass bottle with gold cap · Shades #5 and #6 online — more shades in store, ask us on WhatsApp",
     claims: ["SPF 15", "Full coverage"],
-    options: [{ name: "Shade", type: "swatch", values: FOUNDATION_SHADES }]
+    options: [{ name: "Shade", type: "swatch", values: [{"label": "#5", "hex": "#cc9a52", "image": "fd-cov-5"}, {"label": "#6", "hex": "#d8954f", "image": "fd-cov-6"}] }]
   },
   {
     id: "pressed-face-powder",
@@ -321,20 +321,39 @@ window.PRODUCTS = [
   },
   {
     id: "loose-setting-powder",
-    name: "Loose Setting Powder",
+    name: "Loose Face Powder",
     category: "makeup", sub: "loose-powder",
     price: 30,
-    images: ["loose-powder"],
+    images: ["lp-6", "lp-6-side"],
     short: "Finely milled loose powder that sets, smooths and perfects — without looking heavy or cakey.",
     description: "Set, smooth, and perfect your complexion with the Ethereal Curves Loose Face Powder, curated to give your makeup a flawless, polished finish while keeping your look feeling light and effortless. Finely milled for a soft, silky texture, it helps set foundation, reduce excess shine, blur the appearance of imperfections, and extend the wear of your makeup. With shades to complement a range of skin tones, including rich and melanin-deep complexions, it enhances your natural beauty without looking heavy or cakey. A flawless finish, beautifully set—Luxury Designed for You.",
-    benefits: ["Sets makeup for long wear", "Blurs pores and texture", "Weightless, breathable feel", "Great for baking"],
+    benefits: ["Light weight", "Flawless matte finish", "Long-wearing", "Sets makeup and blurs texture", "Never heavy or cakey"],
     howTo: "Tap a little into the lid, pick up with a puff or damp sponge and press onto skin. Let sit, then dust away the excess.",
-    details: "Clear jar with sifter · Black signature lid",
+    details: "Clear square jar in the Ethereal Curves gift box · Shade #6 online — more shades in store, ask us on WhatsApp",
     claims: ["Long-wear", "Blurring"],
-    options: [{ name: "Shade", type: "swatch", values: [{ label: "Translucent", hex: "#efe3d3" }].concat(FOUNDATION_SHADES) }]
+    options: [{ name: "Shade", type: "swatch", values: [{"label": "#6", "hex": "#d1a66c", "image": "lp-6"}] }]
   },
 
   /* ============================ RADIANCE ============================ */
+  {
+    id: "seline-girl-body-highlighter",
+    brand: "Seline Girl",
+    name: "Body Highlighter with Puff",
+    category: "radiance",
+    sub: "body-shimmer",
+    featured: 1,
+    price: 10,
+    badge: "New",
+    isNew: true,
+    images: ["hl-1", "hl-2", "hl-3", "hl-trio"],
+    short: "A silky shimmer powder with a built-in fluffy puff — glow on your face, collarbones and shoulders in seconds. Net wt 0.17 oz / 5 g.",
+    description: "Seline Girl Body Highlighter is a finely milled shimmer powder in a jar with a soft built-in puff, so you can tap on a luminous glow anywhere — cheekbones, collarbones, shoulders and legs. Choose a rosy, pearly or bronze glow.",
+    benefits: ["Built-in puff for quick, mess-free application", "Finely milled, light-catching shimmer", "Buildable from a soft sheen to full glow", "For face and body"],
+    howTo: "Twist open, tap the puff into the powder and press or sweep onto skin where the light hits.",
+    details: "Net wt 0.17 oz / 5 g · Shades #1, #2 and #3",
+    claims: ["Shimmer", "Face & body"],
+    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "#1 · Rose Glow", "hex": "#e7a39b", "image": "hl-1"}, {"label": "#2 · Pearl Champagne", "hex": "#d9d3c0", "image": "hl-2"}, {"label": "#3 · Bronze Gold", "hex": "#b06a35", "image": "hl-3"}]}]
+  },
   {
     id: "shimmer-body-serum",
     name: "Shimmer Body Serum",
