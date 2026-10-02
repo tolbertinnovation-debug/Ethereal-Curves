@@ -108,7 +108,8 @@ window.STORE = {
     "Free delivery in Monrovia on orders over $50",
     "Pay with Lonestar MTN MoMo, Ecobank transfer or cash on delivery",
     "New: The Ethereal Signature VIP Box — save $45",
-    "New in: Plus Size Comfort Set & Minimizer Bras",
+    "New in: plus size bras from $20 — bands up to 48, cups up to T",
+    "New: The Golden Hour Glow Kit — $62",
     "Use code WELCOME10 for 10% off your first order"
   ]
 };

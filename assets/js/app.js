@@ -1487,7 +1487,7 @@
       "<tr><td>EU band</td><td>70</td><td>75</td><td>80</td><td>85</td><td>90</td><td>95</td></tr></tbody></table></div>" +
       '<div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>Bust − band</th>' + ["5 in", "6 in", "7 in", "8 in", "9 in", "10 in", "11 in", "12 in"].map(function (x) { return "<th>" + x + "</th>"; }).join("") + "</tr></thead><tbody>" +
       "<tr><td>Cup</td><td>DD</td><td>E</td><td>F</td><td>FF</td><td>G</td><td>GG</td><td>H</td><td>HH</td></tr></tbody></table></div>" +
-      '<p class="muted" style="font-size:.88rem;margin-top:14px">Our bras use European band sizes. Plus size bras come in bands 75 – 95 with cups DD – HH (extended I – JK). Between sizes? Choose the larger band and message us — we\'re happy to help you find your fit.</p></div>';
+      '<p class="muted" style="font-size:.88rem;margin-top:14px">Our bras use European band sizes. Our bras come in US sizes (bands 34 – 48, cups C – T) or European sizes (bands 75 – 95, cups DD – JK) — each product page shows which. Between sizes? Choose the larger band and message us — we\'re happy to help you find your fit.</p></div>';
 
     var body = '<div data-sgpanel="body"' + (tab !== "body" ? " hidden" : "") + ">" +
       '<div class="calc"><h3 class="h-md" style="margin-bottom:14px">Find your shapewear size</h3>' +
@@ -1518,12 +1518,15 @@
     var diff = Math.round(bust - band);
     var cup = UK_CUPS[Math.max(0, Math.min(UK_CUPS.length - 1, diff))];
     var eu = 75 + (band - 34) / 2 * 5;
-    var size = "EU " + eu + cup + " (US " + band + ")";
-    var plus = band >= 34 && band <= 42 && diff >= 5;
-    var regular = band >= 32 && band <= 38 && diff >= 1 && diff <= 4;
-    out.innerHTML = "Your estimated size: <b>" + size + "</b><br><span class=\"muted\" style=\"font-size:1rem\">" +
-      (plus ? 'Fits our <a class="link" href="#/shop?cat=intimates">plus size bras</a>.' : regular ? 'Try our <a class="link" href="#/product/everyday-bra-regular">Everyday Bra — Regular</a>.' :
-        '<a class="link" target="_blank" rel="noopener" href="' + waLink("Hi! My bra size is about " + size + ". What do you have that fits?") + '">Ask us on WhatsApp</a> what fits best.') + "</span>";
+    var fits = PRODUCTS.filter(function (p) {
+      if (p.category !== "intimates" || p.soldOut) return false;
+      var o = {}; (p.options || []).forEach(function (x) { o[x.name] = x.values.map(function (v) { return v.label; }); });
+      var cupOk = (o.Cup || []).indexOf(cup) > -1;
+      return cupOk && ((o.Band || []).indexOf(String(band)) > -1 || (o["Band (EU)"] || []).indexOf(String(eu)) > -1);
+    });
+    out.innerHTML = "Your estimated size: <b>US " + band + cup + " · EU " + eu + cup + "</b><br><span class=\"muted\" style=\"font-size:1rem\">" +
+      (fits.length ? "Available in your size: " + fits.map(function (p) { return '<a class="link" href="#/product/' + p.id + '">' + esc(p.name) + "</a>"; }).join(", ") :
+        '<a class="link" target="_blank" rel="noopener" href="' + waLink("Hi! My bra size is about US " + band + cup + ". What do you have that fits?") + '">Ask us on WhatsApp</a> what fits best.') + "</span>";
   }
 
   function calcBody(root) {
