@@ -305,19 +305,19 @@ window.PRODUCTS = [
   },
   {
     id: "pressed-face-powder",
-    name: "Luxury Pressed Face Powder",
+    name: "Luxury Compact Face Powder",
     category: "makeup", sub: "pressed-powder",
     price: 30,
     badge: "Bestseller",
     bestseller: true,
-    images: ["pressed-card", "found-compact", "easter", "pressed-poster"],
-    short: "Finely milled pressed powder for coverage, smoothness and shine control — perfect for touch-ups on the go. Net wt 11 g.",
+    images: ["pw-golden-beige", "pw-peach-tan", "pw-honey", "pw-golden-tan", "pw-toffee", "pw-mocha"],
+    short: "Finely milled pressed powder for coverage, smoothness and shine control — perfect for touch-ups on the go, in six shades.",
     description: "Perfect your complexion wherever the day takes you with the Ethereal Curves Pressed Face Powder, thoughtfully curated for effortless coverage, smoothness, and shine control. Finely milled for a soft, polished finish, it helps even out the appearance of your complexion and set your makeup beautifully. Available in shades suited to diverse skin tones, from warm and golden to rich and melanin-deep, it can be worn alone for a natural finish or layered over foundation for added coverage. Beautifully compact and easy to carry — the perfect everyday essential for quick touch-ups and a flawless finish on the go. Effortless beauty, anytime, anywhere—Luxury Designed for You.",
-    benefits: ["Flawless, soft-focus finish", "Controls shine all day", "Finely milled, never cakey", "Mirrored compact for touch-ups"],
+    benefits: ["Flawless, soft-focus finish", "Controls shine all day", "Finely milled, never cakey", "Mirrored compact for touch-ups on the go"],
     howTo: "Press lightly over foundation with a puff or sweep on with a fluffy brush. Touch up through the day.",
-    details: "Net wt 11 g · 0.4 oz · Mirrored compact",
+    details: "Mirrored compact in our Ethereal Curves gift box · Tap a shade to see it",
     claims: ["Shine control", "Travel-friendly"],
-    options: [{ name: "Shade", type: "swatch", values: FOUNDATION_SHADES }]
+    options: [{ name: "Shade", type: "swatch", values: [{"label": "Golden Beige", "hex": "#cf9a52", "image": "pw-golden-beige"}, {"label": "Peach Tan", "hex": "#d4a06a", "image": "pw-peach-tan"}, {"label": "Honey", "hex": "#c8853c", "image": "pw-honey"}, {"label": "Golden Tan", "hex": "#b27a48", "image": "pw-golden-tan"}, {"label": "Toffee Brown", "hex": "#a5603f", "image": "pw-toffee"}, {"label": "Mocha", "hex": "#7c4f38", "image": "pw-mocha"}] }]
   },
   {
     id: "loose-setting-powder",
