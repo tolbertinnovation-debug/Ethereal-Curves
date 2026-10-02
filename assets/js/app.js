@@ -1423,7 +1423,7 @@
     var fin = FINISHES.find(function (f) { return f.v === finder.finish; });
     return [
       { pid: fin.pid, opts: { Shade: fshade.label }, why: "Your foundation match" },
-      { pid: "pressed-face-powder", opts: { Shade: ["Golden Beige", "Honey", "Golden Tan", "Toffee Brown", "Mocha"][i] }, why: "Set and touch up in the same tone" },
+      { pid: "pressed-face-powder", opts: { Shade: ["Color 7 · Golden Beige", "Color 9 · Honey", "Color 10 · Caramel", "Color 14 · Golden Tan", "Color 16 · Toffee Brown"][i] }, why: "Set and touch up in the same tone" },
       { pid: "plump-shine-gloss", opts: { Shade: GLOSS_MAP[finder.tone][i] }, why: "A gloss that flatters your undertone" },
       { pid: "shimmer-body-serum", opts: { Shade: SERUM_MAP[finder.tone][i] }, why: "Your most radiant body glow" }
     ];
