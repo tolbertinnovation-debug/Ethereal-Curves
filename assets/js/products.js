@@ -14,6 +14,8 @@
      compareAt: an optional old price to show a sale ("was $20").
      badge:     optional label — "New", "Bestseller", "Limited" …
      soldOut:   true hides the Add to Bag button.
+     featured:  optional number (1 = first) to choose the order products
+                appear in on collection pages. Others follow afterwards.
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -81,7 +83,7 @@ window.CATEGORIES = [
     description: "Sculpt, smooth, and embrace every curve with the Ethereal Curves Sculpture Collection—premium shapewear designed to enhance your natural silhouette while keeping you comfortable and confident. Thoughtfully selected for fuller figures, our collection features seamless, supportive pieces designed to smooth, contour, lift, and create a beautifully streamlined foundation beneath your favorite looks. From everyday smoothing essentials to sculpting styles for special occasions, each piece is made to move with you, not against you, so you can feel supported without feeling restricted. Your curves are already beautiful. Sculpture simply helps you wear them with confidence. Luxury Designed for You."
   },
   {
-    id: "intimates", name: "Intimates & Lingerie", short: "Intimates", title: "Intimates & Lingerie Collection", image: "ic-comfort-set", icon: "heart",
+    id: "intimates", name: "Intimates & Lingerie", short: "Intimates", title: "Intimates & Lingerie Collection", image: "br-floral-pushup", icon: "heart",
     blurb: "Bras, panties and lingerie with thoughtful support for fuller figures.",
     description: "Celebrate your curves from the inside out with the Ethereal Curves Intimates & Lingerie Collection—thoughtfully curated bras, panties, and lingerie designed to make you feel supported, comfortable, confident, and beautiful. From everyday essentials that feel effortless against your skin to alluring lingerie made for special moments, our collection brings together flattering fits, feminine details, luxurious textures, and thoughtful support for fuller figures. Whether you're looking for the perfect everyday bra, comfortable panties, or something a little more captivating, every piece is chosen to help you feel beautiful in your own skin, confident in your curves, and effortlessly feminine. Luxury Designed for You."
   },
@@ -750,6 +752,7 @@ window.PRODUCTS = [
   },
   {
     id: "plus-size-comfort-set",
+    featured: 7,
     name: "Plus Size Comfort Set",
     category: "intimates",
     price: 35,
@@ -767,6 +770,7 @@ window.PRODUCTS = [
   },
   {
     id: "plus-size-minimizer-bra",
+    featured: 9,
     name: "Satin Minimizer Bra — Plus Size",
     category: "intimates",
     price: 20,
@@ -784,6 +788,7 @@ window.PRODUCTS = [
   },
   {
     id: "everyday-bra-plus",
+    featured: 10,
     name: "Everyday Bra — Plus Size",
     category: "intimates",
     price: 25,
@@ -799,6 +804,7 @@ window.PRODUCTS = [
   },
   {
     id: "everyday-bra-regular",
+    featured: 11,
     name: "Everyday Bra — Regular",
     category: "intimates",
     price: 20,
@@ -814,6 +820,7 @@ window.PRODUCTS = [
   },
   {
     id: "everyday-panties",
+    featured: 12,
     name: "Everyday Panties",
     category: "intimates",
     price: 5,
@@ -860,6 +867,7 @@ window.PRODUCTS = [
   /* ============================ NEW: BRAS & GLOW ============================ */
   {
     id: "lace-minimizer-bra",
+    featured: 3,
     name: "Lace Minimizer Bra — Plus Size",
     category: "intimates",
     price: 25,
@@ -877,6 +885,7 @@ window.PRODUCTS = [
   },
   {
     id: "full-cup-lace-bra",
+    featured: 5,
     name: "High Quality Full Cup Bra — Plus Size",
     category: "intimates",
     price: 25,
@@ -894,6 +903,7 @@ window.PRODUCTS = [
   },
   {
     id: "seamless-pushup-bra",
+    featured: 8,
     name: "Seamless Push-Up Bra — Plus Size",
     category: "intimates",
     price: 20,
@@ -911,6 +921,7 @@ window.PRODUCTS = [
   },
   {
     id: "floral-lace-pushup-bra",
+    featured: 1,
     name: "Floral Lace Push-Up Bra — Plus Size",
     category: "intimates",
     price: 25,
@@ -928,6 +939,7 @@ window.PRODUCTS = [
   },
   {
     id: "strappy-mesh-pushup-bra",
+    featured: 4,
     name: "Strappy Mesh Push-Up Bra — Plus Size",
     category: "intimates",
     price: 25,
@@ -945,6 +957,7 @@ window.PRODUCTS = [
   },
   {
     id: "lace-mesh-underwire-set",
+    featured: 2,
     name: "Lace & Mesh Underwire Set — Plus Size",
     category: "intimates",
     price: 25,
@@ -962,6 +975,7 @@ window.PRODUCTS = [
   },
   {
     id: "lace-plus-size-bra",
+    featured: 6,
     name: "Lace Plus Size Bra",
     category: "intimates",
     price: 20,

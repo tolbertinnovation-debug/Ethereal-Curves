@@ -855,7 +855,7 @@
     });
     var idx = function (p) { return PRODUCTS.indexOf(p); };
     var sorters = {
-      featured: function (a, b) { return (a.soldOut ? 1 : 0) - (b.soldOut ? 1 : 0) || idx(a) - idx(b); },
+      featured: function (a, b) { return (a.soldOut ? 1 : 0) - (b.soldOut ? 1 : 0) || (a.featured || 999) - (b.featured || 999) || idx(a) - idx(b); },
       bestsellers: function (a, b) { return (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0) || idx(a) - idx(b); },
       "new": function (a, b) { return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0) || idx(a) - idx(b); },
       "price-asc": function (a, b) { return a.price - b.price; },
