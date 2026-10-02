@@ -6,7 +6,7 @@
 This is a fast, mobile-first store for the brand's collections: **Makeup** (lipstick, glossy and
 matte lip gloss, foundation, loose and pressed powder, designer & brands), **Radiance** (skincare,
 body care, body shimmer and men's grooming — with curated brands such as COSRX, Isntree, Vaseline,
-Dr Teal's, Medix 5.5, EELHOE, Balance Active Formula and East Moon), **Sculpture** (shapewear), **Intimates & Lingerie**, **Essence** (fragrance),
+Dr Teal's, Medix 5.5, EELHOE, Handaiyan, Seline Girl, LOOKME, Balance Active Formula and East Moon), **Sculpture** (shapewear), **Intimates & Lingerie**, **Essence** (fragrance),
 **Essentials** (shoes, handbags, jewelry, watches), **Accessories** and **Vitality** (wellness).
 Collections without products yet show an elegant "Coming soon" page. It needs **no server, database or monthly platform fee**. It's plain
 HTML, CSS and JavaScript, and you can host it free on GitHub Pages, Netlify or Cloudflare Pages.
@@ -67,8 +67,8 @@ Put images in `assets/img/` as `.webp` files, in two sizes: `name.webp` (about 1
 
 ## ⚠️ Still to confirm
 
-1. **Isntree prices.** You sent $40 for the Isntree sun gel + moist cream poster; the site
-   sells them at $20 each. Change them in `products.js` if it is $40 each.
+1. **Isntree prices.** The Green Tea Fresh Emulsion is $40. You sent $40 for the sun gel + moist
+   cream poster; the site sells those two at $20 each. Change them in `products.js` if it is $40 each.
 2. **COSRX Salicylic Acid Cleanser** price ($16) is still a placeholder.
 3. **Shimmer Body Serum (Handaiyan)** shows shades #3 and #4 only. Add #1 Pearl Glow and #2 Rose
    Glow in `products.js` if you stock them.

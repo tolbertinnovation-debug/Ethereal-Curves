@@ -329,9 +329,9 @@ window.PRODUCTS = [
     description: "Set, smooth, and perfect your complexion with the Ethereal Curves Loose Face Powder, curated to give your makeup a flawless, polished finish while keeping your look feeling light and effortless. Finely milled for a soft, silky texture, it helps set foundation, reduce excess shine, blur the appearance of imperfections, and extend the wear of your makeup. With shades to complement a range of skin tones, including rich and melanin-deep complexions, it enhances your natural beauty without looking heavy or cakey. A flawless finish, beautifully set—Luxury Designed for You.",
     benefits: ["Light weight", "Flawless matte finish", "Long-wearing", "Sets makeup and blurs texture", "Never heavy or cakey"],
     howTo: "Tap a little into the lid, pick up with a puff or damp sponge and press onto skin. Let sit, then dust away the excess.",
-    details: "Clear square jar in the Ethereal Curves gift box · Shade #6 online — more shades in store, ask us on WhatsApp",
+    details: "Clear square jar in the Ethereal Curves gift box · Shades #6 and #8 online — more shades in store, ask us on WhatsApp",
     claims: ["Long-wear", "Blurring"],
-    options: [{ name: "Shade", type: "swatch", values: [{"label": "#6", "hex": "#d1a66c", "image": "lp-6"}] }]
+    options: [{ name: "Shade", type: "swatch", values: [{"label": "#6", "hex": "#d1a66c", "image": "lp-6"}, {"label": "#8", "hex": "#d2b07a"}] }]
   },
 
   /* ============================ RADIANCE ============================ */
@@ -353,6 +353,22 @@ window.PRODUCTS = [
     details: "Net wt 0.17 oz / 5 g · Shades #1, #2 and #3",
     claims: ["Shimmer", "Face & body"],
     options: [{"name": "Shade", "type": "swatch", "values": [{"label": "#1 · Rose Glow", "hex": "#e7a39b", "image": "hl-1"}, {"label": "#2 · Pearl Champagne", "hex": "#d9d3c0", "image": "hl-2"}, {"label": "#3 · Bronze Gold", "hex": "#b06a35", "image": "hl-3"}]}]
+  },
+  {
+    id: "lookme-glow-shimmer-spray",
+    brand: "Lookme",
+    name: "Glow Intense Shimmer Spray",
+    category: "radiance",
+    sub: "body-shimmer",
+    price: 10,
+    isNew: true,
+    images: ["glow-spray"],
+    short: "A fine golden shimmer mist for skin and hair. Spritz on for an instant, all-over glow.",
+    description: "Catch the light from head to toe. The LOOKME Glow Intense Shimmer Spray releases a fine mist of golden shimmer that settles evenly over shoulders, collarbones, legs and hair, for a sun-kissed radiance that photographs beautifully.",
+    benefits: ["Intense golden shimmer", "For skin and hair", "Fine, even mist", "Quick-drying, lightweight finish"],
+    howTo: "Shake well. Hold 15–20 cm away and mist over skin or hair. Let it dry for a few seconds before dressing. Build up for more glow.",
+    details: "LOOKME Glow · Intense shimmer spray · Skin & hair",
+    claims: ["Skin & hair", "Golden glow"]
   },
   {
     id: "shimmer-body-serum",
@@ -518,6 +534,22 @@ window.PRODUCTS = [
     howTo: "Apply generously as the last step of your morning routine, 15 minutes before sun exposure. Reapply every 2 hours outdoors.",
     details: "50 mL / 1.69 fl. oz. · SPF 50+ PA++++ · Korean skincare",
     claims: ["SPF 50+", "No white cast", "K-beauty"]
+  },
+  {
+    id: "isntree-green-tea-emulsion",
+    brand: "Isntree",
+    name: "Green Tea Fresh Emulsion",
+    category: "radiance",
+    sub: "skincare",
+    price: 40,
+    isNew: true,
+    images: ["sk-isntree-emulsion"],
+    short: "A lightweight, refreshing emulsion with green tea extract from Jeju that balances oil and moisture.",
+    description: "Made with green tea extract from Jeju Island, this light emulsion hydrates without heaviness, helps balance oil and moisture, and leaves skin feeling fresh, calm and soft. Ideal for combination and oily skin, and for warm, humid days.",
+    benefits: ["Green tea extract from Jeju", "Balances oil & moisture", "Lightweight, fast-absorbing texture", "Soothes and refreshes skin"],
+    howTo: "After cleansing and toning, smooth a small amount over face and neck. Follow with sunscreen in the morning.",
+    details: "Korean skincare · Lightweight emulsion",
+    claims: ["Oil-moisture balance", "Lightweight", "K-beauty"]
   },
   {
     id: "balance-niacinamide-serum",
