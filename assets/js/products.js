@@ -245,14 +245,14 @@ window.PRODUCTS = [
     price: 25,
     badge: "New",
     isNew: true,
-    images: ["lip-coral-red", "lip-raspberry", "lip-royal-red", "lip-coral-noir", "lip-terracotta", "lip-classic-red", "lip-deep-red", "lip-plum"],
-    short: "Rich, velvety matte colour in eight shades — presented in our Gold Leaf, Blush Crystal, Noir and Royal Red cases.",
+    images: ["lip-coral-red", "lip-raspberry", "lip-royal-red", "lip-coral-noir", "lip-terracotta", "lip-classic-red", "lip-deep-red", "lip-plum", "lip-berry-wine"],
+    short: "Rich, velvety matte colour in nine shades — presented in our Gold Leaf, Blush Crystal, Noir and Royal Red cases.",
     description: "Make every look unforgettable with Ethereal Curves Matte Lipstick — rich, high-impact colour with a soft, velvety matte finish that stays comfortable all day. Choose your shade from bold reds and berries to coral and terracotta, each in its own luxury case and our signature Ethereal Curves box.",
-    benefits: ["Rich, high-impact matte colour", "Soft, velvety finish that stays comfortable", "Long-lasting wear", "Eight shades from bold reds to warm corals", "Luxury cases in the signature Ethereal Curves box"],
+    benefits: ["Rich, high-impact matte colour", "Soft, velvety finish that stays comfortable", "Long-lasting wear", "Nine shades from bold reds to warm corals", "Luxury cases in the signature Ethereal Curves box"],
     howTo: "Apply from the centre of the lips outward. For extra precision, line the lips first. Blot and reapply for deeper colour.",
     details: "Tap a shade to see its case · Presented in the Ethereal Curves gift box",
     claims: ["Matte", "Long-wear", "Gift-ready"],
-    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Coral Red · Blush Crystal case", "hex": "#e0311f", "image": "lip-coral-red"}, {"label": "Raspberry · Gold Leaf case", "hex": "#c3164a", "image": "lip-raspberry"}, {"label": "Royal Red · Royal Red case", "hex": "#b5121b", "image": "lip-royal-red"}, {"label": "Coral Pink · Noir case", "hex": "#f0644e", "image": "lip-coral-noir"}, {"label": "Terracotta · Blush Crystal case", "hex": "#c6553e", "image": "lip-terracotta"}, {"label": "Classic Red · Gold Leaf case", "hex": "#d61f12", "image": "lip-classic-red"}, {"label": "Deep Red · Blush Crystal case", "hex": "#b0161f", "image": "lip-deep-red"}, {"label": "Plum Berry · Gold Leaf case", "hex": "#7b1a3a", "image": "lip-plum"}]}]
+    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Coral Red · Blush Crystal case", "hex": "#e0311f", "image": "lip-coral-red"}, {"label": "Raspberry · Gold Leaf case", "hex": "#c3164a", "image": "lip-raspberry"}, {"label": "Royal Red · Royal Red case", "hex": "#b5121b", "image": "lip-royal-red"}, {"label": "Coral Pink · Noir case", "hex": "#f0644e", "image": "lip-coral-noir"}, {"label": "Terracotta · Blush Crystal case", "hex": "#c6553e", "image": "lip-terracotta"}, {"label": "Classic Red · Gold Leaf case", "hex": "#d61f12", "image": "lip-classic-red"}, {"label": "Deep Red · Blush Crystal case", "hex": "#b0161f", "image": "lip-deep-red"}, {"label": "Plum Berry · Gold Leaf case", "hex": "#7b1a3a", "image": "lip-plum"}, {"label": "Berry Wine · Blush Crystal case", "hex": "#8a1d4a", "image": "lip-berry-wine"}]}]
   },
   {
     id: "luxury-lipstick",
@@ -1027,6 +1027,24 @@ window.PRODUCTS = [
     howTo: "Contour under the cheekbones and along the jaw, sweep bronzer where the sun hits, tap highlighter on the high points and mist the glow spray to finish.",
     details: "Bundle launch price $62 (retail value $75) · Limited launch stock",
     claims: ["Bundle", "Save $13", "Limited"]
+  },
+  {
+    id: "concealer-contour-stick",
+    name: "Concealer Contour Stick",
+    category: "makeup",
+    sub: "highlight",
+    featured: 1,
+    price: 10,
+    badge: "New",
+    isNew: true,
+    images: ["ct-toffee", "ct-caramel", "ct-sand", "ct-terracotta"],
+    short: "A creamy 2-in-1 concealer and contour stick that sculpts, defines and corrects — in four warm shades.",
+    description: "Sculpt your bone structure and perfect your complexion with one easy stick. The Ethereal Curves Concealer Contour Stick glides on smoothly and blends seamlessly into skin, so you can define cheekbones, jaw and nose or conceal where you need it. Presented in our signature Ethereal Curves box with how-to-use guide.",
+    benefits: ["2-in-1: contour and conceal", "Creamy texture that blends seamlessly", "Buildable, natural-looking definition", "Four warm shades for melanin-rich skin", "Easy twist-up stick — perfect for touch-ups"],
+    howTo: "Contour: swipe under the cheekbones, along the jawline and the sides of the nose, then blend with a damp sponge or brush. Conceal: dot where needed and tap to blend.",
+    details: "Twist-up stick · Ethereal Curves box with how-to-use guide",
+    claims: ["Contour", "Concealer", "Buildable"],
+    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Toffee", "hex": "#b5622b", "image": "ct-toffee"}, {"label": "Caramel", "hex": "#a8673a", "image": "ct-caramel"}, {"label": "Sand", "hex": "#b88a62", "image": "ct-sand"}, {"label": "Terracotta", "hex": "#9a4f33", "image": "ct-terracotta"}]}]
   },
   {
     id: "cream-contour",
