@@ -69,14 +69,15 @@ Put images in `assets/img/` as `.webp` files, in two sizes: `name.webp` (about 1
 
 1. **Isntree prices.** You sent $40 for the Isntree sun gel + moist cream poster; the site
    sells them at $20 each. Change them in `products.js` if it is $40 each.
-2. **COSRX Salicylic Acid Cleanser** and **Shimmer Body Serum** prices ($16 / $20) are still
-   placeholders.
-3. **Bra & panty sizes** for the Everyday Bras and Everyday Panties are typical ranges — check them
+2. **COSRX Salicylic Acid Cleanser** price ($16) is still a placeholder.
+3. **Shimmer Body Serum (Handaiyan)** shows shades #3 and #4 only. Add #1 Pearl Glow and #2 Rose
+   Glow in `products.js` if you stock them.
+4. **Bra & panty sizes** for the Everyday Bras and Everyday Panties are typical ranges — check them
    against your stock.
-4. **Store opening days.** Hours show 9:00 AM – 8:00 PM; add the days in `config.js` if needed.
-5. **Orange Money** is switched off until the account is registered (see `config.js`).
-6. **Exchange rate** is L$182.4 = $1 (October 2026). Update `lrdRate` in `config.js` when it moves.
-7. **Returns policy (FAQ page)** says 7-day exchanges for unopened items. Adjust it to your policy.
+5. **Store opening days.** Hours show 9:00 AM – 8:00 PM; add the days in `config.js` if needed.
+6. **Orange Money** is switched off until the account is registered (see `config.js`).
+7. **Exchange rate** is L$182.4 = $1 (October 2026). Update `lrdRate` in `config.js` when it moves.
+8. **Returns policy (FAQ page)** says 7-day exchanges for unopened items. Adjust it to your policy.
 
 ---
 

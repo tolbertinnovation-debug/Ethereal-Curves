@@ -1407,9 +1407,9 @@
     { v: "coverage", label: "Full Coverage + SPF", pid: "coverage-foundation-spf15", note: "Flawless coverage with SPF 15" }
   ];
   var SERUM_MAP = {
-    warm: ["Golden Glow", "Golden Glow", "Golden Glow", "Bronze Glow", "Bronze Glow"],
-    neutral: ["Pearl Glow", "Rose Glow", "Golden Glow", "Bronze Glow", "Bronze Glow"],
-    cool: ["Pearl Glow", "Rose Glow", "Rose Glow", "Rose Glow", "Bronze Glow"]
+    warm: ["#3 · Golden Glow", "#3 · Golden Glow", "#3 · Golden Glow", "#4 · Bronze Glow", "#4 · Bronze Glow"],
+    neutral: ["#3 · Golden Glow", "#3 · Golden Glow", "#4 · Bronze Glow", "#4 · Bronze Glow", "#4 · Bronze Glow"],
+    cool: ["#4 · Bronze Glow", "#4 · Bronze Glow", "#4 · Bronze Glow", "#4 · Bronze Glow", "#4 · Bronze Glow"]
   };
   var GLOSS_MAP = {
     warm: ["YG11 · Peach Nude", "YG11 · Peach Nude", "YG13 · Cinnamon", "YG14 · Burnt Orange", "YG13 · Cinnamon"],

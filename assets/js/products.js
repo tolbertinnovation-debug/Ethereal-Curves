@@ -357,23 +357,19 @@ window.PRODUCTS = [
   {
     id: "shimmer-body-serum",
     name: "Shimmer Body Serum",
+    brand: "Handaiyan",
     category: "radiance", sub: "body-shimmer",
     price: 20,
     badge: "Bestseller",
     bestseller: true,
-    images: ["serum-card", "serum-model", "serum-poster"],
-    short: "Glow. Define. Radiate. A silky shimmer for face, collarbones, shoulders and legs.",
-    description: "A lightweight, quick-absorbing liquid highlighter for the body that delivers a luminous, long-lasting glow. It blends seamlessly, never feels greasy, and comes in four universal shades for every skin tone.",
+    images: ["sv-3", "sv-4", "serum-model", "serum-poster"],
+    short: "Glow. Define. Radiate. A silky shimmer body cream for face, collarbones, shoulders and legs.",
+    description: "A lightweight, quick-absorbing liquid highlighter for the body that delivers a luminous, long-lasting glow. It blends seamlessly and never feels greasy. Choose #3 Golden Glow for a warm bronze-gold sheen or #4 Bronze Glow for a rich rose-copper shimmer.",
     benefits: ["Instant, luminous glow", "Hydrating & nourishing", "Silky, non-greasy, quick-absorbing", "Long-lasting shimmer", "Vegan & cruelty-free"],
     howTo: "Pump onto your palm and smooth over collarbones, shoulders and legs — or mix a drop into foundation for a radiant face.",
-    details: "Pump bottle · 4 universal shades",
+    details: "HANDAIYAN Shimmer Body Cream · Pump bottle · 20 ml / 0.68 fl oz",
     claims: ["Vegan", "Cruelty free", "Hydrating", "Long-lasting"],
-    options: [{
-      name: "Shade", type: "swatch", values: [
-        { label: "Pearl Glow", hex: "#ead8cf" }, { label: "Rose Glow", hex: "#c88e7e" },
-        { label: "Golden Glow", hex: "#d39a4f" }, { label: "Bronze Glow", hex: "#a2592c" }
-      ]
-    }]
+    options: [{ name: "Shade", type: "swatch", values: [{ label: "#3 · Golden Glow", hex: "#bc7131", image: "sv-3" }, { label: "#4 · Bronze Glow", hex: "#bb6c43", image: "sv-4" }] }]
   },
 
   /* ============================ SCULPTURE & INTIMATES ============================ */
@@ -764,14 +760,14 @@ window.PRODUCTS = [
     sub: "concealer",
     price: 20,
     isNew: true,
-    images: ["mk-concealer", "mk-flawless-poster"],
-    short: "A creamy, buildable concealer that blends seamlessly for a flawless, photo-ready finish.",
-    description: "Brighten under the eyes, cover blemishes and perfect your base. The Ethereal Curves Liquid Concealer has a precise doe-foot applicator and a creamy texture that blends into skin without creasing.",
-    benefits: ["Buildable, natural-looking coverage", "Creamy texture that blends seamlessly", "Precise doe-foot applicator", "Shades to match our foundation range"],
+    images: ["cc-5", "cc-6", "mk-concealer", "mk-flawless-poster"],
+    short: "A creamy, soft-matte concealer that covers, brightens and blends seamlessly for a flawless, photo-ready finish.",
+    description: "Brighten under the eyes, cover blemishes and perfect your base. The Ethereal Curves Liquid Concealer has a precise doe-foot applicator and a creamy texture that blends into skin without creasing. Now in shades #5 and #6, made for warm, melanin-rich skin.",
+    benefits: ["Buildable, full coverage", "Creamy texture that blends seamlessly", "Precise doe-foot applicator", "Pairs with our #5 and #6 foundations"],
     howTo: "Dot where needed — under the eyes, around the nose, over blemishes — and blend with a sponge or fingertip. Set with loose powder.",
-    details: "Part of The Flawless Base Routine",
+    details: "Liquid concealer · Shades #5 and #6 · Part of The Flawless Base Routine",
     claims: ["Buildable", "Melanin-rich shades"],
-    options: [{"name": "Shade", "type": "swatch", "values": FOUNDATION_SHADES}]
+    options: [{ name: "Shade", type: "swatch", values: [{ label: "#5 · Warm Caramel", hex: "#d88b57", image: "cc-5" }, { label: "#6 · Deep Toffee", hex: "#9f6639", image: "cc-6" }] }]
   },
   {
     id: "cheek-glitter-powder",
