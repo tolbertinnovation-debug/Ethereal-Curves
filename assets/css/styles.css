@@ -1135,3 +1135,16 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
   .card, .edit-card__image img, .slide__media img { transition: none; }
   .card:hover { transform: none; }
 }
+
+/* Product films — portrait studio presentation */
+.product-films { background: radial-gradient(ellipse at top, #30251e 0%, #15110f 65%); color: #faf4e9; border-top: 1px solid rgba(200,161,90,.25); }
+.product-films .eyebrow { color: var(--gold-soft); }
+.product-films__grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 360px)); justify-content: center; gap: 32px; margin-top: 32px; }
+.product-films h2, .product-films > .container > .eyebrow { text-align: center; }
+.product-film { width: 100%; max-width: 360px; padding: 8px; border: 1px solid rgba(200,161,90,.32); border-radius: 20px; background: #211a16; box-shadow: 0 24px 60px rgba(0,0,0,.3); overflow: hidden; }
+.product-film video { aspect-ratio: 9 / 16; object-fit: contain; border-radius: 13px; background: #080706; }
+.product-film figcaption { padding: 18px 14px 12px; color: #e8d7bb; font-size: .75rem; letter-spacing: .12em; text-align: center; line-height: 1.6; }
+@media (max-width: 600px) {
+  .product-films__grid { gap: 24px; grid-template-columns: minmax(0, 320px); }
+  .product-film { border-radius: 17px; padding: 6px; }
+}

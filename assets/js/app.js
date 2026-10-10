@@ -1091,7 +1091,7 @@
       '<button type="button" class="btn btn--dark btn--sm" data-action="form-add" data-form="' + fid + '">Add to bag</button></div>';
 
     var films = p.videos && p.videos.length ? '<section class="section section--cream product-films"><div class="container"><p class="eyebrow">Discover the details</p><h2 class="h-md">See it in motion</h2><div class="product-films__grid">' + p.videos.map(function (film) {
-      return '<figure class="product-film"><video controls playsinline preload="none" poster="' + img(film.poster) + '" aria-label="' + esc(p.name + ' — ' + film.label) + '"><source src="' + esc(film.src) + '" type="video/mp4">Your browser does not support video. <a href="' + esc(film.src) + '">Open the video</a></video><figcaption>' + esc(film.label) + '</figcaption></figure>';
+      return '<figure class="product-film"><video controls autoplay muted loop playsinline preload="metadata" poster="' + img(film.poster) + '" aria-label="' + esc(p.name + ' — ' + film.label) + '"><source src="' + esc(film.src) + '" type="video/mp4">Your browser does not support video. <a href="' + esc(film.src) + '">Open the video</a></video><figcaption>' + esc(film.label) + '</figcaption></figure>';
     }).join('') + '</div></div></section>' : '';
 
     return '<div class="container pdp">' + gallery + info + "</div>" + films +
