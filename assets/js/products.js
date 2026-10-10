@@ -246,21 +246,21 @@ window.PRODUCTS = [
     badge: "New",
     isNew: true,
     videos: [{ src: "assets/video/matte-lipstick-film.mp4", poster: "matte-lipstick-film", label: "Product showcase" }],
-    images: ["lip-coral-red", "lip-raspberry", "lip-royal-red", "lip-coral-noir", "lip-terracotta", "lip-classic-red", "lip-deep-red", "lip-plum", "lip-berry-wine"],
+    images: ["royal-red-lipstick-boutique", "royal-red-lipstick-splash", "lip-coral-red", "lip-raspberry", "lip-royal-red", "lip-coral-noir", "lip-terracotta", "lip-classic-red", "lip-deep-red", "lip-plum", "lip-berry-wine"],
     short: "Rich, velvety matte colour in nine shades — presented in our Gold Leaf, Blush Crystal, Noir and Royal Red cases.",
     description: "Make every look unforgettable with Ethereal Curves Matte Lipstick — rich, high-impact colour with a soft, velvety matte finish that stays comfortable all day. Choose your shade from bold reds and berries to coral and terracotta, each in its own luxury case and our signature Ethereal Curves box.",
     benefits: ["Rich, high-impact matte colour", "Soft, velvety finish that stays comfortable", "Long-lasting wear", "Nine shades from bold reds to warm corals", "Luxury cases in the signature Ethereal Curves box"],
     howTo: "Apply from the centre of the lips outward. For extra precision, line the lips first. Blot and reapply for deeper colour.",
     details: "Tap a shade to see its case · Presented in the Ethereal Curves gift box",
     claims: ["Matte", "Long-wear", "Gift-ready"],
-    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Coral Red · Blush Crystal case", "hex": "#e0311f", "image": "lip-coral-red"}, {"label": "Raspberry · Gold Leaf case", "hex": "#c3164a", "image": "lip-raspberry"}, {"label": "Royal Red · Royal Red case", "hex": "#b5121b", "image": "lip-royal-red"}, {"label": "Coral Pink · Noir case", "hex": "#f0644e", "image": "lip-coral-noir"}, {"label": "Terracotta · Blush Crystal case", "hex": "#c6553e", "image": "lip-terracotta"}, {"label": "Classic Red · Gold Leaf case", "hex": "#d61f12", "image": "lip-classic-red"}, {"label": "Deep Red · Blush Crystal case", "hex": "#b0161f", "image": "lip-deep-red"}, {"label": "Plum Berry · Gold Leaf case", "hex": "#7b1a3a", "image": "lip-plum"}, {"label": "Berry Wine · Blush Crystal case", "hex": "#8a1d4a", "image": "lip-berry-wine"}]}]
+    options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Coral Red · Blush Crystal case", "hex": "#e0311f", "image": "lip-coral-red"}, {"label": "Raspberry · Gold Leaf case", "hex": "#c3164a", "image": "lip-raspberry"}, {"label": "Royal Red · Royal Red case", "hex": "#b5121b", "image": "royal-red-lipstick-boutique"}, {"label": "Coral Pink · Noir case", "hex": "#f0644e", "image": "lip-coral-noir"}, {"label": "Terracotta · Blush Crystal case", "hex": "#c6553e", "image": "lip-terracotta"}, {"label": "Classic Red · Gold Leaf case", "hex": "#d61f12", "image": "lip-classic-red"}, {"label": "Deep Red · Blush Crystal case", "hex": "#b0161f", "image": "lip-deep-red"}, {"label": "Plum Berry · Gold Leaf case", "hex": "#7b1a3a", "image": "lip-plum"}, {"label": "Berry Wine · Blush Crystal case", "hex": "#8a1d4a", "image": "lip-berry-wine"}]}]
   },
   {
     id: "luxury-lipstick",
     name: "Luxury Lipstick",
     category: "makeup", sub: "lipstick",
     price: 25,
-    images: ["luxury-berry-lipstick", "balm", "satin-lip"],
+    images: ["luxury-berry-lipstick", "luxury-berry-lipstick-alt", "luxury-berry-lipstick-model", "balm", "satin-lip"],
     short: "Rich, high-impact color in satin-matte, hydrating cream or velvet demi-matte — in our metallic silver bullet and blush-pink base.",
     description: "Make every look unforgettable with the Ethereal Curves Luxury Lipstick Collection—where rich, high-impact color meets effortless sophistication. Created for the modern woman, each lipstick is designed to enhance your natural lip contours with luxurious, comfortable formulas. Whether you want a bold, velvety matte, a luminous and nourishing sheen, or a soft, cushion-like demi-matte, every shade delivers beautiful color, comfortable wear, and effortless confidence. Encased in our signature metallic silver bullet and blush-pink base, and presented in our minimalist white luxury packaging.",
     benefits: ["Rich, high-impact color", "Three finishes: satin-matte, hydrating cream, velvet demi-matte", "Comfortable, luxurious wear", "Signature silver bullet, blush-pink base and white luxury packaging"],
@@ -296,7 +296,7 @@ window.PRODUCTS = [
     name: "Liquid Coverage Foundation SPF 15",
     category: "makeup", sub: "foundation",
     price: 35,
-    images: ["fd-cov-5", "fd-cov-6", "coverage"],
+    images: ["coverage-foundation-boutique", "coverage-foundation-boutique-alt", "fd-cov-5", "fd-cov-6", "coverage"],
     short: "Full, flawless coverage with everyday SPF 15. 35 ml / 1.25 fl oz.",
     description: "Our liquid coverage foundation evens skin tone, blurs imperfections and adds a layer of SPF 15 for daily wear. A gold-capped bottle that belongs on your vanity.",
     benefits: ["Full, flawless coverage", "SPF 15 for daily wear", "Smooth, even finish", "35 ml / 1.25 fl oz"],
@@ -828,7 +828,6 @@ window.PRODUCTS = [
     badge: "New",
     isNew: true,
     sizeGuide: "bra",
-    videos: [{ src: "assets/video/comfort-set-film.mp4", poster: "comfort-set-film", label: "Campaign film" }],
     images: ["ic-comfort-set", "ic-comfort-set-poster"],
     short: "Bra + panty set: supportive, breathable, everyday comfort. Designed for curves. Made for you.",
     description: "A complete comfort set made for curves — a full-coverage molded-cup bra with supportive underwire and wide bands, paired with a soft, breathable panty. Style meets everyday ease.",
@@ -1001,14 +1000,14 @@ window.PRODUCTS = [
     isNew: true,
     sizeGuide: "bra",
     videos: [{ src: "assets/video/floral-bra-film.mp4", poster: "floral-bra-film", label: "Product showcase" }],
-    images: ["br-floral-pushup", "br-floral-pushup-poster"],
+    images: ["floral-bra-pink", "br-floral-pushup", "br-floral-pushup-poster"],
     short: "Floral lace over sheer mesh with full-cup coverage and strong lift. Feel beautiful, feel you.",
     description: "A full-cup push-up bra in delicate floral lace over sheer mesh. The multi-strap design lifts and shapes beautifully, wide wings keep it secure, and smoothing side wings give a sleek line under clothes.",
     benefits: ["Full-cup coverage", "Strong lift and support", "Comfortable and secure wide wings", "Smoothing side wings", "Adjustable straps"],
     howTo: "Hand wash cold and lay flat to dry. Not sure of your size? Use our Size Guide or message us on WhatsApp.",
     details: "US band sizes 36–48 · Cups C–F",
     claims: ["Plus size", "Lace", "Push-up"],
-    options: [{"name": "Colour", "type": "swatch", "values": [{"label": "Black", "hex": "#161414"}, {"label": "Dark Blue", "hex": "#1f3f99"}, {"label": "Taupe Floral", "hex": "#a89a8a"}, {"label": "Pink Floral", "hex": "#e040c8"}]}, {"name": "Band", "type": "button", "values": [{"label": "36"}, {"label": "38"}, {"label": "40"}, {"label": "42"}, {"label": "44"}, {"label": "46"}, {"label": "48"}]}, {"name": "Cup", "type": "button", "values": [{"label": "C"}, {"label": "D"}, {"label": "E"}, {"label": "F"}]}]
+    options: [{"name": "Colour", "type": "swatch", "values": [{"label": "Black", "hex": "#161414"}, {"label": "Dark Blue", "hex": "#1f3f99"}, {"label": "Taupe Floral", "hex": "#a89a8a"}, {"label": "Pink Floral", "hex": "#e040c8", "image": "floral-bra-pink"}]}, {"name": "Band", "type": "button", "values": [{"label": "36"}, {"label": "38"}, {"label": "40"}, {"label": "42"}, {"label": "44"}, {"label": "46"}, {"label": "48"}]}, {"name": "Cup", "type": "button", "values": [{"label": "C"}, {"label": "D"}, {"label": "E"}, {"label": "F"}]}]
   },
   {
     id: "strappy-mesh-pushup-bra",
@@ -1171,7 +1170,7 @@ window.PRODUCTS = [
     "sunglasses-tortoise",
     "sunglasses-floral"
   ],
-  "short": "A statement finishing touch \u2014 choose tortoiseshell or a dark floral frame.",
+  "short": "A statement finishing touch \u2014 choose tortoiseshell or a black patterned frame.",
   "description": "Complete your look with statement sunglasses from Ethereal Curves. Two distinctive frame styles bring a bold finishing touch to your everyday wardrobe.",
   "details": "$75 USD per pair. Message us for current availability and frame measurements.",
   "options": [
@@ -1185,11 +1184,33 @@ window.PRODUCTS = [
           "image": "sunglasses-tortoise"
         },
         {
-          "label": "Dark Floral",
+          "label": "Black Patterned",
           "hex": "#27232f",
           "image": "sunglasses-floral"
         }
       ]
+    }
+  ]
+},
+  {
+  "id": "burgundy-lace-lingerie-set",
+  "name": "Burgundy Lace Bra & Panty Set",
+  "category": "intimates",
+  "price": 35,
+  "badge": "New",
+  "isNew": true,
+  "images": [
+    "burgundy-lace-set"
+  ],
+  "short": "A coordinated burgundy bra and panty set with lace detailing.",
+  "description": "Complete your lingerie collection with this matching burgundy bra and panty set, featuring lace details and decorative straps. Sold together for $35 USD.",
+  "details": "Includes one bra and one matching panty. Message us on WhatsApp to confirm your size and current availability before ordering.",
+  "howTo": "Hand wash gently in cold water and lay flat to dry.",
+  "videos": [
+    {
+      "src": "assets/video/comfort-set-film.mp4",
+      "poster": "burgundy-lace-set",
+      "label": "Campaign film"
     }
   ]
 }
