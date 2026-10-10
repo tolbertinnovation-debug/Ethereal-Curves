@@ -307,17 +307,17 @@ window.PRODUCTS = [
   },
   {
     id: "pressed-face-powder",
-    name: "Luxury Compact Face Powder",
+    name: "Pressed Face Powder",
     category: "makeup", sub: "pressed-powder",
     price: 30,
     badge: "Bestseller",
     bestseller: true,
-    images: ["pw-c4", "pw-golden-beige", "pw-peach-tan", "pw-honey", "pw-c10", "pw-golden-tan", "pw-toffee", "pw-deep"],
+    images: ["pressed-powder-display-1", "pressed-powder-display-2", "pressed-powder-display-3", "pressed-powder-display-4", "pressed-powder-display-5", "pressed-powder-display-6", "pressed-powder-display-7", "pressed-powder-display-8", "pressed-powder-display-9", "pressed-powder-display-10", "pw-c4", "pw-golden-beige", "pw-peach-tan", "pw-honey", "pw-c10", "pw-golden-tan", "pw-toffee", "pw-deep"],
     short: "Finely milled pressed powder for coverage, smoothness and shine control — perfect for touch-ups on the go, in eight shades.",
     description: "Perfect your complexion wherever the day takes you with the Ethereal Curves Pressed Face Powder, thoughtfully curated for effortless coverage, smoothness, and shine control. Finely milled for a soft, polished finish, it helps even out the appearance of your complexion and set your makeup beautifully. Available in shades suited to diverse skin tones, from warm and golden to rich and melanin-deep, it can be worn alone for a natural finish or layered over foundation for added coverage. Beautifully compact and easy to carry — the perfect everyday essential for quick touch-ups and a flawless finish on the go. Effortless beauty, anytime, anywhere—Luxury Designed for You.",
     benefits: ["Flawless, soft-focus finish", "Controls shine all day", "Finely milled, never cakey", "Mirrored compact for touch-ups on the go"],
     howTo: "Press lightly over foundation with a puff or sweep on with a fluffy brush. Touch up through the day.",
-    details: "Mirrored compact in our Ethereal Curves gift box · Tap a shade to see it",
+    details: "Mirrored compact in our Ethereal Curves gift box · $30 USD each · Tap a shade to see it",
     claims: ["Shine control", "Travel-friendly"],
     options: [{ name: "Shade", type: "swatch", values: [{"label": "Color 4 · Soft Peach", "hex": "#df9b6d", "image": "pw-c4"}, {"label": "Color 7 · Golden Beige", "hex": "#cc9a5c", "image": "pw-golden-beige"}, {"label": "Color 8 · Peach Tan", "hex": "#c99670", "image": "pw-peach-tan"}, {"label": "Color 9 · Honey", "hex": "#b7824b", "image": "pw-honey"}, {"label": "Color 10 · Caramel", "hex": "#b87d46", "image": "pw-c10"}, {"label": "Color 14 · Golden Tan", "hex": "#9a6945", "image": "pw-golden-tan"}, {"label": "Color 16 · Toffee Brown", "hex": "#97654b", "image": "pw-toffee"}, {"label": "Deep Caramel", "hex": "#9c6a42", "image": "pw-deep"}] }]
   },
@@ -1216,6 +1216,7 @@ window.PRODUCTS = [
   ]
 }
 ];
+
 
 
 
