@@ -326,7 +326,7 @@ window.PRODUCTS = [
     name: "Loose Face Powder",
     category: "makeup", sub: "loose-powder",
     price: 30,
-    images: ["loose-powder-outdoor", "lp-6", "lp-6-side"],
+    images: ["loose-powder-display", "loose-powder-open", "loose-powder-packaging", "loose-powder-outdoor", "lp-6", "lp-6-side"],
     short: "Finely milled loose powder that sets, smooths and perfects — without looking heavy or cakey.",
     description: "Set, smooth, and perfect your complexion with the Ethereal Curves Loose Face Powder, curated to give your makeup a flawless, polished finish while keeping your look feeling light and effortless. Finely milled for a soft, silky texture, it helps set foundation, reduce excess shine, blur the appearance of imperfections, and extend the wear of your makeup. With shades to complement a range of skin tones, including rich and melanin-deep complexions, it enhances your natural beauty without looking heavy or cakey. A flawless finish, beautifully set—Luxury Designed for You.",
     benefits: ["Light weight", "Flawless matte finish", "Long-wearing", "Sets makeup and blurs texture", "Never heavy or cakey"],
@@ -1215,6 +1215,7 @@ window.PRODUCTS = [
   ]
 }
 ];
+
 
 
 
