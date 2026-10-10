@@ -1084,19 +1084,19 @@ window.PRODUCTS = [
   },
   {
     id: "concealer-contour-stick",
-    name: "Concealer Contour Stick",
+    name: "Face Contour Stick",
     category: "makeup",
     sub: "highlight",
     featured: 1,
     price: 10,
     badge: "New",
     isNew: true,
-    images: ["ct-toffee", "ct-caramel", "ct-sand", "ct-terracotta"],
+    images: ["face-contour-display-3", "face-contour-display-1", "face-contour-display-2", "ct-toffee", "ct-caramel", "ct-sand", "ct-terracotta"],
     short: "A creamy 2-in-1 concealer and contour stick that sculpts, defines and corrects — in four warm shades.",
     description: "Sculpt your bone structure and perfect your complexion with one easy stick. The Ethereal Curves Concealer Contour Stick glides on smoothly and blends seamlessly into skin, so you can define cheekbones, jaw and nose or conceal where you need it. Presented in our signature Ethereal Curves box with how-to-use guide.",
     benefits: ["2-in-1: contour and conceal", "Creamy texture that blends seamlessly", "Buildable, natural-looking definition", "Four warm shades for melanin-rich skin", "Easy twist-up stick — perfect for touch-ups"],
     howTo: "Contour: swipe under the cheekbones, along the jawline and the sides of the nose, then blend with a damp sponge or brush. Conceal: dot where needed and tap to blend.",
-    details: "Twist-up stick · Ethereal Curves box with how-to-use guide",
+    details: "Twist-up stick · $10 USD each · Ethereal Curves box with how-to-use guide",
     claims: ["Contour", "Concealer", "Buildable"],
     options: [{"name": "Shade", "type": "swatch", "values": [{"label": "Toffee", "hex": "#b5622b", "image": "ct-toffee"}, {"label": "Caramel", "hex": "#a8673a", "image": "ct-caramel"}, {"label": "Sand", "hex": "#b88a62", "image": "ct-sand"}, {"label": "Terracotta", "hex": "#9a4f33", "image": "ct-terracotta"}]}]
   },
@@ -1216,6 +1216,7 @@ window.PRODUCTS = [
   ]
 }
 ];
+
 
 
 
