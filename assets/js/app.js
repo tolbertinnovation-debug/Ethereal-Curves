@@ -666,21 +666,21 @@
      HOME
      ------------------------------------------------------------------ */
   var SLIDES = [
-    { tone: "noir", image: "pressed-red", pos: "center", eyebrow: "Luxury Pressed Face Powder",
-      title: 'Elevate <span class="script gold-text">Your Beauty</span>',
-      text: "A velvet, flawless finish in a mirrored black-and-gold compact. Shades created for melanin-rich skin.",
-      cta: [["Shop makeup", "#/shop?cat=makeup", "btn--gold"], ["Find your shade", "#/shade-finder", "btn--light"]] },
-    { tone: "champagne", image: "ic-comfort-set", pos: "center 20%", eyebrow: "New · Plus Size Comfort Set · $35",
-      title: 'Support That <span class="script">Celebrates You</span>',
-      text: "Supportive, breathable, everyday comfort in band sizes 75–95 and cups DD to JK. Designed for curves. Made for you.",
-      cta: [["Shop intimates", "#/shop?cat=intimates", "btn--dark"], ["Size guide", "#/size-guide", "btn--outline"]] },
-    { tone: "blush", image: "lacquer", pos: "center", eyebrow: "Lipsticks · Glosses · Matte Lip Gloss",
-      title: 'Lips That <span class="script">Speak First</span>',
-      text: "Plumping glosses in 24 shades, velvet lacquers and satin bullets. Glossy, bold and made to be seen.",
-      cta: [["Shop lips", "#/shop?cat=makeup", "btn--dark"], ["24 shades of gloss", "#/product/plump-shine-gloss", "btn--outline"]] },
+    { tone: "noir", image: "luxury-berry-lipstick-model", pos: "center 30%", eyebrow: "Ethereal Curves · Beauty & confidence",
+      title: 'Your beauty.<br>Your curves.<span class="script gold-text">Your moment.</span>',
+      text: "Discover expressive colour, radiant skin and intimates that celebrate you. Luxury designed for your everyday.",
+      cta: [["Explore beauty", "#/shop?cat=makeup", "btn--gold"], ["Shop intimates", "#/shop?cat=intimates", "btn--light"]] },
+    { tone: "champagne", image: "burgundy-lace-set", pos: "center", eyebrow: "The intimates edit",
+      title: 'A little lace.<span class="script">A lot of confidence.</span>',
+      text: "Discover beautiful intimates, supportive essentials and pieces made to feel like you.",
+      cta: [["Discover intimates", "#/shop?cat=intimates", "btn--dark"], ["Size guide", "#/size-guide", "btn--outline"]] },
+    { tone: "blush", image: "royal-red-lipstick-splash", pos: "center", eyebrow: "Colour with presence",
+      title: 'Make an<span class="script">entrance.</span>',
+      text: "From berry lips to a statement red. Find the colour that makes every look your own.",
+      cta: [["Shop lip colour", "#/shop?cat=makeup&sub=lipstick", "btn--dark"], ["Explore lip gloss", "#/product/plump-shine-gloss", "btn--outline"]] },
     { tone: "champagne", image: "shapewear", pos: "center 20%", eyebrow: "The Sculpture Collection",
-      title: 'As Good As <span class="script">It Looks</span>',
-      text: "Seamless sculpting with all-day comfort and breathable premium fabric. Modest. Comfortable. Beautiful.",
+      title: 'Embrace<span class="script">every curve.</span>',
+      text: "Discover seamless layers and sculpting essentials for a confident silhouette.",
       cta: [["Shop Sculpture", "#/shop?cat=sculpture", "btn--dark"], ["Find my size", "#/size-guide", "btn--outline"]] }
   ];
 
@@ -707,11 +707,11 @@
       marqueeWords.concat(marqueeWords).map(function (w) { return "<span>" + w + "</span>"; }).join("") + "</div></div>";
 
     var cats = '<section class="section"><div class="container">' +
-      '<div class="section__head center reveal"><p class="eyebrow">Shop by collection</p><h2 class="h-lg">Our Collections</h2><div class="ornament"><i></i></div></div>' +
+      '<div class="section__head center reveal"><p class="eyebrow">Shop by collection</p><h2 class="h-lg">Find your kind of beautiful</h2><div class="ornament"><i></i></div></div>' +
       '<div class="cats reveal-stagger">' + CATS.map(catTileHTML).join("") + "</div></div></section>";
 
     var rail = '<section class="section section--cream"><div class="container">' +
-      '<div class="section__head reveal"><div><p class="eyebrow">The icons</p><h2 class="h-lg">Most Loved</h2></div>' +
+      '<div class="section__head reveal"><div><p class="eyebrow">The icons</p><h2 class="h-lg">The everyday icons</h2></div>' +
       '<div class="toolbar__chips" role="tablist" aria-label="Filter products">' +
       [["best", "Bestsellers"], ["new", "New In"], ["makeup", "Makeup"], ["radiance", "Radiance"], ["sculpture", "Sculpture"], ["intimates", "Intimates"]].map(function (t, i) {
         return '<button type="button" class="chip' + (i === 0 ? " is-active" : "") + '" role="tab" aria-selected="' + (i === 0) + '" data-action="rail" data-tab="' + t[0] + '">' + t[1] + "</button>";
@@ -775,7 +775,12 @@
       "<p>Spend $" + CAMP.raffleMin + " or more and you're automatically entered in our <b>" + esc(CAMP.hashtag) + "</b> Raffle Draw on " + esc(CAMP.drawDate) + ".</p>" +
       '<div class="actions" style="justify-content:flex-start;margin-bottom:0"><a class="btn btn--pink" href="#/breasties">Join the campaign</a><a class="btn btn--light" href="#/shop?cat=intimates">Shop intimates</a></div></div></div></section>' : "";
 
-    return hero + marquee + camp + cats + rail + shadebar + split + teaser + values + lookbook + news;
+    var service = '<div class="boutique-service container"><span>' + ICON.sparkle + ' Beauty for every shade</span><span>' + ICON.hanger + ' Confidence for every curve</span><a href="' + waLink("Hi! I would love help choosing a product.") + '" target="_blank" rel="noopener">' + ICON.sparkle + ' Personal help on WhatsApp</a></div>';
+    var edit = '<section class="section boutique-edit"><div class="container"><div class="section__head reveal"><div><p class="eyebrow">The beauty edit</p><h2 class="h-lg">Small details. <em>Beautiful impact.</em></h2></div><a class="link" href="#/shop?cat=makeup">Explore makeup</a></div><div class="edit-grid">' +
+      [["coverage-foundation-boutique", "coverage-foundation-spf15", "01 / THE BASE", "Find your flawless", "Liquid coverage foundation · $35"], ["luxury-berry-lipstick", "luxury-lipstick", "02 / THE COLOUR", "A signature lip", "Luxury lipstick · $25"], ["lookme-glow-champagne", "lookme-glow-shimmer-spray", "03 / THE GLOW", "Catch the light", "Glow highlighter spray · $10"]].map(function (x) {
+        return '<a class="edit-card reveal" href="#/product/' + x[1] + '"><div class="edit-card__image"><img src="' + img(x[0]) + '" alt="' + x[3] + '" loading="lazy"><span>' + ICON.arrow + '</span></div><p class="eyebrow">' + x[2] + '</p><h3>' + x[3] + '</h3><p class="muted">' + x[4] + '</p></a>';
+      }).join("") + '</div></div></section>';
+    return hero + service + cats + edit + rail + camp + shadebar + split + teaser + values + lookbook + news;
   };
 
   function catTileHTML(c) {
@@ -1598,7 +1603,7 @@
       "<p>From what you wear closest to your skin to the beauty products that enhance your natural glow, every Ethereal Curves piece is selected with the fuller figure in mind. We bring together comfort, quality, sophistication, and effortless femininity so you never have to compromise between looking beautiful and feeling comfortable.</p>" +
       "</div></div></section>" +
 
-      '<section class="section section--cream"><div class="container"><div class="section__head center reveal"><p class="eyebrow">What we offer</p><h2 class="h-lg">Our Collections</h2><div class="ornament"><i></i></div></div>' +
+      '<section class="section section--cream"><div class="container"><div class="section__head center reveal"><p class="eyebrow">What we offer</p><h2 class="h-lg">Find your kind of beautiful</h2><div class="ornament"><i></i></div></div>' +
       '<div class="story-cols reveal-stagger">' + coll.map(function (c) {
         return '<article class="story-col"><h3 class="h-md">' + c[1] + "</h3>" + (c[2] ? '<p class="story-col__tag">' + c[2] + "</p>" : "") + "<p>" + c[3] + "</p>" +
           (c[0] ? '<a class="link" href="#/shop?cat=' + c[0] + '">Shop now</a>' : '<span class="muted" style="font-size:.85rem">Coming soon</span>') + "</article>";
@@ -2000,4 +2005,5 @@
   if (location.hash === "#/cart") { history.replaceState(null, "", "#/"); render(); openOverlay("cart"); }
   else render();
 })();
+
 
