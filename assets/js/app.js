@@ -1085,7 +1085,11 @@
     var sticky = p.soldOut ? "" : '<div class="sticky-buy" id="stickyBuy"><img src="' + img(p.images[0], true) + '" alt=""><div class="sticky-buy__txt"><strong>' + esc(p.name) + "</strong>" + money(p.price) + "</div>" +
       '<button type="button" class="btn btn--dark btn--sm" data-action="form-add" data-form="' + fid + '">Add to bag</button></div>';
 
-    return '<div class="container pdp">' + gallery + info + "</div>" +
+    var films = p.videos && p.videos.length ? '<section class="section section--cream product-films"><div class="container"><p class="eyebrow">Discover the details</p><h2 class="h-md">See it in motion</h2><div class="product-films__grid">' + p.videos.map(function (film) {
+      return '<figure class="product-film"><video controls playsinline preload="none" poster="' + img(film.poster) + '" aria-label="' + esc(p.name + ' — ' + film.label) + '"><source src="' + esc(film.src) + '" type="video/mp4">Your browser does not support video. <a href="' + esc(film.src) + '">Open the video</a></video><figcaption>' + esc(film.label) + '</figcaption></figure>';
+    }).join('') + '</div></div></section>' : '';
+
+    return '<div class="container pdp">' + gallery + info + "</div>" + films +
       '<section class="section section--cream"><div class="container"><div class="section__head reveal"><div><p class="eyebrow">Complete the look</p><h2 class="h-md">You may also love</h2></div><a class="link" href="#/shop?cat=' + c.id + '">View all</a></div>' + gridHTML(related) + "</div></section>" +
       (recent.length ? '<section class="section section--tight"><div class="container"><div class="section__head reveal"><div><p class="eyebrow">Recently viewed</p><h2 class="h-md">Still thinking about these?</h2></div></div>' + gridHTML(recent) + "</div></section>" : "") +
       sticky;
@@ -1996,3 +2000,4 @@
   if (location.hash === "#/cart") { history.replaceState(null, "", "#/"); render(); openOverlay("cart"); }
   else render();
 })();
+

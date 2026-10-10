@@ -95,7 +95,7 @@ window.CATEGORIES = [
     description: "Leave a lasting impression with the Ethereal Curves Essence Collection, a curated world of beautiful fragrances and personal essentials designed to become part of your signature presence. Discover an evolving selection of perfumes, fragrance-inspired essentials, and luxurious finishing touches for women and men, with scents ranging from soft and sensual to fresh, sophisticated, and captivating. Whether you prefer a subtle everyday fragrance or a statement scent for special moments, our collection invites you to express your personality through fragrance and make every entrance memorable. Because luxury is not only what you wear—it is the essence you leave behind."
   },
   {
-    id: "essentials", name: "Essentials", title: "Luxury Essentials Collection", image: null, icon: "bag",
+    id: "essentials", name: "Essentials", title: "Luxury Essentials Collection", image: "sunglasses-tortoise", icon: "bag",
     blurb: "Shoes, handbags, jewelry and watches for women and men.",
     description: "Elevate the everyday with the Ethereal Curves Luxury Essentials Collection—a curated selection of timeless pieces designed to add sophistication, style, and effortless polish to every look. Discover thoughtfully selected shoes, handbags, jewelry, and watches for both women and men, bringing together statement pieces and everyday essentials for every occasion. From elegant footwear and refined bags to delicate jewelry and distinctive timepieces, each piece is chosen to complement your personal style and bring a touch of quiet luxury to your wardrobe. Whether you're dressing for a special occasion or simply elevating your everyday look, our Luxury Essentials Collection makes finishing every outfit feel effortless. Because true luxury is in the details—and every detail should be designed for you."
   },
@@ -245,6 +245,7 @@ window.PRODUCTS = [
     price: 25,
     badge: "New",
     isNew: true,
+    videos: [{ src: "assets/video/matte-lipstick-film.mp4", poster: "matte-lipstick-film", label: "Product showcase" }],
     images: ["lip-coral-red", "lip-raspberry", "lip-royal-red", "lip-coral-noir", "lip-terracotta", "lip-classic-red", "lip-deep-red", "lip-plum", "lip-berry-wine"],
     short: "Rich, velvety matte colour in nine shades — presented in our Gold Leaf, Blush Crystal, Noir and Royal Red cases.",
     description: "Make every look unforgettable with Ethereal Curves Matte Lipstick — rich, high-impact colour with a soft, velvety matte finish that stays comfortable all day. Choose your shade from bold reds and berries to coral and terracotta, each in its own luxury case and our signature Ethereal Curves box.",
@@ -259,7 +260,7 @@ window.PRODUCTS = [
     name: "Luxury Lipstick",
     category: "makeup", sub: "lipstick",
     price: 25,
-    images: ["balm", "satin-lip"],
+    images: ["luxury-berry-lipstick", "balm", "satin-lip"],
     short: "Rich, high-impact color in satin-matte, hydrating cream or velvet demi-matte — in our metallic silver bullet and blush-pink base.",
     description: "Make every look unforgettable with the Ethereal Curves Luxury Lipstick Collection—where rich, high-impact color meets effortless sophistication. Created for the modern woman, each lipstick is designed to enhance your natural lip contours with luxurious, comfortable formulas. Whether you want a bold, velvety matte, a luminous and nourishing sheen, or a soft, cushion-like demi-matte, every shade delivers beautiful color, comfortable wear, and effortless confidence. Encased in our signature metallic silver bullet and blush-pink base, and presented in our minimalist white luxury packaging.",
     benefits: ["Rich, high-impact color", "Three finishes: satin-matte, hydrating cream, velvet demi-matte", "Comfortable, luxurious wear", "Signature silver bullet, blush-pink base and white luxury packaging"],
@@ -268,7 +269,7 @@ window.PRODUCTS = [
     claims: ["Satin-matte", "Hydrating cream", "Velvet demi-matte"],
     options: [
       { name: "Finish", type: "button", values: [{ label: "Satin-Matte" }, { label: "Hydrating Cream" }, { label: "Velvet Demi-Matte" }] },
-      { name: "Shade", type: "swatch", values: [{ label: "Peach Nude", hex: "#e39a78" }, { label: "Toffee Nude", hex: "#a8704f" }] }
+      { name: "Shade", type: "swatch", values: [{ label: "Peach Nude", hex: "#e39a78" }, { label: "Toffee Nude", hex: "#a8704f" }, { label: "Berry Wine", hex: "#8a2449", image: "luxury-berry-lipstick" }] }
     ]
   },
 
@@ -280,6 +281,7 @@ window.PRODUCTS = [
     price: 35,
     badge: "Bestseller",
     bestseller: true,
+    videos: [{ src: "assets/video/foundation-film.mp4", poster: "foundation-film", label: "Campaign film" }],
     images: ["fd-matte-6", "fd-matte-6-top"],
     short: "Smooth, buildable coverage with a sophisticated soft-matte finish. 1.05 fl oz / 30 ml tube.",
     description: "Create a flawless, refined complexion with the Ethereal Curves Matte Liquid Foundation, thoughtfully selected to deliver smooth, buildable coverage with a sophisticated soft-matte finish. Designed to beautifully complement a diverse range of skin tones, the lightweight formula helps even the appearance of the complexion while creating a polished, comfortable base that wears beautifully throughout the day. Whether you're going for natural everyday elegance or a more perfected glam look, this foundation provides the confidence to let your beauty shine through. Flawless coverage. Beautifully balanced. Luxury designed for you.",
@@ -826,6 +828,7 @@ window.PRODUCTS = [
     badge: "New",
     isNew: true,
     sizeGuide: "bra",
+    videos: [{ src: "assets/video/comfort-set-film.mp4", poster: "comfort-set-film", label: "Campaign film" }],
     images: ["ic-comfort-set", "ic-comfort-set-poster"],
     short: "Bra + panty set: supportive, breathable, everyday comfort. Designed for curves. Made for you.",
     description: "A complete comfort set made for curves — a full-coverage molded-cup bra with supportive underwire and wide bands, paired with a soft, breathable panty. Style meets everyday ease.",
@@ -905,6 +908,7 @@ window.PRODUCTS = [
     name: "High-Control Tummy Control Panty",
     category: "sculpture",
     price: 5,
+    videos: [{ src: "assets/video/tummy-panty-film.mp4", poster: "tummy-panty-film", label: "Product showcase" }],
     images: ["ic-tummy-panty", "ic-flyer"],
     short: "High-waist shaping panty for a smooth, sculpted midsection.",
     description: "A seamless high-waist shaping panty with firm tummy control that smooths your midsection under any outfit.",
@@ -959,6 +963,7 @@ window.PRODUCTS = [
     badge: "New",
     isNew: true,
     sizeGuide: "bra",
+    videos: [{ src: "assets/video/full-cup-bra-film.mp4", poster: "full-cup-bra-film", label: "Product showcase" }],
     images: ["br-fullcup-lace", "br-fullcup-lace-poster"],
     short: "Full coverage. Beautiful lift. Unmatched support — in eight colours.",
     description: "Premium support, beautiful by design. A full-cup underwire bra with an elegant lace and mesh finish and a multi-strap design that lifts and shapes beautifully. Wide wings and fully adjustable straps keep it comfortable and secure all day.",
@@ -995,6 +1000,7 @@ window.PRODUCTS = [
     badge: "New",
     isNew: true,
     sizeGuide: "bra",
+    videos: [{ src: "assets/video/floral-bra-film.mp4", poster: "floral-bra-film", label: "Product showcase" }],
     images: ["br-floral-pushup", "br-floral-pushup-poster"],
     short: "Floral lace over sheer mesh with full-cup coverage and strong lift. Feel beautiful, feel you.",
     description: "A full-cup push-up bra in delicate floral lace over sheer mesh. The multi-strap design lifts and shapes beautifully, wide wings keep it secure, and smoothing side wings give a sleek line under clothes.",
@@ -1013,6 +1019,7 @@ window.PRODUCTS = [
     badge: "New",
     isNew: true,
     sizeGuide: "bra",
+    videos: [{ src: "assets/video/strappy-bra-film.mp4", poster: "strappy-bra-film", label: "Product showcase" }],
     images: ["br-strappy-pushup", "br-strappy-pushup-poster"],
     short: "Sheer mesh, lace detail and a statement multi-strap design. Seamless, smooth and supportive.",
     description: "A modern full-cup push-up bra with breathable sheer mesh, lace detailing and a statement multi-strap neckline. 360° remodeling lifts and shapes, while smoothing side wings and adjustable straps give a secure, custom fit.",
@@ -1152,5 +1159,38 @@ window.PRODUCTS = [
     howTo: "Shake well and mist 20 cm from the face after makeup, or over collarbones and shoulders.",
     details: "Part of The Golden Hour Glow Kit",
     claims: ["Glow", "Shimmer"]
-  }
+  },
+  {
+  "id": "statement-sunglasses",
+  "name": "Statement Sunglasses",
+  "category": "essentials",
+  "price": 75,
+  "badge": "New",
+  "isNew": true,
+  "images": [
+    "sunglasses-tortoise",
+    "sunglasses-floral"
+  ],
+  "short": "A statement finishing touch \u2014 choose tortoiseshell or a dark floral frame.",
+  "description": "Complete your look with statement sunglasses from Ethereal Curves. Two distinctive frame styles bring a bold finishing touch to your everyday wardrobe.",
+  "details": "$75 USD per pair. Message us for current availability and frame measurements.",
+  "options": [
+    {
+      "name": "Style",
+      "type": "swatch",
+      "values": [
+        {
+          "label": "Tortoiseshell",
+          "hex": "#86521f",
+          "image": "sunglasses-tortoise"
+        },
+        {
+          "label": "Dark Floral",
+          "hex": "#27232f",
+          "image": "sunglasses-floral"
+        }
+      ]
+    }
+  ]
+}
 ];
