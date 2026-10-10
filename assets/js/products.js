@@ -359,18 +359,19 @@ window.PRODUCTS = [
   {
     id: "lookme-glow-shimmer-spray",
     brand: "Lookme",
-    name: "Glow Intense Shimmer Spray",
+    name: "Glow Highlighter Spray",
     category: "radiance",
     sub: "body-shimmer",
     price: 10,
     isNew: true,
-    images: ["glow-spray"],
-    short: "A fine golden shimmer mist for skin and hair. Spritz on for an instant, all-over glow.",
-    description: "Catch the light from head to toe. The LOOKME Glow Intense Shimmer Spray releases a fine mist of golden shimmer that settles evenly over shoulders, collarbones, legs and hair, for a sun-kissed radiance that photographs beautifully.",
-    benefits: ["Intense golden shimmer", "For skin and hair", "Fine, even mist", "Quick-drying, lightweight finish"],
+    images: ["lookme-glow-gold", "lookme-glow-bronze", "lookme-glow-champagne", "lookme-glow-pearl", "glow-spray"],
+    short: "An intense shimmer spray for skin and hair, in four glow colours. 30 ml.",
+    description: "Catch the light with LOOKME Glow Highlighter Spray. The 30 ml spray bottle adds a shimmering finish to skin and hair. Choose Gold, Bronze, Champagne or Pearl; select a colour to see its matching product photo.",
+    benefits: ["Intense shimmer", "For skin and hair", "Fine, even mist", "Quick-drying, lightweight finish"],
     howTo: "Shake well. Hold 15–20 cm away and mist over skin or hair. Let it dry for a few seconds before dressing. Build up for more glow.",
-    details: "LOOKME Glow · Intense shimmer spray · Skin & hair",
-    claims: ["Skin & hair", "Golden glow"]
+    details: "30 ml · LOOKME Glow · Intense shimmer spray · Skin & hair · $10 USD each",
+    claims: ["Skin & hair", "Shimmer"],
+    options: [{ name: "Colour", type: "swatch", values: [{ label: "Gold", hex: "#b98a38", image: "lookme-glow-gold" }, { label: "Bronze", hex: "#a46b3c", image: "lookme-glow-bronze" }, { label: "Champagne", hex: "#d6c19b", image: "lookme-glow-champagne" }, { label: "Pearl", hex: "#e5dfbf", image: "lookme-glow-pearl" }] }]
   },
   {
     id: "shimmer-body-serum",
@@ -1215,6 +1216,7 @@ window.PRODUCTS = [
   ]
 }
 ];
+
 
 
 
