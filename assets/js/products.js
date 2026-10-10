@@ -276,18 +276,18 @@ window.PRODUCTS = [
   /* ============================ MAKEUP · FACE ============================ */
   {
     id: "matte-liquid-foundation",
-    name: "Matte Finish Liquid Foundation",
+    name: "Flawless Matte Foundation",
     category: "makeup", sub: "foundation",
     price: 35,
     badge: "Bestseller",
     bestseller: true,
     videos: [{ src: "assets/video/foundation-film.mp4", poster: "foundation-film", label: "Campaign film" }],
-    images: ["matte-foundation-display", "fd-matte-6", "fd-matte-6-top"],
+    images: ["flawless-matte-foundation-1", "flawless-matte-foundation-2", "flawless-matte-foundation-3", "flawless-matte-foundation-4", "matte-foundation-display", "fd-matte-6", "fd-matte-6-top"],
     short: "Smooth, buildable coverage with a sophisticated soft-matte finish. 1.05 fl oz / 30 ml tube.",
     description: "Create a flawless, refined complexion with the Ethereal Curves Matte Liquid Foundation, thoughtfully selected to deliver smooth, buildable coverage with a sophisticated soft-matte finish. Designed to beautifully complement a diverse range of skin tones, the lightweight formula helps even the appearance of the complexion while creating a polished, comfortable base that wears beautifully throughout the day. Whether you're going for natural everyday elegance or a more perfected glam look, this foundation provides the confidence to let your beauty shine through. Flawless coverage. Beautifully balanced. Luxury designed for you.",
     benefits: ["Soft-matte, natural-looking finish", "Buildable medium-to-full coverage", "Blends seamlessly", "Shades made for melanin-rich skin"],
     howTo: "Pump a small amount onto the back of your hand. Apply from the center of the face outward with a brush or damp sponge and build where needed.",
-    details: "1.05 fl oz / 30 ml squeeze tube · Shade #6 (MFD06) in stock online — more shades in store, ask us on WhatsApp",
+    details: "1.05 fl oz / 30 ml squeeze tube · $35 USD each · Shade #6 (MFD06) online — ask us on WhatsApp for help matching your shade",
     claims: ["Matte finish", "Inclusive shades"],
     options: [{ name: "Shade", type: "swatch", values: [{"label": "#6", "hex": "#c8935d", "image": "fd-matte-6"}] }]
   },
@@ -296,7 +296,7 @@ window.PRODUCTS = [
     name: "Liquid Coverage Foundation SPF 15",
     category: "makeup", sub: "foundation",
     price: 35,
-    images: ["coverage-foundation-boutique", "coverage-foundation-boutique-alt", "fd-cov-5", "fd-cov-6", "coverage"],
+    images: ["coverage-foundation-boutique", "coverage-foundation-boutique-alt", "coverage-foundation-studio-1", "coverage-foundation-studio-2", "coverage-foundation-studio-3", "coverage-foundation-studio-4", "coverage-foundation-label-5", "fd-cov-5", "fd-cov-6", "coverage"],
     short: "Full, flawless coverage with everyday SPF 15. 35 ml / 1.25 fl oz.",
     description: "Our liquid coverage foundation evens skin tone, blurs imperfections and adds a layer of SPF 15 for daily wear. A gold-capped bottle that belongs on your vanity.",
     benefits: ["Full, flawless coverage", "SPF 15 for daily wear", "Smooth, even finish", "35 ml / 1.25 fl oz"],
@@ -1215,5 +1215,6 @@ window.PRODUCTS = [
   ]
 }
 ];
+
 
 
