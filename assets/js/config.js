@@ -35,6 +35,7 @@ window.STORE = {
   },
 
   /* ---------------- Delivery ---------------- */
+  codDeposit: 5,             // USD advance for cash-on-delivery dispatch; credited to total
   freeDeliveryOver: 50,      // USD. Monrovia delivery is free above this
   delivery: [
     { id: "monrovia", label: "Delivery within Monrovia", note: "1 – 2 business days", fee: 5, freeEligible: true },
@@ -74,7 +75,7 @@ window.STORE = {
       id: "cod",
       label: "Cash on Delivery",
       color: "#1c1714",
-      steps: "Pay in cash (USD or LRD) when your order arrives. Available for Monrovia delivery and pickup."
+      steps: "Monrovia delivery requires a $5 advance deposit before dispatch, credited toward your order total. Pay the remaining balance on arrival. Store pickup requires no transportation deposit."
     }
   ],
 

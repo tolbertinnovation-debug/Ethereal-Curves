@@ -277,6 +277,10 @@
     return m.fee;
   }
 
+  function codDeposit(payment, delivery, total) {
+    return payment === "cod" && delivery === "monrovia" ? round2(Math.min(S.codDeposit || 5, Math.max(0, total))) : 0;
+  }
+
   function applyPromo(code) {
     code = (code || "").trim().toUpperCase();
     if (!code) return;
@@ -1158,7 +1162,7 @@
     }
     var d = checkoutDraft;
     var method = d.delivery || "monrovia";
-    var pay = d.payment || "orange";
+    var pay = S.payments.some(function (m) { return m.id === d.payment; }) ? d.payment : S.payments[0].id;
     var sub = subtotal(), disc = discountFor(sub), fee = deliveryFee(method, sub - disc);
 
     function field(name, label, opts) {
@@ -1187,7 +1191,7 @@
       (disc ? '<div class="disc"><span>Discount (' + esc(state.promo) + ')</span><span>−' + money(disc) + "</span></div>" : "") +
       '<div><span>Delivery</span><span id="sumFee">' + (fee === null ? "Quoted on WhatsApp" : fee === 0 ? "Free" : money(fee)) + "</span></div>" +
       '<div class="grand"><span>Total</span><span id="sumTotal">' + money(sub - disc + (fee || 0)) + "</span></div>" +
-      '<div class="muted" style="font-size:.84rem;justify-content:flex-end" id="sumAlt">' + altMoney(sub - disc + (fee || 0)) + "</div></div>" + raffleHTML() + "</aside>";
+      '<div class="muted" style="font-size:.84rem;justify-content:flex-end" id="sumAlt">' + altMoney(sub - disc + (fee || 0)) + "</div></div>" + '<div class="paybox" id="codSummary" hidden></div>' + raffleHTML() + "</aside>";
 
     return '<div class="container checkout"><div>' +
       '<nav class="steps" aria-label="Checkout steps"><button type="button" data-action="open-cart">Bag</button><span aria-hidden="true">›</span><b>Details</b><span aria-hidden="true">›</span><span>Confirm on WhatsApp</span></nav>' +
@@ -1208,7 +1212,7 @@
       field("country", "Country", { full: true, hidden: true, ph: "Country for international shipping", ac: "country-name" }) +
       "</div></fieldset>" +
       '<fieldset class="fieldset"><legend><span>3</span>Payment</legend><div class="radios" id="payRadios">' + payRadios + "</div>" +
-      '<p class="muted" id="codNote" style="font-size:.85rem;margin-top:10px" hidden>Cash on delivery is available for Monrovia delivery and pickup.</p></fieldset>' +
+      '<p class="muted" id="codNote" style="font-size:.85rem;margin-top:10px" hidden>Cash on delivery is available for Monrovia delivery and pickup.</p><div class="paybox" id="codDepositNote" hidden><p class="eyebrow">Cash-on-delivery deposit</p><p style="margin:0">A $5 advance deposit is required before we dispatch your Monrovia delivery. It is credited toward your order total. Pay the balance when your order arrives. Send the deposit through Lonestar MTN Mobile Money or Ecobank, using your order number as the reference, then share proof on WhatsApp. We confirm payment before dispatch. Store pickup requires no transportation deposit.</p></div></fieldset>' +
       '<fieldset class="fieldset"><legend><span>4</span>Anything else?</legend><div class="fields">' + field("notes", "Order notes", { full: true, textarea: true, optional: true, ph: "Gift message, preferred delivery time, shade questions…" }) + "</div></fieldset>" +
       '<button type="submit" class="btn btn--gold btn--block" style="min-height:58px">' + ICON.wa + " Place order &amp; confirm on WhatsApp</button>" +
       '<p class="secure">' + ICON.lock + "Your order is sent straight to Ethereal Curves on WhatsApp. No card details needed.</p>" +
@@ -1237,12 +1241,18 @@
         cod.disabled = !codOk;
         $("[data-pay='cod']").style.opacity = codOk ? "" : ".5";
         $("#codNote").hidden = codOk;
-        if (!codOk && cod.checked) { $("[data-pay='orange'] input").checked = true; sync(); return; }
+        if (!codOk && cod.checked) { $("[data-pay='" + S.payments.filter(function (p) { return p.id !== "cod"; })[0].id + "'] input").checked = true; sync(); return; }
       }
       var sub = subtotal(), disc = discountFor(sub), fee = deliveryFee(method, sub - disc);
       $("#sumFee").textContent = fee === null ? "Quoted on WhatsApp" : fee === 0 ? "Free" : money(fee);
       $("#sumTotal").textContent = money(sub - disc + (fee || 0));
       $("#sumAlt").textContent = altMoney(sub - disc + (fee || 0));
+      var total = round2(sub - disc + (fee || 0));
+      var deposit = codDeposit(fd.get("payment"), method, total);
+      $("#codDepositNote").hidden = !deposit;
+      $("#codSummary").hidden = !deposit;
+      $("#codSummary").innerHTML = '<p class="eyebrow">Cash-on-delivery payment</p><div class="paybox__row"><span>Deposit before dispatch</span><b>' + money(deposit) + '</b></div><div class="paybox__row"><span>Balance on arrival</span><b>' + money(round2(total - deposit)) + '</b></div><p style="font-size:.85rem;margin:12px 0 0">Deposit is included in the total, not an extra charge.</p>';
+
       // remember details
       var draft = {};
       fd.forEach(function (v, k) { draft[k] = v; });
@@ -1295,6 +1305,7 @@
       items: state.cart.map(function (l) { var p = byId[l.id]; return { id: p.id, name: p.name, image: imageFor(p, l.opts), opts: l.opts, qty: l.qty, price: p.price }; }),
       subtotal: sub, promo: disc ? state.promo : null, discount: disc, deliveryLabel: method.label, deliveryFee: fee,
       total: round2(sub - disc + (fee || 0)), payment: data.payment,
+      depositDue: codDeposit(data.payment, data.delivery, sub - disc + (fee || 0)),
       customer: { name: data.firstName + " " + data.lastName, phone: normalizePhone(data.phone), email: data.email },
       address: data.delivery === "pickup" ? "Pickup at our store — " + (S.storeAddress || "Monrovia") : [data.address, data.city, data.delivery === "international" ? data.country : data.county + " County", data.delivery === "international" ? "" : "Liberia"].filter(Boolean).join(", "),
       notes: data.notes,
@@ -1327,6 +1338,7 @@
       "\nDelivery (" + o.deliveryLabel + "): " + (o.deliveryFee === null ? "please quote" : o.deliveryFee === 0 ? "FREE" : money(o.deliveryFee, "USD")) +
       "\nTOTAL: " + money(o.total, "USD") + " (≈ " + money(o.total, "LRD") + ")" + (o.deliveryFee === null ? " + shipping" : "") + "\n\n" +
       "Deliver to: " + o.address + "\nPayment: " + (pay ? pay.label : o.payment) +
+      (o.depositDue ? "\nDeposit before dispatch: " + money(o.depositDue, "USD") + " (credited to total; payment pending confirmation)" + "\nBalance on arrival: " + money(round2(o.total - o.depositDue), "USD") + "\nPlease confirm my deposit payment proof on WhatsApp before dispatch." : "") +
       (o.notes ? "\nNotes: " + o.notes : "") +
       (o.raffle ? "\n\n🎀 " + CAMP.hashtag + " Raffle Draw entry (order of $" + CAMP.raffleMin + "+)" : "") + "\n\nThank you!";
   }
@@ -1360,6 +1372,13 @@
         amountRow + refRow +
         '<p style="margin:14px 0 0;color:#bcae9d;font-size:.92rem">' + esc(pay.steps) + shipNote + "</p></div>"
       : '<div class="paybox"><p class="eyebrow">' + esc(pay ? pay.label : "Payment") + '</p><p style="margin:0">' + esc(pay ? pay.steps : "") + '</p><div class="paybox__row" style="margin-top:12px"><span>Amount due</span><b>' + totalTxt + " · " + money(o.total, "LRD") + "</b></div></div>";
+
+    if (o.payment === "cod" && o.depositDue) {
+      var depositMethod = S.payments.find(function (p) { return p.id === "mtn"; });
+      payBox = '<div class="paybox"><p class="eyebrow">Deposit required before dispatch</p><div class="paybox__row"><span>Pay in advance</span><b>' + money(o.depositDue, "USD") + ' · ' + money(o.depositDue, "LRD") + '</b></div><div class="paybox__row"><span>Balance on arrival</span><b>' + money(round2(o.total - o.depositDue), "USD") + '</b></div>' +
+        (depositMethod ? '<div class="paybox__row"><span>' + esc(depositMethod.label) + '</span><b>' + esc(depositMethod.number) + '</b></div><div class="paybox__row"><span>Account name</span><b>' + esc(depositMethod.accountName) + '</b></div>' : '') +
+        refRow + '<p style="margin:16px 0 0">Your deposit is credited toward the total. Send the payment proof on WhatsApp. We will confirm receipt before dispatching your order. You can also request the Ecobank deposit instructions on WhatsApp.</p></div>';
+    }
 
     return '<div class="container"><div class="confirm"><div class="center"><div class="confirm__seal">' + ICON.check + "</div>" +
       '<p class="eyebrow">Order ' + o.id + '</p><h1 class="h-lg">Thank you, ' + esc(o.customer.name.split(" ")[0]) + "</h1>" +
@@ -1720,7 +1739,7 @@
   var FAQ = [
     ["Orders & payment", [
       ["How do I place an order?", "Add your favourites to your bag and check out. Your order is sent to us on WhatsApp, where we confirm availability and delivery. You can also simply message us on WhatsApp with what you'd like."],
-      ["Which payment methods do you accept?", "Lonestar MTN Mobile Money, Ecobank bank transfer (USD or LRD account, title: The Ethereal Collective), and cash on delivery for Monrovia delivery and pickup. Use your order number as the payment reference so we can match it quickly."],
+      ["Which payment methods do you accept?", "Lonestar MTN Mobile Money, Ecobank bank transfer (USD or LRD account, title: The Ethereal Collective), and cash on delivery for Monrovia delivery and pickup. Monrovia cash-on-delivery orders require a $5 advance deposit before dispatch, credited toward the total; pay the balance on arrival. Pickup requires no transportation deposit. Use your order number as the payment reference so we can match it quickly."],
       ["Can I pay in Liberian dollars?", "Yes. Switch the currency at the top of the page to see prices in LRD. The LRD amount is an estimate based on the current exchange rate — we'll confirm the exact amount on WhatsApp."],
       ["Do you have discount codes?", "Use WELCOME10 for 10% off your first order. Join the Ethereal Circle to hear about private offers first."]
     ]],
