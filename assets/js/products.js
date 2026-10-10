@@ -282,7 +282,7 @@ window.PRODUCTS = [
     badge: "Bestseller",
     bestseller: true,
     videos: [{ src: "assets/video/foundation-film.mp4", poster: "foundation-film", label: "Campaign film" }],
-    images: ["fd-matte-6", "fd-matte-6-top"],
+    images: ["matte-foundation-display", "fd-matte-6", "fd-matte-6-top"],
     short: "Smooth, buildable coverage with a sophisticated soft-matte finish. 1.05 fl oz / 30 ml tube.",
     description: "Create a flawless, refined complexion with the Ethereal Curves Matte Liquid Foundation, thoughtfully selected to deliver smooth, buildable coverage with a sophisticated soft-matte finish. Designed to beautifully complement a diverse range of skin tones, the lightweight formula helps even the appearance of the complexion while creating a polished, comfortable base that wears beautifully throughout the day. Whether you're going for natural everyday elegance or a more perfected glam look, this foundation provides the confidence to let your beauty shine through. Flawless coverage. Beautifully balanced. Luxury designed for you.",
     benefits: ["Soft-matte, natural-looking finish", "Buildable medium-to-full coverage", "Blends seamlessly", "Shades made for melanin-rich skin"],
@@ -326,7 +326,7 @@ window.PRODUCTS = [
     name: "Loose Face Powder",
     category: "makeup", sub: "loose-powder",
     price: 30,
-    images: ["lp-6", "lp-6-side"],
+    images: ["loose-powder-outdoor", "lp-6", "lp-6-side"],
     short: "Finely milled loose powder that sets, smooths and perfects — without looking heavy or cakey.",
     description: "Set, smooth, and perfect your complexion with the Ethereal Curves Loose Face Powder, curated to give your makeup a flawless, polished finish while keeping your look feeling light and effortless. Finely milled for a soft, silky texture, it helps set foundation, reduce excess shine, blur the appearance of imperfections, and extend the wear of your makeup. With shades to complement a range of skin tones, including rich and melanin-deep complexions, it enhances your natural beauty without looking heavy or cakey. A flawless finish, beautifully set—Luxury Designed for You.",
     benefits: ["Light weight", "Flawless matte finish", "Long-wearing", "Sets makeup and blurs texture", "Never heavy or cakey"],
@@ -347,7 +347,7 @@ window.PRODUCTS = [
     price: 10,
     badge: "New",
     isNew: true,
-    images: ["hl-1", "hl-2", "hl-3", "hl-trio"],
+    images: ["seline-highlighter-splash", "hl-1", "hl-2", "hl-3", "hl-trio"],
     short: "A silky shimmer powder with a built-in fluffy puff — glow on your face, collarbones and shoulders in seconds. Net wt 0.17 oz / 5 g.",
     description: "Seline Girl Body Highlighter is a finely milled shimmer powder in a jar with a soft built-in puff, so you can tap on a luminous glow anywhere — cheekbones, collarbones, shoulders and legs. Choose a rosy, pearly or bronze glow.",
     benefits: ["Built-in puff for quick, mess-free application", "Finely milled, light-catching shimmer", "Buildable from a soft sheen to full glow", "For face and body"],
@@ -380,7 +380,7 @@ window.PRODUCTS = [
     price: 20,
     badge: "Bestseller",
     bestseller: true,
-    images: ["sv-3", "sv-4", "serum-model", "serum-poster"],
+    images: ["shimmer-serum-display", "sv-3", "sv-4", "serum-model", "serum-poster"],
     short: "Glow. Define. Radiate. A silky shimmer body cream for face, collarbones, shoulders and legs.",
     description: "A lightweight, quick-absorbing liquid highlighter for the body that delivers a luminous, long-lasting glow. It blends seamlessly and never feels greasy. Choose #3 Golden Glow for a warm bronze-gold sheen or #4 Bronze Glow for a rich rose-copper shimmer.",
     benefits: ["Instant, luminous glow", "Hydrating & nourishing", "Silky, non-greasy, quick-absorbing", "Long-lasting shimmer", "Vegan & cruelty-free"],
@@ -794,7 +794,7 @@ window.PRODUCTS = [
     sub: "concealer",
     price: 20,
     isNew: true,
-    images: ["cc-5", "cc-6", "mk-concealer", "mk-flawless-poster"],
+    images: ["concealer-display", "cc-5", "cc-6", "mk-concealer", "mk-flawless-poster"],
     short: "A creamy, soft-matte concealer that covers, brightens and blends seamlessly for a flawless, photo-ready finish.",
     description: "Brighten under the eyes, cover blemishes and perfect your base. The Ethereal Curves Liquid Concealer has a precise doe-foot applicator and a creamy texture that blends into skin without creasing. Now in shades #5 and #6, made for warm, melanin-rich skin.",
     benefits: ["Buildable, full coverage", "Creamy texture that blends seamlessly", "Precise doe-foot applicator", "Pairs with our #5 and #6 foundations"],
@@ -1215,3 +1215,4 @@ window.PRODUCTS = [
   ]
 }
 ];
+
