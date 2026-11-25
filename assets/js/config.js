@@ -12,7 +12,7 @@ window.STORE = {
 
   // Phone numbers in international format, digits only (no + or spaces)
   whatsapp: "231886519747",          // orders are sent to this WhatsApp
-  phones: ["231886519747", "231770267112"],
+  phones: ["231888536203", "231886519747", "231770267112"], // shop line first
   email: "etherealcurves55@gmail.com",
 
   location: "Monrovia, Liberia",
