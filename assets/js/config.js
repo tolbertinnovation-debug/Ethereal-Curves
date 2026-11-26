@@ -11,8 +11,8 @@ window.STORE = {
   founder: "Musu Deshield Mitchell",
 
   // Phone numbers in international format, digits only (no + or spaces)
-  whatsapp: "231886519747",          // orders are sent to this WhatsApp
-  phones: ["231886519747", "231770267112"],
+  whatsapp: "231888536203",          // shop number: orders are sent to this WhatsApp
+  phones: ["231888536203"],          // shop number
   email: "etherealcurves55@gmail.com",
 
   location: "Monrovia, Liberia",
@@ -66,8 +66,8 @@ window.STORE = {
       bank: "Ecobank Liberia",
       accountName: "The Ethereal Collective",
       accounts: [
-        { currency: "USD", label: "US Dollar account", number: "6103458881" },
-        { currency: "LRD", label: "Liberian Dollar account", number: "610303458681" }
+        { currency: "USD", label: "US Dollar account", number: "6103458551" },
+        { currency: "LRD", label: "Liberian Dollar account", number: "6103458681" }
       ],
       steps: "Transfer the total to the Ecobank account in your chosen currency and use your order number as the reference. Then send a photo of your transfer slip to us on WhatsApp."
     },
