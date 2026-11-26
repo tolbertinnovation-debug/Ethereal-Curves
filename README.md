@@ -41,7 +41,7 @@ All your settings live in **two files**:
 - WhatsApp number that receives orders, phone numbers, email
 - **Exchange rate** (`lrdRate`). Update it when the rate changes
 - Delivery options and fees, and the free-delivery amount
-- **Mobile money numbers and account names.** ⚠️ Please confirm these are correct
+- **Payment numbers and account names.** Confirmed Nov 2026: MTN MoMo 0555 098 503 (mobile money only), Ecobank USD 6103458551, Ecobank LRD 6103458681
 - Promo codes (for example `WELCOME10`)
 - Announcement bar messages
 - Instagram, Facebook and TikTok links (paste them in and the icons appear automatically)
