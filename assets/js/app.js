@@ -623,6 +623,8 @@
     var ld = $("#ldProduct");
     if (ld) ld.remove();
     document.body.classList.remove("has-sticky");
+    document.body.classList.toggle("is-home", r.name === "home");
+    document.body.classList.toggle("is-product", r.name === "product");
 
     var view = views[r.name] || views.notFound;
     app.innerHTML = view(r);
@@ -1981,7 +1983,13 @@
   });
 
   var header = $("#header");
-  window.addEventListener("scroll", function () { header.classList.toggle("scrolled", window.scrollY > 10); }, { passive: true });
+  function onPageScroll() {
+    header.classList.toggle("scrolled", window.scrollY > 10);
+    // On phones the WhatsApp button waits until the hero buttons are out of the way.
+    document.body.classList.toggle("wa-ready", window.scrollY > 360);
+  }
+  window.addEventListener("scroll", onPageScroll, { passive: true });
+  onPageScroll();
 
   (function announcements() {
     var track = $("#announce");
