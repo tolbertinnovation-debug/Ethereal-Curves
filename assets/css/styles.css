@@ -1148,3 +1148,34 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
   .product-films__grid { gap: 24px; grid-template-columns: minmax(0, 320px); }
   .product-film { border-radius: 17px; padding: 6px; }
 }
+
+/* ---------- UI polish (Nov 2026) ---------- */
+/* Sale price: space between the new price and the crossed-out old price */
+.pinfo__price s { margin-left: 10px; color: var(--muted); font-weight: 400; font-size: .78em; }
+
+/* Announcement bar: two-line messages on phones no longer feel cramped */
+.announce__msg { line-height: 1.35; }
+
+@media (max-width: 600px) {
+  .announce { height: 40px; font-size: .62rem; letter-spacing: .12em; }
+  /* Keep the round add-to-bag button from covering price and shade count */
+  .card__row { padding-right: 54px; }
+  .minisw small { white-space: nowrap; }
+}
+
+@media (max-width: 480px) {
+  /* Both hero buttons fit side by side inside the hero card */
+  .slide__cta { flex-wrap: nowrap; width: 100%; }
+  .slide__cta .btn { flex: 1 1 0; min-width: 0; padding: 0 .7em; letter-spacing: .12em; white-space: nowrap; }
+}
+
+@media (max-width: 760px) {
+  /* Home page: WhatsApp button appears once the hero buttons are scrolled past */
+  .is-home .wa-float { opacity: 0; transform: scale(.8); pointer-events: none; transition: opacity .3s var(--ease), transform .3s var(--ease), bottom .35s var(--ease); }
+  .is-home.wa-ready .wa-float { opacity: 1; transform: none; pointer-events: auto; }
+  /* Product pages already have an "Ask about this on WhatsApp" button */
+  .is-product .wa-float { display: none; }
+  /* Footer collections in two columns so the footer is shorter on phones */
+  .footer__col--collections { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 16px; }
+  .footer__col--collections > :first-child { grid-column: 1 / -1; }
+}
